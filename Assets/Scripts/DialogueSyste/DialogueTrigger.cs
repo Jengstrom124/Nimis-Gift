@@ -31,14 +31,6 @@ public class DialogueTrigger : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        if(triggerOnEnableUsingTimeline)
-        {
-            DialogueManager.instance.StartCutsceneDialogue(diagloueEntries, triggerDialogueFinisedEvent);
-        }
-    }
-
     //This holds all the dialogue entries
     //TODO: Maybe have multiple lists for when player tries to interact again to have more variations in dialogue?
     public List<DialogueEntry> diagloueEntries;
