@@ -32,7 +32,6 @@ public class BreathingManager : MonoBehaviour
         instance = this;
     }
 
-
     private void Start()
     {
         debugText.gameObject.SetActive(false);
@@ -62,6 +61,7 @@ public class BreathingManager : MonoBehaviour
             //Inhale
             inhale = true;
             debugText.text = "inhale";
+            debugText.transform.DOScale(1.5f, inhaleTimer);
 
             yield return new WaitForSeconds(inhaleTimer);
 
@@ -73,10 +73,11 @@ public class BreathingManager : MonoBehaviour
 
             yield return new WaitForSeconds(pauseTimer);
 
-            //exhale
+            //Exhale
             pause = false;
             exhale = true;
             debugText.text = "exhale";
+            debugText.transform.DOScale(1f, exhaleTimer);
 
             yield return new WaitForSeconds(exhaleTimer);
 
@@ -90,7 +91,6 @@ public class BreathingManager : MonoBehaviour
         yield return new WaitForSeconds(delayAfterCompletingExercise);
 
         debugText.gameObject.SetActive(false);
-
         onBreathingFinishedEvent?.Invoke();
 
     }

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 //For each dialogue entry
 [System.Serializable]
