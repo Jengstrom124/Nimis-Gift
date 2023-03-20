@@ -5,6 +5,7 @@ using UnityEngine;
 public class ExperienceManager : MonoBehaviour
 {
     public float introDialogueDelayTime = 3f;
+    public float environmentDialogueDelayTime = 2f;
 
     [Header("Dialogue Sequences")]
     public DialogueTrigger introDialogue, mindTreeDialogue;
@@ -30,9 +31,15 @@ public class ExperienceManager : MonoBehaviour
     {
         DialogueManager.instance.onDialogueFinishEvent -= RevealMindTree;
 
+        //Fade Environment In
         environmentHack.SetActive(true);
-        mindTreeDialogue.Interact();
 
+        //Begin Next Dialogue Sequence
+        Invoke("MindTreeDialogue", environmentDialogueDelayTime);
+    }
+    void MindTreeDialogue()
+    {
+        mindTreeDialogue.Interact();
         DialogueManager.instance.onDialogueFinishEvent += InitBreathingTutorial;
     }
 
