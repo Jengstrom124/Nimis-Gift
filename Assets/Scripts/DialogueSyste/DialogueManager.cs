@@ -19,7 +19,8 @@ public class DialogueManager : MonoBehaviour
 
 	[Header("Dialogue Settings")]
 	public float dialogueSpeed = 7.5f;
-	public float dialogueFadeSpeed = 3f;
+	public float dialogueFadeOutSpeed = 3f;
+	public float dialogueFadeInSpeed = 3f;
 	public float defaultDialogueVolume = 0.4f;
 	float defaultDialogueSpeed;
 
@@ -62,13 +63,18 @@ public class DialogueManager : MonoBehaviour
 		defaultDialogueSpeed = dialogueSpeed;
 
 		audioManager.volume = defaultDialogueVolume;
-    }
+
+		dialogueText.gameObject.SetActive(false);
+		dialogueText.text = "";
+	}
 
 	public void StartDialogue(List<DialogueEntry> dialogueEntriesRecieved, AudioClip newNonPlayerDialogueAudio, bool triggerDialogueFinished, bool triggerDialogueStarted)
 	{
 		//When dialogue begins, update the game state
 		//if(GameManager.instance != null)
-			//GameManager.instance.UpdateDialogueGameState(true);
+		//GameManager.instance.UpdateDialogueGameState(true);
+
+		dialogueText.gameObject.SetActive(true);
 
 		index = 0;
 		currentDialogueEntries = dialogueEntriesRecieved;
@@ -123,15 +129,22 @@ public class DialogueManager : MonoBehaviour
 	bool dialogueSFXWasTempDisabled = false;
 	IEnumerator DisplayNextDialogueCoroutine(string currentDialogue)
 	{
+		//Init Dialogue
 		dialogueInProgress = true;
 		dialogueSFXWasTempDisabled = false;
+
+		//Init Dialogue Speed
+		if (currentDialogueEntries[index].useCustomDialogueSpeed)
+			dialogueSpeed = currentDialogueEntries[index].customDelayTime;
+		else
+			dialogueSpeed = defaultDialogueSpeed;
 
 		yield return new WaitForSeconds(0.15f);
 
 		dialogueText.text = currentDialogue;
 
 		//Fade Text In
-		dialogueText.DOFade(1, 3f);
+		dialogueText.DOFade(1, dialogueFadeInSpeed);
 
 		//Handle Dialogue SFX------------------------------
 		if (useDialogueSound)
@@ -167,9 +180,9 @@ public class DialogueManager : MonoBehaviour
 		index++;
 
 		//Fade Dialogue Out
-		dialogueText.DOFade(0, dialogueFadeSpeed);
+		dialogueText.DOFade(0, dialogueFadeOutSpeed);
 
-		Invoke("ContinueDialogue", dialogueFadeSpeed);
+		Invoke("ContinueDialogue", dialogueFadeOutSpeed);
 	}
 
 	void EndDialogue()
@@ -177,5 +190,9 @@ public class DialogueManager : MonoBehaviour
 		dialogueActive = false;
 		dialogueFinished = false;
 		dialogueText.text = "";
+		dialogueText.gameObject.SetActive(false);
+
+		if (triggerDialogueFinishedEvent)
+			onDialogueFinishEvent?.Invoke();
 	}
 }

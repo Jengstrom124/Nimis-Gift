@@ -301,7 +301,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &332038651
 Transform:
   m_ObjectHideFlags: 0
@@ -598,8 +598,9 @@ MonoBehaviour:
   customSFXAudioSource: {fileID: 0}
   narrativeDialogueGO: {fileID: 0}
   interactSound: {fileID: 0}
-  dialogueSpeed: 7.5
-  dialogueFadeSpeed: 3
+  dialogueSpeed: 4.5
+  dialogueFadeOutSpeed: 3
+  dialogueFadeInSpeed: 3
   defaultDialogueVolume: 0.4
   usePitchVariation: 1
   volumeRandomisationRange: {x: 0.3, y: 0.4}
@@ -1223,6 +1224,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1135867203}
   m_CullTransparentMesh: 0
+--- !u!1 &1293813354
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1293813355}
+  m_Layer: 0
+  m_Name: Dialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1293813355
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1293813354}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1627056136}
+  - {fileID: 1757329321}
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1367112389
 GameObject:
   m_ObjectHideFlags: 0
@@ -1326,7 +1359,7 @@ GameObject:
   - component: {fileID: 1627056136}
   - component: {fileID: 1627056135}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: IntroDiaogue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1345,26 +1378,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myDialogueAudio: {fileID: 0}
-  triggerDialogueFinisedEvent: 0
+  triggerDialogueFinisedEvent: 1
   triggerDialogueStartedEvent: 0
   multipleDialogueEntries: 0
   repeatDialogueEntries: 0
   stopTriggerAfterDialogue: 0
-  triggerOnAwake: 1
+  triggerOnAwake: 0
   triggerOnEnableUsingTimeline: 0
   useTriggerBox: 0
   diagloueEntries:
-  - dialogue: This is a test dialogue entry
+  - dialogue: Hello.
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
-  - dialogue: you will be calm!!
+  - dialogue: I am Nimi, the spirit of Peace.
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
-  - dialogue: Thank you for playing our experience
+  - dialogue: Welcome to the Mind Realm.
+    useCustomDialogueSpeed: 0
+    customDelayTime: 0
+    customAudioSFX: {fileID: 0}
+    oneOffCustomSFX: {fileID: 0}
+  - dialogue: I sense you are here for calming.
+    useCustomDialogueSpeed: 0
+    customDelayTime: 0
+    customAudioSFX: {fileID: 0}
+    oneOffCustomSFX: {fileID: 0}
+  - dialogue: "Allow me to offer you a gift\u2026\r"
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
@@ -1377,12 +1420,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1627056134}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 1293813355}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1630600586
 GameObject:
@@ -1572,7 +1615,85 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 998b3824de405ff46b6e6fbccdbe43b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FadeController: {fileID: 0}
+  introDialogueDelayTime: 5
+  introDialogue: {fileID: 1627056135}
+  mindTreeDialogue: {fileID: 1757329322}
+  environmentHack: {fileID: 332038650}
+--- !u!1 &1757329320
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1757329321}
+  - component: {fileID: 1757329322}
+  m_Layer: 0
+  m_Name: MindTreeDialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1757329321
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757329320}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1293813355}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1757329322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757329320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6ab2b1d0ceddd34e8014715e6c7b1c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myDialogueAudio: {fileID: 0}
+  triggerDialogueFinisedEvent: 1
+  triggerDialogueStartedEvent: 0
+  multipleDialogueEntries: 0
+  repeatDialogueEntries: 0
+  stopTriggerAfterDialogue: 0
+  triggerOnAwake: 0
+  triggerOnEnableUsingTimeline: 0
+  useTriggerBox: 0
+  diagloueEntries:
+  - dialogue: "This is the Mind Tree, it reflects the state of one\u2019s soul."
+    useCustomDialogueSpeed: 0
+    customDelayTime: 0
+    customAudioSFX: {fileID: 0}
+    oneOffCustomSFX: {fileID: 0}
+  - dialogue: By bringing peace to your mind, you feed the tree nutrients, letting
+      it flourish.
+    useCustomDialogueSpeed: 0
+    customDelayTime: 0
+    customAudioSFX: {fileID: 0}
+    oneOffCustomSFX: {fileID: 0}
+  - dialogue: You can do this by breathing life into it.
+    useCustomDialogueSpeed: 0
+    customDelayTime: 0
+    customAudioSFX: {fileID: 0}
+    oneOffCustomSFX: {fileID: 0}
+  - dialogue: Allow me to show you...
+    useCustomDialogueSpeed: 0
+    customDelayTime: 0
+    customAudioSFX: {fileID: 0}
+    oneOffCustomSFX: {fileID: 0}
+  myDialogueEntries: []
 --- !u!1 &2112184684
 GameObject:
   m_ObjectHideFlags: 0
