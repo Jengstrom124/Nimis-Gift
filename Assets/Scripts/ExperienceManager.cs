@@ -8,6 +8,7 @@ public class ExperienceManager : MonoBehaviour
 
     [Header("Dialogue Sequences")]
     public DialogueTrigger introDialogue, mindTreeDialogue;
+    public DialogueTrigger breathingTutorialDialogue, postBreathingTutorialDialgoue;
 
     [Header("Hacks")]
     public GameObject environmentHack;
@@ -31,5 +32,26 @@ public class ExperienceManager : MonoBehaviour
 
         environmentHack.SetActive(true);
         mindTreeDialogue.Interact();
+
+        DialogueManager.instance.onDialogueFinishEvent += InitBreathingTutorial;
+    }
+
+    void InitBreathingTutorial()
+    {
+        DialogueManager.instance.onDialogueFinishEvent -= InitBreathingTutorial;
+
+        breathingTutorialDialogue.Interact();
+
+        DialogueManager.instance.onDialogueFinishEvent += BreathingManager.instance.BeginBreathingExerciseTutorial;
+        BreathingManager.instance.onBreathingFinishedEvent += EndTutorial;
+    }
+
+    void EndTutorial()
+    {
+        BreathingManager.instance.onBreathingFinishedEvent += EndTutorial;
+
+        postBreathingTutorialDialgoue.Interact();
+
+        //Setup tree interaction
     }
 }
