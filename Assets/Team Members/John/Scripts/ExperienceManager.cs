@@ -14,6 +14,11 @@ public class ExperienceManager : MonoBehaviour
     [Header("Hacks")]
     public GameObject environmentHack;
 
+    private void Awake()
+    {
+        environmentHack.SetActive(false);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
