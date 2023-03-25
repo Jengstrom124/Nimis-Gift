@@ -15,6 +15,7 @@ public class ExperienceManager : MonoBehaviour
 
     [Header("Hacks")]
     public GameObject environmentHack;
+    public Transform dialogueCanvas;
 
     private void Awake()
     {
@@ -41,14 +42,22 @@ public class ExperienceManager : MonoBehaviour
         //Update Nimi
         nimiAnimator.SetTrigger("OnTreeSpawn");
 
+        StartCoroutine(MindTreeSequenceCoroutine());
+    }
+
+    IEnumerator MindTreeSequenceCoroutine()
+    {
+
+        yield return new WaitForSeconds(1f);
         //Fade Environment In
         environmentHack.SetActive(true);
 
         //Begin Next Dialogue Sequence
-        Invoke("MindTreeDialogue", environmentDialogueDelayTime);
-    }
-    void MindTreeDialogue()
-    {
+        dialogueCanvas.position = new Vector3(-4.45f, -3f, -2.68f);
+        dialogueCanvas.rotation = Quaternion.Euler(0, -40f, 0);
+
+        yield return new WaitForSeconds(environmentDialogueDelayTime);
+
         mindTreeDialogue.Interact();
         DialogueManager.instance.onDialogueFinishEvent += InitBreathingTutorial;
     }
