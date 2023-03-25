@@ -7,6 +7,8 @@ public class ExperienceManager : MonoBehaviour
     public float introDialogueDelayTime = 3f;
     public float environmentDialogueDelayTime = 2f;
 
+    public Animator nimiAnimator;
+
     [Header("Dialogue Sequences")]
     public DialogueTrigger introDialogue, mindTreeDialogue;
     public DialogueTrigger breathingTutorialDialogue, postBreathingTutorialDialgoue;
@@ -35,6 +37,9 @@ public class ExperienceManager : MonoBehaviour
     void RevealMindTree()
     {
         DialogueManager.instance.onDialogueFinishEvent -= RevealMindTree;
+
+        //Update Nimi
+        nimiAnimator.SetTrigger("OnTreeSpawn");
 
         //Fade Environment In
         environmentHack.SetActive(true);
