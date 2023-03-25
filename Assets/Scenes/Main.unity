@@ -163,7 +163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6ab2b1d0ceddd34e8014715e6c7b1c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myDialogueAudio: {fileID: 0}
   triggerDialogueFinisedEvent: 1
   triggerDialogueStartedEvent: 0
   multipleDialogueEntries: 0
@@ -763,10 +762,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textAnimator: {fileID: 0}
   dialogueText: {fileID: 2112184685}
-  audioManager: {fileID: 530847022}
+  dialogueAudioSource: {fileID: 530847022}
+  dialogueAudioClips:
+  - {fileID: 8300000, guid: 71f0cc927f078d349842f8ec992840d4, type: 3}
   interactAudioSource: {fileID: 0}
-  customSFXAudioSource: {fileID: 0}
-  narrativeDialogueGO: {fileID: 0}
   interactSound: {fileID: 0}
   dialogueSpeed: 4.5
   dialogueFadeOutSpeed: 3
@@ -6663,7 +6662,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6ab2b1d0ceddd34e8014715e6c7b1c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myDialogueAudio: {fileID: 0}
   triggerDialogueFinisedEvent: 1
   triggerDialogueStartedEvent: 0
   multipleDialogueEntries: 0
@@ -6725,7 +6723,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6ab2b1d0ceddd34e8014715e6c7b1c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myDialogueAudio: {fileID: 0}
   triggerDialogueFinisedEvent: 1
   triggerDialogueStartedEvent: 0
   multipleDialogueEntries: 0
@@ -7111,7 +7108,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6ab2b1d0ceddd34e8014715e6c7b1c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myDialogueAudio: {fileID: 0}
   triggerDialogueFinisedEvent: 1
   triggerDialogueStartedEvent: 0
   multipleDialogueEntries: 0

@@ -11,10 +11,9 @@ public class DialogueManager : MonoBehaviour
 	[Header("General Setup")]
 	public Animator textAnimator;
 	public TMP_Text dialogueText;
-	public AudioSource audioManager;
+	public AudioSource dialogueAudioSource;
+	public AudioClip[] dialogueAudioClips;
 	public AudioSource interactAudioSource;
-	public AudioSource customSFXAudioSource;
-	public GameObject narrativeDialogueGO;
 	public AudioClip interactSound;
 
 	[Header("Dialogue Settings")]
@@ -62,13 +61,13 @@ public class DialogueManager : MonoBehaviour
 
 		defaultDialogueSpeed = dialogueSpeed;
 
-		audioManager.volume = defaultDialogueVolume;
+		dialogueAudioSource.volume = defaultDialogueVolume;
 
 		dialogueText.gameObject.SetActive(false);
 		dialogueText.text = "";
 	}
 
-	public void StartDialogue(List<DialogueEntry> dialogueEntriesRecieved, AudioClip newNonPlayerDialogueAudio, bool triggerDialogueFinished, bool triggerDialogueStarted)
+	public void StartDialogue(List<DialogueEntry> dialogueEntriesRecieved, bool triggerDialogueFinished, bool triggerDialogueStarted)
 	{
 		//When dialogue begins, update the game state
 		//if(GameManager.instance != null)
@@ -78,14 +77,8 @@ public class DialogueManager : MonoBehaviour
 
 		index = 0;
 		currentDialogueEntries = dialogueEntriesRecieved;
-		//canTalk = true;
-		nonPlayerDialogueAudio = newNonPlayerDialogueAudio;
 
 		triggerDialogueFinishedEvent = triggerDialogueFinished;
-
-		//Bit of a hack
-		if (useTriggerAudioOnly)
-			audioManager.clip = newNonPlayerDialogueAudio;
 
 		dialogueActive = true;
 
@@ -139,6 +132,8 @@ public class DialogueManager : MonoBehaviour
 		else
 			dialogueSpeed = defaultDialogueSpeed;
 
+		dialogueAudioSource.clip = dialogueAudioClips[Random.Range(0, dialogueAudioClips.Length - 1)];
+
 		yield return new WaitForSeconds(0.15f);
 
 		dialogueText.text = currentDialogue;
@@ -152,17 +147,17 @@ public class DialogueManager : MonoBehaviour
 			//Adjust Pitch/Volume
 			if (usePitchVariation)
 			{
-				audioManager.volume = Random.Range(volumeRandomisationRange.x, volumeRandomisationRange.y);
-				audioManager.pitch = Random.Range(1 - pitchChangeMultiplier, 1 + pitchChangeMultiplier);
+				dialogueAudioSource.volume = Random.Range(volumeRandomisationRange.x, volumeRandomisationRange.y);
+				dialogueAudioSource.pitch = Random.Range(1 - pitchChangeMultiplier, 1 + pitchChangeMultiplier);
 			}
 
 			if (testUsingSFXDelay)
 			{
 				yield return new WaitForSeconds(sfxDelay);
-				audioManager.Play();
+				dialogueAudioSource.Play();
 			}
 			else
-				audioManager.Play();
+				dialogueAudioSource.Play();
 		}
 
 		yield return new WaitForSeconds(dialogueSpeed);

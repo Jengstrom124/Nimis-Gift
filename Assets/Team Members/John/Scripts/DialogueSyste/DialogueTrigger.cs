@@ -10,7 +10,6 @@ public class DialogueTrigger : MonoBehaviour
 {
     //Using this setup for now whilst NPC's don't have anything unique about them other then their dialogue (so no need to code anything NPC specific)
     [Header("NPC SETUP")]
-    public AudioClip myDialogueAudio;
     public bool triggerDialogueFinisedEvent = false;
     public bool triggerDialogueStartedEvent = false;
     public bool multipleDialogueEntries = false;
@@ -27,7 +26,7 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (triggerOnAwake)
         {
-            DialogueManager.instance.StartDialogue(diagloueEntries, myDialogueAudio, triggerDialogueFinisedEvent, triggerDialogueStartedEvent);
+            DialogueManager.instance.StartDialogue(diagloueEntries, triggerDialogueFinisedEvent, triggerDialogueStartedEvent);
         }
     }
 
@@ -72,7 +71,7 @@ public class DialogueTrigger : MonoBehaviour
         //Send the dialogue of the current index then increment the index
         if(index < myDialogueEntries.Count)
         {
-            DialogueManager.instance.StartDialogue(myDialogueEntries[index].dialogueEntries, myDialogueAudio, triggerDialogueFinisedEvent, triggerDialogueStartedEvent);
+            DialogueManager.instance.StartDialogue(myDialogueEntries[index].dialogueEntries, triggerDialogueFinisedEvent, triggerDialogueStartedEvent);
             index++;
         }
         else
@@ -80,19 +79,19 @@ public class DialogueTrigger : MonoBehaviour
             if (repeatDialogueEntries)
             {
                 index = 0;
-                DialogueManager.instance.StartDialogue(myDialogueEntries[index].dialogueEntries, myDialogueAudio, triggerDialogueFinisedEvent, triggerDialogueStartedEvent);
+                DialogueManager.instance.StartDialogue(myDialogueEntries[index].dialogueEntries, triggerDialogueFinisedEvent, triggerDialogueStartedEvent);
                 index++;
             }
             else
             {
                 //send the last entry in the list
-                DialogueManager.instance.StartDialogue(myDialogueEntries[index - 1].dialogueEntries, myDialogueAudio, triggerDialogueFinisedEvent, triggerDialogueStartedEvent);
+                DialogueManager.instance.StartDialogue(myDialogueEntries[index - 1].dialogueEntries, triggerDialogueFinisedEvent, triggerDialogueStartedEvent);
             }
         }
     }
 
     public void TriggerDialogue()
     {
-        DialogueManager.instance.StartDialogue(diagloueEntries, myDialogueAudio, triggerDialogueFinisedEvent, triggerDialogueStartedEvent);
+        DialogueManager.instance.StartDialogue(diagloueEntries, triggerDialogueFinisedEvent, triggerDialogueStartedEvent);
     }
 }
