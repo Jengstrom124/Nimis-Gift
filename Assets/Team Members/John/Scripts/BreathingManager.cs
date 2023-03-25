@@ -69,41 +69,55 @@ public class BreathingManager : MonoBehaviour
 
         do
         {
+            breathingAudioSource.Stop();
+
             //Inhale
             inhale = true;
-            debugText.text = "inhale";
+            debugText.text = "Inhale";
             debugText.transform.DOScale(1.5f, inhaleTimer);
             breathingAudioSource.clip = inhaleAudio;
             breathingAudioSource.Play();
             //uiRef.DOMoveX(5.9f, inhaleTimer / 4);
 
-            uiRef.DOLocalPath(pathPoints, inhaleTimer, PathType.Linear, PathMode.Ignore);
+            //uiRef.DOLocalPath(pathPoints, inhaleTimer, PathType.Linear, PathMode.Ignore);
+            uiRef.DOLocalMoveX(2.35f, inhaleTimer);
 
             yield return new WaitForSeconds(inhaleTimer);
 
             //Pause
             inhale = false;
             pause = true;
-            debugText.text = "pause";
-            breathingAudioSource.Stop();
+            debugText.text = "Hold";
+
+            uiRef.DOLocalMoveY(-2.05f, pauseTimer);
 
 
             yield return new WaitForSeconds(pauseTimer);
 
+            breathingAudioSource.Stop();
+
             //Exhale
             pause = false;
             exhale = true;
-            debugText.text = "exhale";
+            debugText.text = "Exhale";
             debugText.transform.DOScale(1f, exhaleTimer);
             breathingAudioSource.clip = exhaleAudio;
             breathingAudioSource.Play();
 
-            uiRef.DOLocalPath(pathPoints, exhaleTimer, PathType.Linear, PathMode.Ignore);
+            //uiRef.DOLocalPath(pathPoints, exhaleTimer, PathType.Linear, PathMode.Ignore);
+            uiRef.DOLocalMoveX(0, exhaleTimer);
 
             yield return new WaitForSeconds(exhaleTimer);
 
+            //Pause
+            inhale = false;
+            pause = true;
             exhale = false;
-            breathingAudioSource.Stop();
+
+            debugText.text = "Hold";
+            uiRef.DOLocalMoveY(0, pauseTimer);
+
+            yield return new WaitForSeconds(pauseTimer);
         }
         while (breathingTimer < targetDuration);
 

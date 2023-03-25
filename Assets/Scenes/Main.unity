@@ -6050,9 +6050,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f5406cc315e5e74a98120a0ccedbc62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inhaleTimer: 1.8
-  pauseTimer: 0.3
-  exhaleTimer: 4.2
+  inhaleTimer: 2
+  pauseTimer: 2
+  exhaleTimer: 2
   targetDuration: 30
   delayAfterCompletingExercise: 2
   uiFadeDuration: 2
@@ -7475,7 +7475,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -2.5}
-  m_SizeDelta: {x: 10, y: 5}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &2108424276
 MonoBehaviour:
@@ -7525,8 +7525,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 0.5
-  m_fontSizeBase: 0.5
+  m_fontSize: 0.3
+  m_fontSizeBase: 0.3
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7563,7 +7563,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 1.0618384, z: 0, w: 2.0455034}
   m_textInfo:
     textComponent: {fileID: 2108424276}
     characterCount: 8
