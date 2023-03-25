@@ -67,6 +67,7 @@ public class ExperienceManager : MonoBehaviour
         DialogueManager.instance.onDialogueFinishEvent -= InitBreathingTutorial;
 
         breathingTutorialDialogue.Interact();
+        BreathingManager.instance.UpdateBreathingUIState(1f);
 
         DialogueManager.instance.onDialogueFinishEvent += BreathingManager.instance.BeginBreathingExerciseTutorial;
         BreathingManager.instance.onBreathingFinishedEvent += EndTutorial;
