@@ -23,6 +23,10 @@ public class BreathingManager : MonoBehaviour
     public Image[] breathingUIArray;
     public Vector3[] pathPoints;
 
+    [Header("Audio: ")]
+    public AudioSource breathingAudioSource;
+    public AudioClip inhaleAudio, exhaleAudio;
+
     [Header("Debug/Refernces: ")]
     [SerializeField] bool beginOnStart = false;
     [SerializeField] bool breathingInProgress = false;
@@ -69,6 +73,8 @@ public class BreathingManager : MonoBehaviour
             inhale = true;
             debugText.text = "inhale";
             debugText.transform.DOScale(1.5f, inhaleTimer);
+            breathingAudioSource.clip = inhaleAudio;
+            breathingAudioSource.Play();
             //uiRef.DOMoveX(5.9f, inhaleTimer / 4);
 
             uiRef.DOLocalPath(pathPoints, inhaleTimer, PathType.Linear, PathMode.Ignore);
@@ -79,6 +85,7 @@ public class BreathingManager : MonoBehaviour
             inhale = false;
             pause = true;
             debugText.text = "pause";
+            breathingAudioSource.Stop();
 
 
             yield return new WaitForSeconds(pauseTimer);
@@ -88,12 +95,15 @@ public class BreathingManager : MonoBehaviour
             exhale = true;
             debugText.text = "exhale";
             debugText.transform.DOScale(1f, exhaleTimer);
+            breathingAudioSource.clip = exhaleAudio;
+            breathingAudioSource.Play();
 
             uiRef.DOLocalPath(pathPoints, exhaleTimer, PathType.Linear, PathMode.Ignore);
 
             yield return new WaitForSeconds(exhaleTimer);
 
             exhale = false;
+            breathingAudioSource.Stop();
         }
         while (breathingTimer < targetDuration);
 
