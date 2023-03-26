@@ -84,12 +84,19 @@ public class NimiExperienceManager : MonoBehaviour
         postBreathingTutorialDialgoue.Interact();
 
         //Setup tree interaction
-        canInteractWithTree = true;
-        UIHack(false);
-        BreathingManager.instance.onBreathingFinishedEvent += UpdateUIHack;
+        DialogueManager.instance.onDialogueFinishEvent += EnableTreeInteraction;
 
         //Fake tree interaction for now
         //DialogueManager.instance.onDialogueFinishEvent += BeginBreathingExercisePlaceholder;
+    }
+
+    void EnableTreeInteraction()
+    {
+        DialogueManager.instance.onDialogueFinishEvent -= EnableTreeInteraction;
+
+        canInteractWithTree = true;
+        UIHack(false);
+        BreathingManager.instance.onBreathingFinishedEvent += UpdateUIHack;
     }
 
     void BeginBreathingExercisePlaceholder()
