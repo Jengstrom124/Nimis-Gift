@@ -16,6 +16,7 @@ public class NimiExperienceManager : MonoBehaviour
 
     [Header("Hacks")]
     public GameObject environmentHack;
+    public GameObject[] environmentLights;
     public Transform dialogueCanvas;
     public GameObject breathingGO;
     public bool canInteractWithTree = false;
@@ -23,7 +24,8 @@ public class NimiExperienceManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        environmentHack.SetActive(false);
+        //if(environmentHack.activeSelf)
+            //environmentHack.SetActive(false);
     }
 
     // Start is called before the first frame update
@@ -31,11 +33,13 @@ public class NimiExperienceManager : MonoBehaviour
     {
         DialogueManager.instance.onDialogueFinishEvent += RevealMindTree;
 
-        Invoke("InitSequence", introDialogueDelayTime);
+        StartCoroutine(InitSequenceCoroutine());
     }
 
-    void InitSequence()
+    IEnumerator InitSequenceCoroutine()
     {
+        yield return new WaitForSeconds(introDialogueDelayTime);
+
         introDialogue.Interact();
     }
 
@@ -53,8 +57,13 @@ public class NimiExperienceManager : MonoBehaviour
     {
 
         yield return new WaitForSeconds(1f);
+
         //Fade Environment In
-        environmentHack.SetActive(true);
+        //environmentHack.SetActive(true);
+        foreach(GameObject light in environmentLights)
+        {
+            light.SetActive(true);
+        }
 
         //Begin Next Dialogue Sequence
         dialogueCanvas.position = new Vector3(-4.45f, -3f, -2.68f);
