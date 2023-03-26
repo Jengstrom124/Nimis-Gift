@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExperienceManager : MonoBehaviour
+public class NimiExperienceManager : MonoBehaviour
 {
+    public static NimiExperienceManager instance;
     public float introDialogueDelayTime = 3f;
     public float environmentDialogueDelayTime = 2f;
 
@@ -16,9 +17,12 @@ public class ExperienceManager : MonoBehaviour
     [Header("Hacks")]
     public GameObject environmentHack;
     public Transform dialogueCanvas;
+    public GameObject breathingGO;
+    public bool canInteractWithTree = false;
 
     private void Awake()
     {
+        instance = this;
         environmentHack.SetActive(false);
     }
 
@@ -80,9 +84,12 @@ public class ExperienceManager : MonoBehaviour
         postBreathingTutorialDialgoue.Interact();
 
         //Setup tree interaction
+        canInteractWithTree = true;
+        UIHack(false);
+        BreathingManager.instance.onBreathingFinishedEvent += UpdateUIHack;
 
         //Fake tree interaction for now
-        DialogueManager.instance.onDialogueFinishEvent += BeginBreathingExercisePlaceholder;
+        //DialogueManager.instance.onDialogueFinishEvent += BeginBreathingExercisePlaceholder;
     }
 
     void BeginBreathingExercisePlaceholder()
@@ -90,5 +97,16 @@ public class ExperienceManager : MonoBehaviour
         DialogueManager.instance.onDialogueFinishEvent -= BeginBreathingExercisePlaceholder;
 
         BreathingManager.instance.BeginBreathingExercise();
+    }
+
+    //Hacking turning on & off the UI because the UI canvas are blocking the raycast/interaction from reaching the tree
+    void UpdateUIHack()
+    {
+        UIHack(false);
+    }
+    public void UIHack(bool turnUIOn)
+    {
+        dialogueCanvas.gameObject.SetActive(turnUIOn);
+        breathingGO.SetActive(turnUIOn);
     }
 }

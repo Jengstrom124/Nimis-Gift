@@ -1,12 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class MindTree : MonoBehaviour, IPointerClickHandler
 {
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("Test");
+        if (NimiExperienceManager.instance.canInteractWithTree)
+        {
+            NimiExperienceManager.instance.UIHack(true);
+            BreathingManager.instance.BeginBreathingExercise();
+        }
+        else
+            Debug.Log("Interaction Unavailable");
     }
 }

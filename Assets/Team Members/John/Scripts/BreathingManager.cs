@@ -79,6 +79,7 @@ public class BreathingManager : MonoBehaviour
 
     IEnumerator BreathingExcerciseCoroutine()
     {
+        NimiExperienceManager.instance.canInteractWithTree = false;
         breathingInProgress = true;
         breathingTimer = 0f;
 
@@ -153,7 +154,7 @@ public class BreathingManager : MonoBehaviour
 
         debugText.gameObject.SetActive(false);
         onBreathingFinishedEvent?.Invoke();
-
+        NimiExperienceManager.instance.canInteractWithTree = true;
     }
 
     /// <summary>

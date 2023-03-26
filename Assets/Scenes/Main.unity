@@ -336,6 +336,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1260162968766363323, guid: 22276a8657744e04cba8ad0a2caf4195,
+        type: 3}
+      propertyPath: InteractableLayers.m_Bits
+      value: 51
+      objectReference: {fileID: 0}
+    - target: {fileID: 1260162969687591465, guid: 22276a8657744e04cba8ad0a2caf4195,
+        type: 3}
+      propertyPath: m_EventMask.m_Bits
+      value: 51
+      objectReference: {fileID: 0}
+    - target: {fileID: 1260162969687591465, guid: 22276a8657744e04cba8ad0a2caf4195,
+        type: 3}
+      propertyPath: m_MaxRayIntersections
+      value: 64
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22276a8657744e04cba8ad0a2caf4195, type: 3}
 --- !u!4 &141072768 stripped
@@ -434,6 +449,16 @@ PrefabInstance:
     - target: {fileID: 4279449019447086, guid: eded051879df4c147b9010199d240258, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 205814739888609900, guid: eded051879df4c147b9010199d240258,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 136213828768348902, guid: eded051879df4c147b9010199d240258,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eded051879df4c147b9010199d240258, type: 3}
@@ -665,7 +690,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 527845255}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -740,7 +765,7 @@ GameObject:
   - component: {fileID: 530847021}
   - component: {fileID: 530847020}
   - component: {fileID: 530847022}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: DialogueManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -938,7 +963,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 672518353}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: BreathingUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -978,7 +1003,7 @@ GameObject:
   - component: {fileID: 764462983}
   - component: {fileID: 764462985}
   - component: {fileID: 764462984}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6031,7 +6056,7 @@ GameObject:
   - component: {fileID: 1021498305}
   - component: {fileID: 1021498304}
   - component: {fileID: 1021498306}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: BreathingManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6201,7 +6226,7 @@ GameObject:
   - component: {fileID: 1045469760}
   - component: {fileID: 1045469759}
   - component: {fileID: 1045469758}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6300,7 +6325,7 @@ GameObject:
   - component: {fileID: 1124479679}
   - component: {fileID: 1124479681}
   - component: {fileID: 1124479680}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Image (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6681,7 +6706,7 @@ GameObject:
   - component: {fileID: 1529246019}
   - component: {fileID: 1529246021}
   - component: {fileID: 1529246020}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6913,7 +6938,7 @@ GameObject:
   - component: {fileID: 1615114144}
   - component: {fileID: 1615114146}
   - component: {fileID: 1615114145}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Image (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7066,7 +7091,7 @@ GameObject:
   - component: {fileID: 1630600590}
   - component: {fileID: 1630600589}
   - component: {fileID: 1630600588}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: DialogueCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7254,6 +7279,8 @@ MonoBehaviour:
   postBreathingTutorialDialgoue: {fileID: 1569109570}
   environmentHack: {fileID: 332038650}
   dialogueCanvas: {fileID: 1630600587}
+  breathingGO: {fileID: 1021498303}
+  canInteractWithTree: 0
 --- !u!82 &1676988092
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7453,7 +7480,7 @@ GameObject:
   - component: {fileID: 2108424275}
   - component: {fileID: 2108424277}
   - component: {fileID: 2108424276}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
