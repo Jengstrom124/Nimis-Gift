@@ -6054,6 +6054,8 @@ MonoBehaviour:
   pauseTimer: 2
   exhaleTimer: 2
   targetDuration: 30
+  tutorialDuration: 30
+  fullDuration: 120
   delayAfterCompletingExercise: 2
   uiFadeDuration: 2
   uiRef: {fileID: 1124479679}

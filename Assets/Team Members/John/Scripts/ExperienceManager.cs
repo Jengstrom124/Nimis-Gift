@@ -75,10 +75,20 @@ public class ExperienceManager : MonoBehaviour
 
     void EndTutorial()
     {
-        BreathingManager.instance.onBreathingFinishedEvent += EndTutorial;
+        BreathingManager.instance.onBreathingFinishedEvent -= EndTutorial;
 
         postBreathingTutorialDialgoue.Interact();
 
         //Setup tree interaction
+
+        //Fake tree interaction for now
+        DialogueManager.instance.onDialogueFinishEvent += BeginBreathingExercisePlaceholder;
+    }
+
+    void BeginBreathingExercisePlaceholder()
+    {
+        DialogueManager.instance.onDialogueFinishEvent -= BeginBreathingExercisePlaceholder;
+
+        BreathingManager.instance.BeginBreathingExercise();
     }
 }

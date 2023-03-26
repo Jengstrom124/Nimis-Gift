@@ -15,6 +15,7 @@ public class BreathingManager : MonoBehaviour
     public float inhaleTimer;
     public float pauseTimer, exhaleTimer;
     public float targetDuration = 30f;
+    public float tutorialDuration, fullDuration;
     public float delayAfterCompletingExercise = 2f;
 
     [Header("UI: ")]
@@ -32,6 +33,7 @@ public class BreathingManager : MonoBehaviour
     [SerializeField] bool breathingInProgress = false;
     [SerializeField] float breathingTimer;
     [SerializeField] bool inhale, pause, exhale = false;
+    bool inTutorial = false;
 
     public TMP_Text debugText;
 
@@ -56,6 +58,23 @@ public class BreathingManager : MonoBehaviour
     {
         DialogueManager.instance.onDialogueFinishEvent -= BeginBreathingExerciseTutorial;
         StartCoroutine(BreathingExcerciseCoroutine());
+        inTutorial = true;
+        targetDuration = tutorialDuration;
+    }
+
+    public void BeginBreathingExercise()
+    {
+        UpdateBreathingUIState(1);
+
+        if(!breathingTimersUpdated)
+        {
+            inhaleTimer = 3f;
+            exhaleTimer = 3f;
+            pauseTimer = 3f;
+            targetDuration = fullDuration;
+        }
+
+        StartCoroutine(BreathingExcerciseCoroutine());
     }
 
     IEnumerator BreathingExcerciseCoroutine()
@@ -66,6 +85,8 @@ public class BreathingManager : MonoBehaviour
         //Debug Text
         debugText.gameObject.SetActive(true);
         debugText.text = "";
+
+        yield return new WaitForSeconds(1f);
 
         do
         {
@@ -123,6 +144,8 @@ public class BreathingManager : MonoBehaviour
 
         debugText.text = "Complete!";
         breathingInProgress = false;
+        if (inTutorial)
+            inTutorial = false;
 
         UpdateBreathingUIState(0f);
 
@@ -147,9 +170,26 @@ public class BreathingManager : MonoBehaviour
         }
     }
 
+    bool breathingTimersUpdated = false;
     private void Update()
     {
         if (breathingInProgress)
+        {
             breathingTimer += Time.deltaTime;
+
+            if(!inTutorial)
+            {
+                if (!breathingTimersUpdated)
+                {
+                    if (breathingTimer > targetDuration / 2)
+                    {
+                        inhaleTimer = 4f;
+                        exhaleTimer = 4f;
+                        pauseTimer = 4f;
+                        breathingTimersUpdated = true;
+                    }
+                }
+            }
+        }
     }
 }
