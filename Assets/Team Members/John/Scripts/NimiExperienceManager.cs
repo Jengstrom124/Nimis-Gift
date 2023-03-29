@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class NimiExperienceManager : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class NimiExperienceManager : MonoBehaviour
     public DialogueTrigger introDialogue, mindTreeDialogue;
     public DialogueTrigger breathingTutorialDialogue, postBreathingTutorialDialgoue;
 
+    [Header("Environment Additions")]
+    public ParticleSystem fireflies;
+    public AudioSource nightAmbience;
+
     [Header("Hacks")]
     public GameObject environmentHack;
     public GameObject[] environmentLights;
@@ -21,11 +26,16 @@ public class NimiExperienceManager : MonoBehaviour
     public GameObject breathingGO;
     public bool canInteractWithTree = false;
 
+
     private void Awake()
     {
         instance = this;
         //if(environmentHack.activeSelf)
-            //environmentHack.SetActive(false);
+        //environmentHack.SetActive(false);
+        foreach (GameObject light in environmentLights)
+        {
+            light.SetActive(false);
+        }
     }
 
     // Start is called before the first frame update
@@ -106,6 +116,8 @@ public class NimiExperienceManager : MonoBehaviour
         canInteractWithTree = true;
         UIHack(false);
         BreathingManager.instance.onBreathingFinishedEvent += UpdateUIHack;
+
+        BreathingManager.instance.onBreathingFinishedEvent += EnableFirstEnvironmentAddition;
     }
 
     void BeginBreathingExercisePlaceholder()
@@ -113,6 +125,14 @@ public class NimiExperienceManager : MonoBehaviour
         DialogueManager.instance.onDialogueFinishEvent -= BeginBreathingExercisePlaceholder;
 
         BreathingManager.instance.BeginBreathingExercise();
+    }
+
+    void EnableFirstEnvironmentAddition()
+    {
+        BreathingManager.instance.onBreathingFinishedEvent -= EnableFirstEnvironmentAddition;
+
+        fireflies.Play();
+        nightAmbience.DOFade(0.5f, 2f);
     }
 
     //Hacking turning on & off the UI because the UI canvas are blocking the raycast/interaction from reaching the tree

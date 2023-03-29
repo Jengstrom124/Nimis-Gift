@@ -68,9 +68,9 @@ public class BreathingManager : MonoBehaviour
 
         if(!breathingTimersUpdated)
         {
-            inhaleTimer = 3f;
-            exhaleTimer = 3f;
-            pauseTimer = 3f;
+            inhaleTimer = 2.5f;
+            exhaleTimer = 2.5f;
+            pauseTimer = 2.5f;
             targetDuration = fullDuration;
         }
 
@@ -184,9 +184,9 @@ public class BreathingManager : MonoBehaviour
                 {
                     if (breathingTimer > targetDuration / 2)
                     {
-                        inhaleTimer = 4f;
-                        exhaleTimer = 4f;
-                        pauseTimer = 4f;
+                        inhaleTimer = 3.25f;
+                        exhaleTimer = 3.25f;
+                        pauseTimer = 3.25f;
                         breathingTimersUpdated = true;
                     }
                 }
