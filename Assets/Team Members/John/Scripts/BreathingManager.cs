@@ -22,6 +22,7 @@ public class BreathingManager : MonoBehaviour
     [Header("UI: ")]
     public Animator uiAnimator;
     public float uiFadeDuration = 2f;
+    public float nimiFadeDuration = 2f;
     public GameObject uiRef;
     public Image[] breathingUIArray;
     public Vector3[] pathPoints;
@@ -41,6 +42,7 @@ public class BreathingManager : MonoBehaviour
     [SerializeField] bool inTutorial = false;
 
     public TMP_Text debugText;
+    public GameObject nimi;
 
     //Events
     public event Action onBreathingFinishedEvent;
@@ -66,15 +68,14 @@ public class BreathingManager : MonoBehaviour
     public void BeginBreathingExerciseTutorial()
     {
         DialogueManager.instance.onDialogueFinishEvent -= BeginBreathingExerciseTutorial;
-        StartCoroutine(BreathingExcerciseCoroutine());
         inTutorial = true;
         targetDuration = tutorialDuration;
+
+        StartCoroutine(BreathingExcerciseCoroutine());
     }
 
     public void BeginBreathingExercise()
     {
-        UpdateBreathingUIState(1);
-
         if(!breathingTimersUpdated)
         {
             inhaleTimer = firstProgressionIncrease;
@@ -90,13 +91,21 @@ public class BreathingManager : MonoBehaviour
     IEnumerator BreathingExcerciseCoroutine()
     {
         NimiExperienceManager.instance.canInteractWithTree = false;
+
+        if(!inTutorial)
+        {
+            UpdateBreathingUIState(1);
+
+            yield return new WaitForSeconds(nimiFadeDuration + 1f);
+        }
+
         breathingInProgress = true;
         breathingTimer = 0f;
 
         //Debug Text
         debugText.text = "";
 
-        yield return new WaitForSeconds(1f);
+        //yield return new WaitForSeconds(1f);
 
         do
         {
@@ -167,13 +176,16 @@ public class BreathingManager : MonoBehaviour
         debugText.text = "Complete!";
         breathingInProgress = false;
         if (inTutorial)
+        {
             inTutorial = false;
+        }
 
         UpdateBreathingUIState(0f);
 
         yield return new WaitForSeconds(delayAfterCompletingExercise);
 
         canvas.SetActive(false);
+        uiRef.transform.localPosition = Vector3.zero;
         onBreathingFinishedEvent?.Invoke();
         NimiExperienceManager.instance.canInteractWithTree = true;
     }
@@ -189,21 +201,35 @@ public class BreathingManager : MonoBehaviour
     /// <param name="alpha"></param>
     public void UpdateBreathingUIState(float alpha)
     {
-        if (alpha == 1)
-        {
-            canvas.SetActive(true);
-            uiAnimator.Play("BreathingUI_FadeIn");
-        }
-        else
-        {
-            uiAnimator.Play("BreathingUI_FadeOut");
-        }
+        StartCoroutine(UpdateBreathingUIStateCoroutine(alpha));
 
         /*foreach(Image image in breathingUIArray)
         {
             //image.DOFade(alpha, uiFadeDuration);
             iTween.FadeTo(image.gameObject, alpha, uiFadeDuration);
         }*/
+    }
+    IEnumerator UpdateBreathingUIStateCoroutine(float alpha)
+    {
+        if (alpha == 1)
+        {
+            //Fade Nimi out/UI in
+            iTween.FadeTo(nimi, 0f, nimiFadeDuration);
+
+            yield return new WaitForSeconds(nimiFadeDuration + 1f);
+
+            canvas.SetActive(true);
+            uiAnimator.Play("BreathingUI_FadeIn");
+        }
+        else
+        {
+            //Fade UI out/Nimi in
+            uiAnimator.Play("BreathingUI_FadeOut");
+
+            yield return new WaitForSeconds(nimiFadeDuration + 1f);
+
+            iTween.FadeTo(nimi, 1f, nimiFadeDuration);
+        }
     }
 
     bool breathingTimersUpdated = false;

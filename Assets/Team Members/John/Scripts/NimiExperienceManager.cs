@@ -17,14 +17,16 @@ public class NimiExperienceManager : MonoBehaviour
 
     [Header("Environment Additions")]
     public ParticleSystem fireflies;
+    public ParticleSystem moonRays;
     public AudioSource nightAmbience;
 
     [Header("Hacks")]
-    public GameObject environmentHack;
+    public GameObject mindTreeEnvironment;
     public GameObject[] environmentLights;
     public Transform dialogueCanvas;
-    public GameObject breathingGO;
     public bool canInteractWithTree = false;
+
+    [Header("Debugs: ")]
     public bool testFirstEnvironmentAddition = false;
 
     public event Action onTreeRevealEvent;
@@ -32,8 +34,7 @@ public class NimiExperienceManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        //if(environmentHack.activeSelf)
-        //environmentHack.SetActive(false);
+
         foreach (GameObject light in environmentLights)
         {
             light.SetActive(false);
@@ -49,6 +50,7 @@ public class NimiExperienceManager : MonoBehaviour
 
         if(testFirstEnvironmentAddition)
         {
+            Debug.Log("Testing Environment Additions");
             EnableFirstEnvironmentAddition();
         }
     }
@@ -77,7 +79,7 @@ public class NimiExperienceManager : MonoBehaviour
 
         //Fade Environment In
         //onTreeRevealEvent?.Invoke();
-        //environmentHack.SetActive(true);
+        //iTween.FadeTo(mindTreeEnvironment, 1f, 5f);
         foreach (GameObject light in environmentLights)
         {
             light.SetActive(true);
@@ -97,11 +99,17 @@ public class NimiExperienceManager : MonoBehaviour
     {
         DialogueManager.instance.onDialogueFinishEvent -= InitBreathingTutorial;
 
-        breathingTutorialDialogue.Interact();
         BreathingManager.instance.UpdateBreathingUIState(1f);
+        StartCoroutine(InitTutorialDialogueCoroutine());
 
         DialogueManager.instance.onDialogueFinishEvent += BreathingManager.instance.BeginBreathingExerciseTutorial;
         BreathingManager.instance.onBreathingFinishedEvent += EndTutorial;
+    }
+    IEnumerator InitTutorialDialogueCoroutine()
+    {
+        yield return new WaitForSeconds(BreathingManager.instance.nimiFadeDuration + 3f);
+
+        breathingTutorialDialogue.Interact();
     }
 
     void EndTutorial()
@@ -122,8 +130,8 @@ public class NimiExperienceManager : MonoBehaviour
         DialogueManager.instance.onDialogueFinishEvent -= EnableTreeInteraction;
 
         canInteractWithTree = true;
-        UIHack(false);
-        BreathingManager.instance.onBreathingFinishedEvent += UpdateUIHack;
+        //UIHack(false);
+        //BreathingManager.instance.onBreathingFinishedEvent += UpdateUIHack;
 
         BreathingManager.instance.onBreathingFinishedEvent += EnableFirstEnvironmentAddition;
     }
@@ -140,7 +148,8 @@ public class NimiExperienceManager : MonoBehaviour
         BreathingManager.instance.onBreathingFinishedEvent -= EnableFirstEnvironmentAddition;
 
         fireflies.Play();
-        iTween.AudioTo(nightAmbience.gameObject, iTween.Hash("audiosource", nightAmbience,"volume", 0.45f, "easetype", iTween.EaseType.easeInOutSine ,"time", 10f));
+        moonRays.Play();
+        iTween.AudioTo(nightAmbience.gameObject, iTween.Hash("audiosource", nightAmbience,"volume", 0.4f, "easetype", iTween.EaseType.easeInOutSine ,"time", 10f));
     }
 
     //Hacking turning on & off the UI because the UI canvas are blocking the raycast/interaction from reaching the tree
@@ -151,6 +160,6 @@ public class NimiExperienceManager : MonoBehaviour
     public void UIHack(bool turnUIOn)
     {
         dialogueCanvas.gameObject.SetActive(turnUIOn);
-        breathingGO.SetActive(turnUIOn);
+        //breathingGO.SetActive(turnUIOn);
     }
 }
