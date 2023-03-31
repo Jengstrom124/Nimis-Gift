@@ -14,6 +14,8 @@ public class BreathingManager : MonoBehaviour
     [Tooltip("Timer in seconds")]
     public float inhaleTimer;
     public float pauseTimer, exhaleTimer;
+    public float firstProgressionIncrease = 2.5f;
+    public float secondProgressionIncrease = 3.25f;
     public float targetDuration = 30f;
     public float tutorialDuration, fullDuration;
     public float delayAfterCompletingExercise = 2f;
@@ -23,6 +25,7 @@ public class BreathingManager : MonoBehaviour
     public Transform uiRef;
     public Image[] breathingUIArray;
     public Vector3[] pathPoints;
+    public Image breathingUIBackdrop;
 
     [Header("Audio: ")]
     public AudioSource breathingAudioSource;
@@ -33,7 +36,8 @@ public class BreathingManager : MonoBehaviour
     [SerializeField] bool breathingInProgress = false;
     [SerializeField] float breathingTimer;
     [SerializeField] bool inhale, pause, exhale = false;
-    bool inTutorial = false;
+    //[SerializeField] float timeElapsed;
+    [SerializeField] bool inTutorial = false;
 
     public TMP_Text debugText;
 
@@ -68,15 +72,16 @@ public class BreathingManager : MonoBehaviour
 
         if(!breathingTimersUpdated)
         {
-            inhaleTimer = 2.5f;
-            exhaleTimer = 2.5f;
-            pauseTimer = 2.5f;
+            inhaleTimer = firstProgressionIncrease;
+            exhaleTimer = firstProgressionIncrease;
+            pauseTimer = firstProgressionIncrease;
             targetDuration = fullDuration;
         }
 
         StartCoroutine(BreathingExcerciseCoroutine());
     }
 
+    bool wasInhale = false;
     IEnumerator BreathingExcerciseCoroutine()
     {
         NimiExperienceManager.instance.canInteractWithTree = false;
@@ -92,6 +97,13 @@ public class BreathingManager : MonoBehaviour
         do
         {
             breathingAudioSource.Stop();
+            //timeElapsed = 0f;
+            if (breathingUIBackdrop.color.a == 1)
+            {
+                var tempColor = breathingUIBackdrop.color;
+                tempColor.a = 0f;
+                breathingUIBackdrop.color = tempColor;
+            }
 
             //Inhale
             inhale = true;
@@ -99,12 +111,14 @@ public class BreathingManager : MonoBehaviour
             debugText.transform.DOScale(1.5f, inhaleTimer);
             breathingAudioSource.clip = inhaleAudio;
             breathingAudioSource.Play();
-            //uiRef.DOMoveX(5.9f, inhaleTimer / 4);
 
-            //uiRef.DOLocalPath(pathPoints, inhaleTimer, PathType.Linear, PathMode.Ignore);
             uiRef.DOLocalMoveX(2.35f, inhaleTimer);
+            breathingUIBackdrop.DOFade(1f, inhaleTimer);
+            wasInhale = true;
 
             yield return new WaitForSeconds(inhaleTimer);
+            
+            //timeElapsed = 0f;
 
             //Pause
             inhale = false;
@@ -113,23 +127,26 @@ public class BreathingManager : MonoBehaviour
 
             uiRef.DOLocalMoveY(-2.05f, pauseTimer);
 
-
             yield return new WaitForSeconds(pauseTimer);
 
             breathingAudioSource.Stop();
+            //timeElapsed = 0f;
 
             //Exhale
             pause = false;
             exhale = true;
+            wasInhale = false;
             debugText.text = "Exhale";
             debugText.transform.DOScale(1f, exhaleTimer);
             breathingAudioSource.clip = exhaleAudio;
             breathingAudioSource.Play();
 
-            //uiRef.DOLocalPath(pathPoints, exhaleTimer, PathType.Linear, PathMode.Ignore);
             uiRef.DOLocalMoveX(0, exhaleTimer);
+            breathingUIBackdrop.DOFade(0f, inhaleTimer);
 
             yield return new WaitForSeconds(exhaleTimer);
+
+            //timeElapsed = 0f;
 
             //Pause
             inhale = false;
@@ -172,6 +189,9 @@ public class BreathingManager : MonoBehaviour
     }
 
     bool breathingTimersUpdated = false;
+    Vector3 desiredInhalePos = new Vector3(2.35f, 0, 0);
+    Vector3 desiredExhalePos = new Vector3(0, -2.05f, 0);
+    float xPos, yPos;
     private void Update()
     {
         if (breathingInProgress)
@@ -184,13 +204,39 @@ public class BreathingManager : MonoBehaviour
                 {
                     if (breathingTimer > targetDuration / 2)
                     {
-                        inhaleTimer = 3.25f;
-                        exhaleTimer = 3.25f;
-                        pauseTimer = 3.25f;
+                        inhaleTimer = secondProgressionIncrease;
+                        exhaleTimer = secondProgressionIncrease;
+                        pauseTimer = secondProgressionIncrease;
                         breathingTimersUpdated = true;
                     }
                 }
             }
+
+            /*
+            if(inhale)
+            {
+                //xPos = Mathf.Lerp(0, 2.35f, timeElapsed / inhaleTimer);
+                //uiRef.position = new Vector3(xPos, 0f, 0f);
+                //uiRef.position = Vector3.Lerp(uiRef.position, desiredInhalePos, timeElapsed / inhaleTimer);
+                //Vector3.MoveTowards(uiRef.position, desiredInhalePos, //speed)
+            }
+            else if(exhale)
+            {
+                //xPos = Mathf.Lerp(2.35f, 0, timeElapsed / exhaleTimer);
+                //uiRef.position = new Vector3(xPos, -2.05f, 0f);
+                uiRef.position = Vector3.Lerp(uiRef.position, desiredExhalePos, timeElapsed / inhaleTimer);
+            }
+            else if(pause && wasInhale)
+            {
+                uiRef.position = new Vector3(2.35f, Mathf.Lerp(0, -2.05f, timeElapsed / inhaleTimer), 0f);
+            }
+            else
+            {
+                uiRef.position = new Vector3(Mathf.Lerp(-2.05f, 0, timeElapsed / inhaleTimer), 0f, 0f);
+            }
+
+            timeElapsed = Time.deltaTime;
+            */
         }
     }
 }

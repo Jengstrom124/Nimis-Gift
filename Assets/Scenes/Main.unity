@@ -10984,6 +10984,8 @@ MonoBehaviour:
   inhaleTimer: 2
   pauseTimer: 2
   exhaleTimer: 2
+  firstProgressionIncrease: 2.5
+  secondProgressionIncrease: 3.25
   targetDuration: 30
   tutorialDuration: 30
   fullDuration: 120
@@ -10999,6 +11001,7 @@ MonoBehaviour:
   - {x: 2.35, y: -2.05, z: 0}
   - {x: 0, y: -2.05, z: 0}
   - {x: 0, y: 0, z: 0}
+  breathingUIBackdrop: {fileID: 1615114145}
   breathingAudioSource: {fileID: 1021498306}
   inhaleAudio: {fileID: 8300000, guid: c0337abb7cbfd1145b0e2b863850ef4f, type: 3}
   exhaleAudio: {fileID: 8300000, guid: 4b4812a98df8afc4497fb08d22051fb5, type: 3}
@@ -11008,6 +11011,7 @@ MonoBehaviour:
   inhale: 0
   pause: 0
   exhale: 0
+  inTutorial: 0
   debugText: {fileID: 1529246020}
 --- !u!4 &1021498305
 Transform:
