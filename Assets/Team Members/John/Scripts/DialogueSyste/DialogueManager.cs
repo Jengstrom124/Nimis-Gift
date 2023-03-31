@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using DG.Tweening;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -10,6 +9,7 @@ public class DialogueManager : MonoBehaviour
 
 	[Header("General Setup")]
 	public Animator textAnimator;
+	public GameObject dialogueCanvas;
 	public TMP_Text dialogueText;
 	public AudioSource dialogueAudioSource;
 	public AudioClip[] dialogueAudioClips;
@@ -63,17 +63,13 @@ public class DialogueManager : MonoBehaviour
 
 		dialogueAudioSource.volume = defaultDialogueVolume;
 
-		dialogueText.gameObject.SetActive(false);
+		dialogueCanvas.SetActive(false);
 		dialogueText.text = "";
 	}
 
 	public void StartDialogue(List<DialogueEntry> dialogueEntriesRecieved, bool triggerDialogueFinished, bool triggerDialogueStarted)
 	{
-		//When dialogue begins, update the game state
-		//if(GameManager.instance != null)
-		//GameManager.instance.UpdateDialogueGameState(true);
-
-		dialogueText.gameObject.SetActive(true);
+		dialogueCanvas.SetActive(true);
 
 		index = 0;
 		currentDialogueEntries = dialogueEntriesRecieved;
@@ -139,7 +135,9 @@ public class DialogueManager : MonoBehaviour
 		dialogueText.text = currentDialogue;
 
 		//Fade Text In
-		dialogueText.DOFade(1, dialogueFadeInSpeed);
+		textAnimator.Play("Dialogue_FadeIn");
+		//iTween.FadeTo(dialogueText.gameObject, 1f, dialogueFadeInSpeed);
+		//dialogueText.DOFade(1, dialogueFadeInSpeed);
 
 		//Handle Dialogue SFX------------------------------
 		if (useDialogueSound)
@@ -162,10 +160,10 @@ public class DialogueManager : MonoBehaviour
 
 		yield return new WaitForSeconds(dialogueSpeed);
 
-		OnCurrentDialogueFinished();
+		StartCoroutine(OnCurrentDialogueFinished());
 	}
 
-	void OnCurrentDialogueFinished()
+	IEnumerator OnCurrentDialogueFinished()
 	{
 		dialogueInProgress = false;
 		if (dialogueSFXWasTempDisabled)
@@ -175,9 +173,13 @@ public class DialogueManager : MonoBehaviour
 		index++;
 
 		//Fade Dialogue Out
-		dialogueText.DOFade(0, dialogueFadeOutSpeed);
+		textAnimator.Play("Dialogue_FadeOut");
+		//dialogueText.DOFade(0, dialogueFadeOutSpeed);
+		//iTween.FadeTo(dialogueText.gameObject, 0f, dialogueFadeOutSpeed);
 
-		Invoke("ContinueDialogue", dialogueFadeOutSpeed);
+		yield return new WaitForSeconds(dialogueFadeOutSpeed);
+
+		ContinueDialogue();
 	}
 
 	void EndDialogue()
@@ -185,7 +187,7 @@ public class DialogueManager : MonoBehaviour
 		dialogueActive = false;
 		dialogueFinished = false;
 		dialogueText.text = "";
-		dialogueText.gameObject.SetActive(false);
+		dialogueCanvas.SetActive(false);
 
 		if (triggerDialogueFinishedEvent)
 			onDialogueFinishEvent?.Invoke();

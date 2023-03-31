@@ -5580,6 +5580,7 @@ GameObject:
   - component: {fileID: 530847021}
   - component: {fileID: 530847020}
   - component: {fileID: 530847022}
+  - component: {fileID: 530847023}
   m_Layer: 2
   m_Name: DialogueManager
   m_TagString: Untagged
@@ -5599,7 +5600,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c697da760ec59954b8752d0ebcd95f2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textAnimator: {fileID: 0}
+  textAnimator: {fileID: 530847023}
+  dialogueCanvas: {fileID: 1630600586}
   dialogueText: {fileID: 2108424276}
   dialogueAudioSource: {fileID: 530847022}
   dialogueAudioClips:
@@ -5733,6 +5735,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &530847023
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530847019}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4b38dee991c94dd4bb52c8b60590babb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &577675773
 GameObject:
   m_ObjectHideFlags: 0
