@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using DG.Tweening;
 using System;
 using UnityEngine.UI;
 
@@ -21,11 +20,13 @@ public class BreathingManager : MonoBehaviour
     public float delayAfterCompletingExercise = 2f;
 
     [Header("UI: ")]
+    public Animator uiAnimator;
     public float uiFadeDuration = 2f;
-    public Transform uiRef;
+    public GameObject uiRef;
     public Image[] breathingUIArray;
     public Vector3[] pathPoints;
     public Image breathingUIBackdrop;
+    public GameObject canvas;
 
     [Header("Audio: ")]
     public AudioSource breathingAudioSource;
@@ -51,11 +52,15 @@ public class BreathingManager : MonoBehaviour
 
     private void Start()
     {
-        debugText.gameObject.SetActive(false);
         debugText.text = "";
 
         if (beginOnStart)
+        {
+            canvas.SetActive(true);
             StartCoroutine(BreathingExcerciseCoroutine());
+        }
+        else
+            canvas.SetActive(false);
     }
 
     public void BeginBreathingExerciseTutorial()
@@ -89,7 +94,6 @@ public class BreathingManager : MonoBehaviour
         breathingTimer = 0f;
 
         //Debug Text
-        debugText.gameObject.SetActive(true);
         debugText.text = "";
 
         yield return new WaitForSeconds(1f);
@@ -97,7 +101,7 @@ public class BreathingManager : MonoBehaviour
         do
         {
             breathingAudioSource.Stop();
-            //timeElapsed = 0f;
+
             if (breathingUIBackdrop.color.a == 1)
             {
                 var tempColor = breathingUIBackdrop.color;
@@ -108,41 +112,41 @@ public class BreathingManager : MonoBehaviour
             //Inhale
             inhale = true;
             debugText.text = "Inhale";
-            debugText.transform.DOScale(1.5f, inhaleTimer);
+            //iTween.ScaleTo(debugText.gameObject, Vector3.one * 1.5f, inhaleTimer);
+            iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one * 1.5f, "easetype", iTween.EaseType.easeInOutSine, "time", inhaleTimer));
+            //debugText.transform.DOScale(1.5f, inhaleTimer);
             breathingAudioSource.clip = inhaleAudio;
             breathingAudioSource.Play();
 
-            uiRef.DOLocalMoveX(2.35f, inhaleTimer);
-            breathingUIBackdrop.DOFade(1f, inhaleTimer);
-            wasInhale = true;
+            //Tween BreathingUI
+            MoveUIRef("x", 2.35f);
+            iTween.FadeTo(breathingUIBackdrop.gameObject, 1f, inhaleTimer);
 
             yield return new WaitForSeconds(inhaleTimer);
-            
-            //timeElapsed = 0f;
 
             //Pause
             inhale = false;
             pause = true;
             debugText.text = "Hold";
 
-            uiRef.DOLocalMoveY(-2.05f, pauseTimer);
+            MoveUIRef("y", -2.05f);
 
             yield return new WaitForSeconds(pauseTimer);
 
             breathingAudioSource.Stop();
-            //timeElapsed = 0f;
 
             //Exhale
             pause = false;
             exhale = true;
-            wasInhale = false;
             debugText.text = "Exhale";
-            debugText.transform.DOScale(1f, exhaleTimer);
+            iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one, "easetype", iTween.EaseType.easeOutSine, "time", exhaleTimer));
+            //debugText.transform.DOScale(1f, exhaleTimer);
             breathingAudioSource.clip = exhaleAudio;
             breathingAudioSource.Play();
 
-            uiRef.DOLocalMoveX(0, exhaleTimer);
-            breathingUIBackdrop.DOFade(0f, inhaleTimer);
+            //Tween BreathingUI
+            MoveUIRef("x", 0f);
+            iTween.FadeTo(breathingUIBackdrop.gameObject, 0f, exhaleTimer);
 
             yield return new WaitForSeconds(exhaleTimer);
 
@@ -152,9 +156,9 @@ public class BreathingManager : MonoBehaviour
             inhale = false;
             pause = true;
             exhale = false;
-
             debugText.text = "Hold";
-            uiRef.DOLocalMoveY(0, pauseTimer);
+
+            MoveUIRef("y", 0);
 
             yield return new WaitForSeconds(pauseTimer);
         }
@@ -169,11 +173,14 @@ public class BreathingManager : MonoBehaviour
 
         yield return new WaitForSeconds(delayAfterCompletingExercise);
 
-        debugText.gameObject.SetActive(false);
+        canvas.SetActive(false);
         onBreathingFinishedEvent?.Invoke();
         NimiExperienceManager.instance.canInteractWithTree = true;
     }
-
+    void MoveUIRef(string axis, float pos)
+    {
+        iTween.MoveTo(uiRef, iTween.Hash(axis, pos, "islocal", true, "easetype", iTween.EaseType.easeInOutSine, "time", pauseTimer));
+    }
     /// <summary>
     /// This function is used to fade the breathing UI in or out.
     /// 1 = Fade in
@@ -182,15 +189,26 @@ public class BreathingManager : MonoBehaviour
     /// <param name="alpha"></param>
     public void UpdateBreathingUIState(float alpha)
     {
-        foreach(Image image in breathingUIArray)
+        if (alpha == 1)
         {
-            image.DOFade(alpha, uiFadeDuration);
+            canvas.SetActive(true);
+            uiAnimator.Play("BreathingUI_FadeIn");
         }
+        else
+        {
+            uiAnimator.Play("BreathingUI_FadeOut");
+        }
+
+        /*foreach(Image image in breathingUIArray)
+        {
+            //image.DOFade(alpha, uiFadeDuration);
+            iTween.FadeTo(image.gameObject, alpha, uiFadeDuration);
+        }*/
     }
 
     bool breathingTimersUpdated = false;
-    Vector3 desiredInhalePos = new Vector3(2.35f, 0, 0);
-    Vector3 desiredExhalePos = new Vector3(0, -2.05f, 0);
+    [SerializeField] Vector3 desiredInhalePos = new Vector3(2.35f, 0, 0);
+    [SerializeField] Vector3 desiredExhalePos = new Vector3(0, -2.05f, 0);
     float xPos, yPos;
     private void Update()
     {

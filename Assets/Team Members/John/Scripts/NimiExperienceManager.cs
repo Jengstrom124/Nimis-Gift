@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
+using System;
 
 public class NimiExperienceManager : MonoBehaviour
 {
@@ -25,7 +25,9 @@ public class NimiExperienceManager : MonoBehaviour
     public Transform dialogueCanvas;
     public GameObject breathingGO;
     public bool canInteractWithTree = false;
+    public bool testFirstEnvironmentAddition = false;
 
+    public event Action onTreeRevealEvent;
 
     private void Awake()
     {
@@ -44,6 +46,11 @@ public class NimiExperienceManager : MonoBehaviour
         DialogueManager.instance.onDialogueFinishEvent += RevealMindTree;
 
         StartCoroutine(InitSequenceCoroutine());
+
+        if(testFirstEnvironmentAddition)
+        {
+            EnableFirstEnvironmentAddition();
+        }
     }
 
     IEnumerator InitSequenceCoroutine()
@@ -69,8 +76,9 @@ public class NimiExperienceManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         //Fade Environment In
+        //onTreeRevealEvent?.Invoke();
         //environmentHack.SetActive(true);
-        foreach(GameObject light in environmentLights)
+        foreach (GameObject light in environmentLights)
         {
             light.SetActive(true);
         }
@@ -132,7 +140,7 @@ public class NimiExperienceManager : MonoBehaviour
         BreathingManager.instance.onBreathingFinishedEvent -= EnableFirstEnvironmentAddition;
 
         fireflies.Play();
-        nightAmbience.DOFade(0.5f, 2f);
+        iTween.AudioTo(nightAmbience.gameObject, iTween.Hash("audiosource", nightAmbience,"volume", 0.45f, "easetype", iTween.EaseType.easeInOutSine ,"time", 10f));
     }
 
     //Hacking turning on & off the UI because the UI canvas are blocking the raycast/interaction from reaching the tree

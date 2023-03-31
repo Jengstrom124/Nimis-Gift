@@ -10962,6 +10962,7 @@ GameObject:
   - component: {fileID: 1021498305}
   - component: {fileID: 1021498304}
   - component: {fileID: 1021498306}
+  - component: {fileID: 1021498307}
   m_Layer: 2
   m_Name: BreathingManager
   m_TagString: Untagged
@@ -10989,9 +10990,10 @@ MonoBehaviour:
   targetDuration: 30
   tutorialDuration: 30
   fullDuration: 120
-  delayAfterCompletingExercise: 2
+  delayAfterCompletingExercise: 2.5
+  uiAnimator: {fileID: 1021498307}
   uiFadeDuration: 2
-  uiRef: {fileID: 1124479679}
+  uiRef: {fileID: 1124479678}
   breathingUIArray:
   - {fileID: 764462984}
   - {fileID: 1615114145}
@@ -11002,6 +11004,7 @@ MonoBehaviour:
   - {x: 0, y: -2.05, z: 0}
   - {x: 0, y: 0, z: 0}
   breathingUIBackdrop: {fileID: 1615114145}
+  canvas: {fileID: 1045469756}
   breathingAudioSource: {fileID: 1021498306}
   inhaleAudio: {fileID: 8300000, guid: c0337abb7cbfd1145b0e2b863850ef4f, type: 3}
   exhaleAudio: {fileID: 8300000, guid: 4b4812a98df8afc4497fb08d22051fb5, type: 3}
@@ -11013,6 +11016,8 @@ MonoBehaviour:
   exhale: 0
   inTutorial: 0
   debugText: {fileID: 1529246020}
+  desiredInhalePos: {x: 2.35, y: 0, z: 0}
+  desiredExhalePos: {x: 0, y: -2.05, z: 0}
 --- !u!4 &1021498305
 Transform:
   m_ObjectHideFlags: 0
@@ -11124,6 +11129,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &1021498307
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021498303}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6ef3897752a8bb840b420b4335f42d95, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1045469756
 GameObject:
   m_ObjectHideFlags: 0
@@ -16954,6 +16978,7 @@ MonoBehaviour:
   dialogueCanvas: {fileID: 1630600587}
   breathingGO: {fileID: 1021498303}
   canInteractWithTree: 0
+  testFirstEnvironmentAddition: 1
 --- !u!82 &1676988092
 AudioSource:
   m_ObjectHideFlags: 0
@@ -17064,7 +17089,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
