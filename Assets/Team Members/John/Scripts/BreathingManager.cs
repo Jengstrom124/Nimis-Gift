@@ -47,6 +47,7 @@ public class BreathingManager : MonoBehaviour
 
     //Events
     public event Action onBreathingFinishedEvent;
+    public event Action onBreathingStartedEvent;
 
     private void Awake()
     {
@@ -90,9 +91,9 @@ public class BreathingManager : MonoBehaviour
 
     IEnumerator BreathingExcerciseCoroutine()
     {
-        NimiExperienceManager.instance.canInteractWithTree = false;
+        onBreathingStartedEvent?.Invoke();
 
-        if(!inTutorial)
+        if (!inTutorial)
         {
             UpdateBreathingUIState(1);
 

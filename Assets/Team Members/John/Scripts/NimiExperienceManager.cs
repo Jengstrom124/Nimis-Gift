@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Liminal.SDK.VR;
+using Liminal.SDK.VR.Avatars;
+using Liminal.SDK.VR.Input;
 
 public class NimiExperienceManager : MonoBehaviour
 {
@@ -53,6 +56,25 @@ public class NimiExperienceManager : MonoBehaviour
             Debug.Log("Testing Environment Additions");
             EnableFirstEnvironmentAddition();
         }
+
+        var avatar = VRAvatar.Active;
+
+        var rightInput = GetInput(VRInputDeviceHand.Right);
+        var leftInput = GetInput(VRInputDeviceHand.Left);
+        UpdateInteractableState();
+
+        BreathingManager.instance.onBreathingStartedEvent += UpdateInteractableState;
+    }
+    private IVRInputDevice GetInput(VRInputDeviceHand hand)
+    {
+        var device = VRDevice.Device;
+        return hand == VRInputDeviceHand.Left ? device.SecondaryInputDevice : device.PrimaryInputDevice;
+    }
+    void UpdateInteractableState()
+    {
+        VRDevice.Device?.PrimaryInputDevice?.Pointer?.Deactivate();
+        VRDevice.Device?.SecondaryInputDevice?.Pointer?.Deactivate();
+        canInteractWithTree = false;
     }
 
     IEnumerator InitSequenceCoroutine()
@@ -132,6 +154,8 @@ public class NimiExperienceManager : MonoBehaviour
         canInteractWithTree = true;
         //UIHack(false);
         //BreathingManager.instance.onBreathingFinishedEvent += UpdateUIHack;
+        VRDevice.Device?.PrimaryInputDevice?.Pointer?.Activate();
+        VRDevice.Device?.SecondaryInputDevice?.Pointer?.Activate();
 
         BreathingManager.instance.onBreathingFinishedEvent += EnableFirstEnvironmentAddition;
     }
