@@ -107,7 +107,7 @@ public class NimiExperienceManager : MonoBehaviour
     }
     IEnumerator InitTutorialDialogueCoroutine()
     {
-        yield return new WaitForSeconds(BreathingManager.instance.nimiFadeDuration + 3f);
+        yield return new WaitForSeconds(BreathingManager.instance.nimiFadeDuration + 2.5f);
 
         breathingTutorialDialogue.Interact();
     }

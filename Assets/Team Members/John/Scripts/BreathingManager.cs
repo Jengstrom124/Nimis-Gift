@@ -43,6 +43,7 @@ public class BreathingManager : MonoBehaviour
 
     public TMP_Text debugText;
     public GameObject nimi;
+    public ParticleSystem postBreathingParticles;
 
     //Events
     public event Action onBreathingFinishedEvent;
@@ -87,7 +88,6 @@ public class BreathingManager : MonoBehaviour
         StartCoroutine(BreathingExcerciseCoroutine());
     }
 
-    bool wasInhale = false;
     IEnumerator BreathingExcerciseCoroutine()
     {
         NimiExperienceManager.instance.canInteractWithTree = false;
@@ -96,7 +96,7 @@ public class BreathingManager : MonoBehaviour
         {
             UpdateBreathingUIState(1);
 
-            yield return new WaitForSeconds(nimiFadeDuration + 1f);
+            yield return new WaitForSeconds(nimiFadeDuration + 3f);
         }
 
         breathingInProgress = true;
@@ -173,7 +173,7 @@ public class BreathingManager : MonoBehaviour
         }
         while (breathingTimer < targetDuration);
 
-        debugText.text = "Complete!";
+        debugText.text = "";
         breathingInProgress = false;
         if (inTutorial)
         {
@@ -181,13 +181,12 @@ public class BreathingManager : MonoBehaviour
         }
 
         UpdateBreathingUIState(0f);
+        postBreathingParticles.Play();
 
         yield return new WaitForSeconds(delayAfterCompletingExercise);
 
         canvas.SetActive(false);
         uiRef.transform.localPosition = Vector3.zero;
-        onBreathingFinishedEvent?.Invoke();
-        NimiExperienceManager.instance.canInteractWithTree = true;
     }
     void MoveUIRef(string axis, float pos)
     {
@@ -226,9 +225,13 @@ public class BreathingManager : MonoBehaviour
             //Fade UI out/Nimi in
             uiAnimator.Play("BreathingUI_FadeOut");
 
-            yield return new WaitForSeconds(nimiFadeDuration + 1f);
+            yield return new WaitForSeconds(delayAfterCompletingExercise);
 
             iTween.FadeTo(nimi, 1f, nimiFadeDuration);
+
+            yield return new WaitForSeconds(nimiFadeDuration + 1f);
+
+            onBreathingFinishedEvent?.Invoke();
         }
     }
 
