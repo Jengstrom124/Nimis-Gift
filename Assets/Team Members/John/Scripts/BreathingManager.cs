@@ -215,6 +215,7 @@ public class BreathingManager : MonoBehaviour
         {
             //Fade Nimi out/UI in
             iTween.FadeTo(nimi, 0f, nimiFadeDuration);
+            CurlNoiseParticleSystem.Emitter.ShapeEmitter.instance.Emit(nimiFadeDuration - 0.1f);
 
             yield return new WaitForSeconds(nimiFadeDuration + 1f);
 
