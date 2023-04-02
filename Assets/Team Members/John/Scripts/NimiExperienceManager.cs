@@ -20,7 +20,7 @@ public class NimiExperienceManager : MonoBehaviour
 
     [Header("Environment Additions")]
     public ParticleSystem fireflies;
-    public ParticleSystem moonRays;
+    public ParticleSystem moonRays, fallingLeaves;
     public AudioSource nightAmbience;
 
     [Header("Hacks")]
@@ -173,6 +173,7 @@ public class NimiExperienceManager : MonoBehaviour
 
         fireflies.Play();
         moonRays.Play();
+        fallingLeaves.Play();
         iTween.AudioTo(nightAmbience.gameObject, iTween.Hash("audiosource", nightAmbience,"volume", 0.4f, "easetype", iTween.EaseType.easeInOutSine ,"time", 10f));
     }
 
