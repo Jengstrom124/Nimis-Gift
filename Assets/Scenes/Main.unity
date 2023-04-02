@@ -15965,7 +15965,7 @@ MonoBehaviour:
   secondProgressionIncrease: 3.25
   targetDuration: 30
   tutorialDuration: 30
-  fullDuration: 120
+  fullDuration: 15
   delayAfterCompletingExercise: 5
   uiAnimator: {fileID: 1021498307}
   uiFadeDuration: 2
@@ -22480,7 +22480,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -23572,7 +23572,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 1.5
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -26287,7 +26287,7 @@ ParticleSystem:
     m_Dampen:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.7
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -26393,7 +26393,7 @@ ParticleSystem:
     m_EnergyLossOnCollision:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.7
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
