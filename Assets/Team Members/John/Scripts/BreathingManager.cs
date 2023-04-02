@@ -63,8 +63,6 @@ public class BreathingManager : MonoBehaviour
             canvas.SetActive(true);
             StartCoroutine(BreathingExcerciseCoroutine());
         }
-        else
-            canvas.SetActive(false);
     }
 
     public void BeginBreathingExerciseTutorial()

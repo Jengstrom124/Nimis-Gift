@@ -22,10 +22,11 @@ public class NimiExperienceManager : MonoBehaviour
     public ParticleSystem fireflies;
     public ParticleSystem moonRays, fallingLeaves;
     public AudioSource nightAmbience;
+    public Terrain treeTerrain;
 
     [Header("Hacks")]
     public GameObject mindTreeEnvironment;
-    public GameObject[] environmentLights;
+    public GameObject environmentLights;
     public Transform dialogueCanvas;
     public bool canInteractWithTree = false;
 
@@ -38,10 +39,12 @@ public class NimiExperienceManager : MonoBehaviour
     {
         instance = this;
 
-        foreach (GameObject light in environmentLights)
+        if (environmentLights.activeSelf)
+            environmentLights.SetActive(false);
+        /*foreach (GameObject light in environmentLights)
         {
             light.SetActive(false);
-        }
+        }*/
     }
 
     // Start is called before the first frame update
@@ -100,12 +103,13 @@ public class NimiExperienceManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         //Fade Environment In
+        environmentLights.SetActive(true);
         //onTreeRevealEvent?.Invoke();
         //iTween.FadeTo(mindTreeEnvironment, 1f, 5f);
-        foreach (GameObject light in environmentLights)
+        /*foreach (GameObject light in environmentLights)
         {
             light.SetActive(true);
-        }
+        }*/
 
         //Begin Next Dialogue Sequence
         dialogueCanvas.position = new Vector3(-4.45f, -3f, -2.68f);
@@ -171,6 +175,10 @@ public class NimiExperienceManager : MonoBehaviour
     {
         BreathingManager.instance.onBreathingFinishedEvent -= EnableFirstEnvironmentAddition;
 
+        TerrainData terrainData = treeTerrain.terrainData;
+        terrainData.wavingGrassSpeed = 0.25f;
+        treeTerrain.terrainData = terrainData;
+        //treeTerrain.terrainData.wavingGrassSpeed = 0.25f;
         fireflies.Play();
         moonRays.Play();
         fallingLeaves.Play();

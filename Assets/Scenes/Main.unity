@@ -16034,7 +16034,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1045469757
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21673,7 +21673,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1630600587
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21889,11 +21889,9 @@ MonoBehaviour:
   moonRays: {fileID: 1450172557}
   fallingLeaves: {fileID: 7111385184531911599}
   nightAmbience: {fileID: 1676988093}
+  treeTerrain: {fileID: 427219789}
   mindTreeEnvironment: {fileID: 621161875}
-  environmentLights:
-  - {fileID: 106153498}
-  - {fileID: 577675773}
-  - {fileID: 2112550167}
+  environmentLights: {fileID: 242107965}
   dialogueCanvas: {fileID: 1630600587}
   canInteractWithTree: 0
   testFirstEnvironmentAddition: 0
@@ -22173,7 +22171,7 @@ PrefabInstance:
     - target: {fileID: 7087613701493783776, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
         type: 3}
       propertyPath: m_Name
-      value: Nimi_Model (1)
+      value: Nimi_Model
       objectReference: {fileID: 0}
     - target: {fileID: 7087613701493783581, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
         type: 3}
@@ -22289,7 +22287,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

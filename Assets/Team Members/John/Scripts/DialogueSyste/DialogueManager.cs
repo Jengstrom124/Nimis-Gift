@@ -62,9 +62,6 @@ public class DialogueManager : MonoBehaviour
 		defaultDialogueSpeed = dialogueSpeed;
 
 		dialogueAudioSource.volume = defaultDialogueVolume;
-
-		dialogueCanvas.SetActive(false);
-		dialogueText.text = "";
 	}
 
 	public void StartDialogue(List<DialogueEntry> dialogueEntriesRecieved, bool triggerDialogueFinished, bool triggerDialogueStarted)
