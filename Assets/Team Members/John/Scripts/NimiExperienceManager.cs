@@ -22,7 +22,7 @@ public class NimiExperienceManager : MonoBehaviour
     public ParticleSystem fireflies;
     public ParticleSystem moonRays, fallingLeaves;
     public AudioSource nightAmbience;
-    public Terrain treeTerrain;
+    //public Terrain treeTerrain;
 
     [Header("Hacks")]
     public GameObject mindTreeEnvironment;
@@ -175,9 +175,9 @@ public class NimiExperienceManager : MonoBehaviour
     {
         BreathingManager.instance.onBreathingFinishedEvent -= EnableFirstEnvironmentAddition;
 
-        TerrainData terrainData = treeTerrain.terrainData;
+        /*TerrainData terrainData = treeTerrain.terrainData;
         terrainData.wavingGrassSpeed = 0.25f;
-        treeTerrain.terrainData = terrainData;
+        treeTerrain.terrainData = terrainData;*/
         //treeTerrain.terrainData.wavingGrassSpeed = 0.25f;
         fireflies.Play();
         moonRays.Play();

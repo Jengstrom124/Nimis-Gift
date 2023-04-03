@@ -452,7 +452,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
+      scalar: 0.8
       minScalar: 0.3
       maxCurve:
         serializedVersion: 2
@@ -4052,7 +4052,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    maxLights: 20
+    maxLights: 5
   TrailModule:
     enabled: 0
     mode: 0
@@ -21889,7 +21889,6 @@ MonoBehaviour:
   moonRays: {fileID: 1450172557}
   fallingLeaves: {fileID: 7111385184531911599}
   nightAmbience: {fileID: 1676988093}
-  treeTerrain: {fileID: 427219789}
   mindTreeEnvironment: {fileID: 621161875}
   environmentLights: {fileID: 242107965}
   dialogueCanvas: {fileID: 1630600587}
