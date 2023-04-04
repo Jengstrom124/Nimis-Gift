@@ -11,8 +11,11 @@ public class NimiExperienceManager : MonoBehaviour
     public static NimiExperienceManager instance;
     public float introDialogueDelayTime = 3f;
     public float environmentDialogueDelayTime = 2f;
+    public float environmentFadeTime = 2f;
 
+    [Header("Nimi: ")]
     public Animator nimiAnimator;
+    public AudioSource nimiAudioSource;
 
     [Header("Dialogue Sequences")]
     public DialogueTrigger introDialogue, mindTreeDialogue;
@@ -27,11 +30,13 @@ public class NimiExperienceManager : MonoBehaviour
     [Header("Hacks")]
     public GameObject mindTreeEnvironment;
     public GameObject environmentLights;
+    public Light topLight, bottomLight, environmentLight;
     public Transform dialogueCanvas;
     public bool canInteractWithTree = false;
 
     [Header("Debugs: ")]
     public bool testFirstEnvironmentAddition = false;
+    IVRInputDevice leftInput, rightInput;
 
     public event Action onTreeRevealEvent;
 
@@ -39,8 +44,16 @@ public class NimiExperienceManager : MonoBehaviour
     {
         instance = this;
 
-        if (environmentLights.activeSelf)
-            environmentLights.SetActive(false);
+        if(environmentLight.intensity != 0)
+        {
+            topLight.intensity = 0f;
+            bottomLight.intensity = 0f;
+            environmentLight.intensity = 0f;
+        }
+
+        /*if (environmentLights.activeSelf)
+            environmentLights.SetActive(false);*/
+
         /*foreach (GameObject light in environmentLights)
         {
             light.SetActive(false);
@@ -62,8 +75,8 @@ public class NimiExperienceManager : MonoBehaviour
 
         var avatar = VRAvatar.Active;
 
-        var rightInput = GetInput(VRInputDeviceHand.Right);
-        var leftInput = GetInput(VRInputDeviceHand.Left);
+        rightInput = GetInput(VRInputDeviceHand.Right);
+        leftInput = GetInput(VRInputDeviceHand.Left);
         UpdateInteractableState();
 
         BreathingManager.instance.onBreathingStartedEvent += UpdateInteractableState;
@@ -75,8 +88,10 @@ public class NimiExperienceManager : MonoBehaviour
     }
     void UpdateInteractableState()
     {
-        VRDevice.Device?.PrimaryInputDevice?.Pointer?.Deactivate();
-        VRDevice.Device?.SecondaryInputDevice?.Pointer?.Deactivate();
+        //VRDevice.Device?.PrimaryInputDevice?.Pointer?.Deactivate();
+        rightInput.Pointer.Deactivate();
+        //leftInput.Pointer.Deactivate();
+        //VRDevice.Device?.SecondaryInputDevice?.Pointer?.Deactivate();
         canInteractWithTree = false;
     }
 
@@ -97,13 +112,15 @@ public class NimiExperienceManager : MonoBehaviour
         StartCoroutine(MindTreeSequenceCoroutine());
     }
 
+    bool fadeLights = false;
     IEnumerator MindTreeSequenceCoroutine()
     {
 
         yield return new WaitForSeconds(1f);
 
         //Fade Environment In
-        environmentLights.SetActive(true);
+        //environmentLights.SetActive(true);
+        fadeLights = true;
         //onTreeRevealEvent?.Invoke();
         //iTween.FadeTo(mindTreeEnvironment, 1f, 5f);
         /*foreach (GameObject light in environmentLights)
@@ -183,6 +200,27 @@ public class NimiExperienceManager : MonoBehaviour
         moonRays.Play();
         fallingLeaves.Play();
         iTween.AudioTo(nightAmbience.gameObject, iTween.Hash("audiosource", nightAmbience,"volume", 0.4f, "easetype", iTween.EaseType.easeInOutSine ,"time", 10f));
+    }
+
+    float elapsedTime = 0f;
+    private void Update()
+    {
+        if(fadeLights)
+        {
+            elapsedTime = Time.deltaTime;
+
+            topLight.intensity = Mathf.Lerp(topLight.intensity, 9.2f, elapsedTime / environmentFadeTime);
+            bottomLight.intensity = Mathf.Lerp(bottomLight.intensity, 7.7f, elapsedTime / environmentFadeTime);
+            environmentLight.intensity = Mathf.Lerp(environmentLight.intensity, 0.75f, elapsedTime / environmentFadeTime);
+
+            if (elapsedTime > environmentFadeTime)
+            {
+                topLight.intensity = 9.2f;
+                bottomLight.intensity = 7.7f;
+                environmentLight.intensity = 0.75f;
+                fadeLights = false;
+            }
+        }
     }
 
     //Hacking turning on & off the UI because the UI canvas are blocking the raycast/interaction from reaching the tree

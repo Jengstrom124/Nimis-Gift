@@ -251,10 +251,13 @@ public class BreathingManager : MonoBehaviour
                 {
                     if (breathingTimer > targetDuration / 2)
                     {
-                        inhaleTimer = secondProgressionIncrease;
-                        exhaleTimer = secondProgressionIncrease;
-                        pauseTimer = secondProgressionIncrease;
-                        breathingTimersUpdated = true;
+                        if (inhale)
+                        {
+                            inhaleTimer = secondProgressionIncrease;
+                            exhaleTimer = secondProgressionIncrease;
+                            pauseTimer = secondProgressionIncrease;
+                            breathingTimersUpdated = true;
+                        }
                     }
                 }
             }
