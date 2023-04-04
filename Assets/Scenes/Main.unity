@@ -15914,8 +15914,9 @@ MonoBehaviour:
   debugText: {fileID: 1529246020}
   nimi: {fileID: 1393262480}
   postBreathingParticles: {fileID: 82267385}
-  desiredInhalePos: {x: 2.35, y: 0, z: 0}
-  desiredExhalePos: {x: 0, y: -2.05, z: 0}
+  elapsedTime: 0
+  fadeLightsOut: 0
+  fadeLightsIn: 0
 --- !u!4 &1021498305
 Transform:
   m_ObjectHideFlags: 0
@@ -21606,24 +21607,18 @@ MonoBehaviour:
   triggerOnEnableUsingTimeline: 0
   useTriggerBox: 0
   diagloueEntries:
-  - dialogue: You did wonderful, I can already sense calm
+  - dialogue: You did wonderful, I can already sense calming energy
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
-  - dialogue: I think you are ready.
+  - dialogue: Continue feeding the tree nutrients to see it flourish, and be rewarded
+      with peace
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
-  - dialogue: Interact with the tree by (tapping?) on it, if you would like to breathe
-      life into it
-    useCustomDialogueSpeed: 0
-    customDelayTime: 0
-    customAudioSFX: {fileID: 0}
-    oneOffCustomSFX: {fileID: 0}
-  - dialogue: After you feed the tree nutrients, you will see it flourish, and be
-      rewarded with peace
+  - dialogue: When you are ready, interact with the tree to breathe life into it.
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
@@ -22006,7 +22001,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   introDialogueDelayTime: 5
   environmentDialogueDelayTime: 3
-  environmentFadeTime: 2.25
+  environmentFadeTime: 2.5
   nimiAnimator: {fileID: 1393262482}
   nimiAudioSource: {fileID: 1393262483}
   introDialogue: {fileID: 1627056135}
@@ -22025,6 +22020,8 @@ MonoBehaviour:
   dialogueCanvas: {fileID: 1630600587}
   canInteractWithTree: 0
   testFirstEnvironmentAddition: 0
+  fadeLights: 0
+  elapsedTime: 0
 --- !u!82 &1676988092
 AudioSource:
   m_ObjectHideFlags: 0
@@ -22395,7 +22392,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -2.5}
-  m_SizeDelta: {x: 5, y: 5}
+  m_SizeDelta: {x: 5.5, y: 5}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &2108424276
 MonoBehaviour:
@@ -22486,13 +22483,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 1.0618384, z: 0, w: 2.0455034}
   m_textInfo:
     textComponent: {fileID: 2108424276}
-    characterCount: 8
+    characterCount: 0
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 0
+    wordCount: 0
     linkCount: 0
-    lineCount: 1
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0

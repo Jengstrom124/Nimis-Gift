@@ -112,7 +112,7 @@ public class NimiExperienceManager : MonoBehaviour
         StartCoroutine(MindTreeSequenceCoroutine());
     }
 
-    bool fadeLights = false;
+    [SerializeField] bool fadeLights = false;
     IEnumerator MindTreeSequenceCoroutine()
     {
 
@@ -202,24 +202,27 @@ public class NimiExperienceManager : MonoBehaviour
         iTween.AudioTo(nightAmbience.gameObject, iTween.Hash("audiosource", nightAmbience,"volume", 0.4f, "easetype", iTween.EaseType.easeInOutSine ,"time", 10f));
     }
 
-    float elapsedTime = 0f;
+    [SerializeField] float elapsedTime = 0f;
     private void Update()
     {
         if(fadeLights)
         {
-            elapsedTime = Time.deltaTime;
+            if (elapsedTime < environmentFadeTime)
+            {
+                topLight.intensity = Mathf.Lerp(0, 9.2f, elapsedTime / environmentFadeTime);
+                bottomLight.intensity = Mathf.Lerp(0, 7.7f, elapsedTime / environmentFadeTime);
+                environmentLight.intensity = Mathf.Lerp(0, 0.75f, elapsedTime / environmentFadeTime);
 
-            topLight.intensity = Mathf.Lerp(topLight.intensity, 9.2f, elapsedTime / environmentFadeTime);
-            bottomLight.intensity = Mathf.Lerp(bottomLight.intensity, 7.7f, elapsedTime / environmentFadeTime);
-            environmentLight.intensity = Mathf.Lerp(environmentLight.intensity, 0.75f, elapsedTime / environmentFadeTime);
-
-            if (elapsedTime > environmentFadeTime)
+            }
+            else
             {
                 topLight.intensity = 9.2f;
                 bottomLight.intensity = 7.7f;
                 environmentLight.intensity = 0.75f;
                 fadeLights = false;
             }
+
+            elapsedTime += Time.deltaTime;
         }
     }
 

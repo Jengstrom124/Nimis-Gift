@@ -38,8 +38,9 @@ public class BreathingManager : MonoBehaviour
     [SerializeField] bool breathingInProgress = false;
     [SerializeField] float breathingTimer;
     [SerializeField] bool inhale, pause, exhale = false;
-    //[SerializeField] float timeElapsed;
     [SerializeField] bool inTutorial = false;
+    Light topLight, bottomLight;
+    float lightFadeDuration;
 
     public TMP_Text debugText;
     public GameObject nimi;
@@ -63,6 +64,10 @@ public class BreathingManager : MonoBehaviour
             canvas.SetActive(true);
             StartCoroutine(BreathingExcerciseCoroutine());
         }
+
+        topLight = NimiExperienceManager.instance.topLight;
+        bottomLight = NimiExperienceManager.instance.bottomLight;
+        lightFadeDuration = nimiFadeDuration + 2.5f;
     }
 
     public void BeginBreathingExerciseTutorial()
@@ -110,29 +115,31 @@ public class BreathingManager : MonoBehaviour
         {
             breathingAudioSource.Stop();
 
-            if (breathingUIBackdrop.color.a == 1)
+            /*if (breathingUIBackdrop.color.a == 1)
             {
                 var tempColor = breathingUIBackdrop.color;
                 tempColor.a = 0f;
                 breathingUIBackdrop.color = tempColor;
-            }
+            }*/
 
             //Inhale
+            elapsedTime = 0f;
             inhale = true;
             debugText.text = "Inhale";
-            //iTween.ScaleTo(debugText.gameObject, Vector3.one * 1.5f, inhaleTimer);
-            iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one * 1.5f, "easetype", iTween.EaseType.easeInOutSine, "time", inhaleTimer));
-            //debugText.transform.DOScale(1.5f, inhaleTimer);
+
+            //Audio
             breathingAudioSource.clip = inhaleAudio;
             breathingAudioSource.Play();
 
             //Tween BreathingUI
             MoveUIRef("x", 2.35f);
-            iTween.FadeTo(breathingUIBackdrop.gameObject, 1f, inhaleTimer);
+            breathingUIBackdrop.CrossFadeColor(new Color(1, 1, 1, 1), inhaleTimer, true, true);
+            iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one * 1.5f, "easetype", iTween.EaseType.easeInOutSine, "time", inhaleTimer));
 
             yield return new WaitForSeconds(inhaleTimer);
 
             //Pause
+            elapsedTime = 0f;
             inhale = false;
             pause = true;
             debugText.text = "Hold";
@@ -144,24 +151,24 @@ public class BreathingManager : MonoBehaviour
             breathingAudioSource.Stop();
 
             //Exhale
+            elapsedTime = 0f;
             pause = false;
             exhale = true;
             debugText.text = "Exhale";
-            iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one, "easetype", iTween.EaseType.easeOutSine, "time", exhaleTimer));
-            //debugText.transform.DOScale(1f, exhaleTimer);
+
+            //Audio
             breathingAudioSource.clip = exhaleAudio;
             breathingAudioSource.Play();
 
             //Tween BreathingUI
             MoveUIRef("x", 0f);
-            iTween.FadeTo(breathingUIBackdrop.gameObject, 0f, exhaleTimer);
+            breathingUIBackdrop.CrossFadeColor(new Color(1, 1, 1, 0), exhaleTimer, true, true);
+            iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one, "easetype", iTween.EaseType.easeOutSine, "time", exhaleTimer));
 
             yield return new WaitForSeconds(exhaleTimer);
 
-            //timeElapsed = 0f;
-
             //Pause
-            inhale = false;
+            elapsedTime = 0f;
             pause = true;
             exhale = false;
             debugText.text = "Hold";
@@ -213,7 +220,9 @@ public class BreathingManager : MonoBehaviour
         {
             //Fade Nimi out/UI in
             iTween.FadeTo(nimi, 0f, nimiFadeDuration);
-            //CurlNoiseParticleSystem.Emitter.ShapeEmitter.instance.Emit(nimiFadeDuration - 0.1f);
+
+            elapsedTime = 0f;
+            fadeLightsOut = true;
 
             yield return new WaitForSeconds(nimiFadeDuration + 1f);
 
@@ -224,6 +233,9 @@ public class BreathingManager : MonoBehaviour
         {
             //Fade UI out/Nimi in
             uiAnimator.Play("BreathingUI_FadeOut");
+
+            elapsedTime = 0f;
+            fadeLightsIn = true;
 
             yield return new WaitForSeconds(delayAfterCompletingExercise);
 
@@ -236,16 +248,15 @@ public class BreathingManager : MonoBehaviour
     }
 
     bool breathingTimersUpdated = false;
-    [SerializeField] Vector3 desiredInhalePos = new Vector3(2.35f, 0, 0);
-    [SerializeField] Vector3 desiredExhalePos = new Vector3(0, -2.05f, 0);
-    float xPos, yPos;
+    [SerializeField] float elapsedTime = 0f;
+    [SerializeField] bool fadeLightsOut, fadeLightsIn;
     private void Update()
     {
         if (breathingInProgress)
         {
             breathingTimer += Time.deltaTime;
 
-            if(!inTutorial)
+            if (!inTutorial)
             {
                 if (!breathingTimersUpdated)
                 {
@@ -261,6 +272,42 @@ public class BreathingManager : MonoBehaviour
                     }
                 }
             }
+
+            if(inhale)
+            {
+                if (elapsedTime < inhaleTimer)
+                {
+                    topLight.intensity = Mathf.Lerp(2f, 9.2f, elapsedTime / inhaleTimer);
+                    bottomLight.intensity = Mathf.Lerp(1f, 7.7f, elapsedTime / inhaleTimer);
+                }
+                else
+                {
+                    topLight.intensity = 9.2f;
+                    bottomLight.intensity = 7.7f;
+                }
+                elapsedTime += Time.deltaTime;
+                /*if (elapsedTime + 0.1f >= inhaleTimer)
+                {
+
+                }*/
+            }
+
+            if (exhale)
+            {
+                if (elapsedTime < exhaleTimer)
+                {
+                    topLight.intensity = Mathf.Lerp(9.2f, 2f, elapsedTime / exhaleTimer);
+                    bottomLight.intensity = Mathf.Lerp(7.7f, 1f, elapsedTime / exhaleTimer);
+                }
+                else
+                {
+                    topLight.intensity = 2f;
+                    bottomLight.intensity = 1f;
+                }
+                elapsedTime += Time.deltaTime;
+            }
+
+
 
             /*
             if(inhale)
@@ -287,6 +334,39 @@ public class BreathingManager : MonoBehaviour
 
             timeElapsed = Time.deltaTime;
             */
+        }
+
+        if (fadeLightsOut)
+        {
+            if (elapsedTime < lightFadeDuration)
+            {
+                topLight.intensity = Mathf.Lerp(9.7f, 2f, elapsedTime / lightFadeDuration);
+                bottomLight.intensity = Mathf.Lerp(7.7f, 1f, elapsedTime / lightFadeDuration);
+            }
+            else
+            {
+                topLight.intensity = 2f;
+                bottomLight.intensity = 1f;
+                fadeLightsOut = false;
+            }
+            elapsedTime += Time.deltaTime;
+        }
+
+        if (fadeLightsIn)
+        {            
+            if(elapsedTime < lightFadeDuration)
+            {
+                topLight.intensity = Mathf.Lerp(2f, 9.2f, elapsedTime / lightFadeDuration);
+                bottomLight.intensity = Mathf.Lerp(1f, 7.7f, elapsedTime / lightFadeDuration);
+
+            }
+            else
+            {
+                topLight.intensity = 9.2f;
+                bottomLight.intensity = 7.7f;
+                fadeLightsIn = false;
+            }
+            elapsedTime += Time.deltaTime;
         }
     }
 }
