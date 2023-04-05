@@ -178,6 +178,8 @@ public class BreathingManager : MonoBehaviour
             yield return new WaitForSeconds(pauseTimer);
 
             inhale = true;
+
+            yield return new WaitForSeconds(0.015f);
         }
         while (breathingTimer < targetDuration);
 
