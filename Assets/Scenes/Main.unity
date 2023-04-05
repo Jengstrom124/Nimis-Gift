@@ -9924,7 +9924,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &332038651
 Transform:
@@ -9938,7 +9938,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 621161876}
-  - {fileID: 1125523254}
   - {fileID: 1367112393}
   m_Father: {fileID: 646888768}
   m_RootOrder: 3
@@ -10620,7 +10619,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &621161876
 Transform:
@@ -15686,6 +15685,7 @@ Transform:
   m_Children:
   - {fileID: 493673190}
   - {fileID: 527845259}
+  - {fileID: 1125523254}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -15706,7 +15706,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &996806825
 Transform:
@@ -16226,7 +16226,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 332038651}
+    m_TransformParent: {fileID: 949889422}
     m_Modifications:
     - target: {fileID: 138252, guid: be999fe03c257ec4cb0a3a4b5ca72217, type: 3}
       propertyPath: m_Name
@@ -16238,15 +16238,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 421922, guid: be999fe03c257ec4cb0a3a4b5ca72217, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -183.0795
+      value: 1.2501526
       objectReference: {fileID: 0}
     - target: {fileID: 421922, guid: be999fe03c257ec4cb0a3a4b5ca72217, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -153.62054
+      value: -3.0709991
       objectReference: {fileID: 0}
     - target: {fileID: 421922, guid: be999fe03c257ec4cb0a3a4b5ca72217, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 28.96402
+      value: 9.800001
       objectReference: {fileID: 0}
     - target: {fileID: 421922, guid: be999fe03c257ec4cb0a3a4b5ca72217, type: 3}
       propertyPath: m_LocalRotation.x
@@ -16266,7 +16266,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 421922, guid: be999fe03c257ec4cb0a3a4b5ca72217, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 421922, guid: be999fe03c257ec4cb0a3a4b5ca72217, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -16282,11 +16282,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 421922, guid: be999fe03c257ec4cb0a3a4b5ca72217, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.0100000035
+      value: 0.010000007
       objectReference: {fileID: 0}
     - target: {fileID: 421922, guid: be999fe03c257ec4cb0a3a4b5ca72217, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.0100000035
+      value: 0.010000007
       objectReference: {fileID: 0}
     - target: {fileID: 445814, guid: be999fe03c257ec4cb0a3a4b5ca72217, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -16457,7 +16457,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!64 &1367112390
 MeshCollider:
@@ -16530,7 +16530,7 @@ Transform:
   m_LocalScale: {x: 25, y: 1, z: 25}
   m_Children: []
   m_Father: {fileID: 332038651}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1393262480 stripped
 GameObject:
@@ -22644,7 +22644,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!23 &1860074848861884462
 MeshRenderer:
@@ -22776,7 +22776,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!199 &6078961123684766448
 ParticleSystemRenderer:

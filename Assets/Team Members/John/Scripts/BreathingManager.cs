@@ -176,6 +176,8 @@ public class BreathingManager : MonoBehaviour
             MoveUIRef("y", 0);
 
             yield return new WaitForSeconds(pauseTimer);
+
+            inhale = true;
         }
         while (breathingTimer < targetDuration);
 
