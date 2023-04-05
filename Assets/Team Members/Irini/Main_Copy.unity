@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1.85
   m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 8d5ea6ed8fe559345b42df250a255b5b, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: fe2cf96a963b2bb4992ddd77e18a81af, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -15887,6 +15887,8 @@ MonoBehaviour:
   tutorialDuration: 30
   fullDuration: 30
   delayAfterCompletingExercise: 5
+  desiredTopLightFadeValue: 0
+  desiredBottomLightFadeValue: 0
   uiAnimator: {fileID: 1021498307}
   uiFadeDuration: 2
   nimiFadeDuration: 2
@@ -22002,7 +22004,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   introDialogueDelayTime: 5
   environmentDialogueDelayTime: 3
-  environmentFadeTime: 2.5
+  environmentFadeTime: 3
+  moonSkybox: {fileID: 2100000, guid: 8d5ea6ed8fe559345b42df250a255b5b, type: 2}
   nimiAnimator: {fileID: 1393262482}
   nimiAudioSource: {fileID: 1393262483}
   introDialogue: {fileID: 1627056135}
@@ -22017,10 +22020,16 @@ MonoBehaviour:
   environmentLights: {fileID: 242107965}
   topLight: {fileID: 106153499}
   bottomLight: {fileID: 577675775}
-  environmentLight: {fileID: 2112550168}
+  environmentLight: {fileID: 1908045174}
+  topLightStartValue: 0
+  bottomLightStartValue: 0
+  environmentLightStartValue: 0
   dialogueCanvas: {fileID: 1630600587}
   canInteractWithTree: 0
   testFirstEnvironmentAddition: 0
+  startingAmbientLightColour: {r: 0, g: 0, b: 0, a: 0}
+  startingAmbientEquatorColour: {r: 0, g: 0, b: 0, a: 0}
+  startingAmbientGroundColour: {r: 0, g: 0, b: 0, a: 0}
   fadeLights: 0
   elapsedTime: 0
 --- !u!82 &1676988092
@@ -22662,7 +22671,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &2112550168
 Light:
   m_ObjectHideFlags: 0

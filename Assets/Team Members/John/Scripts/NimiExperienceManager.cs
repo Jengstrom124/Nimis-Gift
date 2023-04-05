@@ -1,10 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Liminal.SDK.VR;
 using Liminal.SDK.VR.Avatars;
 using Liminal.SDK.VR.Input;
+using UnityEngine.Rendering;
 
 public class NimiExperienceManager : MonoBehaviour
 {
@@ -12,6 +12,8 @@ public class NimiExperienceManager : MonoBehaviour
     public float introDialogueDelayTime = 3f;
     public float environmentDialogueDelayTime = 2f;
     public float environmentFadeTime = 2f;
+
+    public Material moonSkybox;
 
     [Header("Nimi: ")]
     public Animator nimiAnimator;
@@ -37,7 +39,9 @@ public class NimiExperienceManager : MonoBehaviour
 
     [Header("Debugs: ")]
     public bool testFirstEnvironmentAddition = false;
+    public Color startingAmbientLightColour, startingAmbientEquatorColour, startingAmbientGroundColour;
     IVRInputDevice leftInput, rightInput;
+    AmbientMode gradientAmbientMode;
 
     public event Action onTreeRevealEvent;
 
@@ -55,6 +59,14 @@ public class NimiExperienceManager : MonoBehaviour
             bottomLight.intensity = 0f;
             environmentLight.intensity = 0f;
         }
+
+        /*startingAmbientLightColour = RenderSettings.ambientLight;
+        RenderSettings.ambientLight = Color.black;
+        RenderSettings.ambientEquatorColor = Color.black;
+        RenderSettings.ambientGroundColor = Color.black;*/
+        //Check this
+        gradientAmbientMode = RenderSettings.ambientMode;
+        RenderSettings.ambientMode = AmbientMode.Skybox;
 
         /*if (environmentLights.activeSelf)
             environmentLights.SetActive(false);*/
@@ -93,7 +105,7 @@ public class NimiExperienceManager : MonoBehaviour
     }
     void UpdateInteractableState()
     {
-        //VRDevice.Device?.PrimaryInputDevice?.Pointer?.Deactivate();
+        VRDevice.Device?.PrimaryInputDevice?.Pointer?.Deactivate();
         rightInput.Pointer.Deactivate();
         //leftInput.Pointer.Deactivate();
         //VRDevice.Device?.SecondaryInputDevice?.Pointer?.Deactivate();
@@ -124,14 +136,9 @@ public class NimiExperienceManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         //Fade Environment In
-        //environmentLights.SetActive(true);
         fadeLights = true;
         //onTreeRevealEvent?.Invoke();
         //iTween.FadeTo(mindTreeEnvironment, 1f, 5f);
-        /*foreach (GameObject light in environmentLights)
-        {
-            light.SetActive(true);
-        }*/
 
         //Begin Next Dialogue Sequence
         dialogueCanvas.position = new Vector3(-4.45f, -3f, -2.68f);
@@ -205,6 +212,15 @@ public class NimiExperienceManager : MonoBehaviour
         moonRays.Play();
         fallingLeaves.Play();
         iTween.AudioTo(nightAmbience.gameObject, iTween.Hash("audiosource", nightAmbience,"volume", 0.4f, "easetype", iTween.EaseType.easeInOutSine ,"time", 10f));
+        RenderSettings.skybox = moonSkybox;
+        RenderSettings.ambientMode = gradientAmbientMode;
+        /*RenderSettings.ambientLight = startingAmbientLightColour;
+        RenderSettings.ambientEquatorColor = startingAmbientEquatorColour;
+        RenderSettings.ambientGroundColor = startingAmbientGroundColour;*/
+    }
+    public void UpgradeEnvironmentDebug()
+    {
+        EnableFirstEnvironmentAddition();
     }
 
     [SerializeField] float elapsedTime = 0f;
@@ -221,9 +237,9 @@ public class NimiExperienceManager : MonoBehaviour
             }
             else
             {
-                topLight.intensity = 9.2f;
-                bottomLight.intensity = 7.7f;
-                environmentLight.intensity = 0.75f;
+                topLight.intensity = topLightStartValue;
+                bottomLight.intensity = bottomLightStartValue;
+                environmentLight.intensity = environmentLightStartValue;
                 fadeLights = false;
             }
 
