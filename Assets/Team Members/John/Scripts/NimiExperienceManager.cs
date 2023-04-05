@@ -31,6 +31,7 @@ public class NimiExperienceManager : MonoBehaviour
     public GameObject mindTreeEnvironment;
     public GameObject environmentLights;
     public Light topLight, bottomLight, environmentLight;
+    public float topLightStartValue, bottomLightStartValue, environmentLightStartValue;
     public Transform dialogueCanvas;
     public bool canInteractWithTree = false;
 
@@ -44,7 +45,11 @@ public class NimiExperienceManager : MonoBehaviour
     {
         instance = this;
 
-        if(environmentLight.intensity != 0)
+        topLightStartValue = topLight.intensity;
+        bottomLightStartValue = bottomLight.intensity;
+        environmentLightStartValue = environmentLight.intensity;
+
+        if (environmentLight.intensity != 0)
         {
             topLight.intensity = 0f;
             bottomLight.intensity = 0f;
@@ -209,9 +214,9 @@ public class NimiExperienceManager : MonoBehaviour
         {
             if (elapsedTime < environmentFadeTime)
             {
-                topLight.intensity = Mathf.Lerp(0, 9.2f, elapsedTime / environmentFadeTime);
-                bottomLight.intensity = Mathf.Lerp(0, 7.7f, elapsedTime / environmentFadeTime);
-                environmentLight.intensity = Mathf.Lerp(0, 0.75f, elapsedTime / environmentFadeTime);
+                topLight.intensity = Mathf.Lerp(0, topLightStartValue, elapsedTime / environmentFadeTime);
+                bottomLight.intensity = Mathf.Lerp(0, bottomLightStartValue, elapsedTime / environmentFadeTime);
+                environmentLight.intensity = Mathf.Lerp(0, environmentLightStartValue, elapsedTime / environmentFadeTime);
 
             }
             else
