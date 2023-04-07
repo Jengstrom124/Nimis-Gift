@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 8d5ea6ed8fe559345b42df250a255b5b, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: fe2cf96a963b2bb4992ddd77e18a81af, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -4955,7 +4955,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &71918694
 Transform:
   m_ObjectHideFlags: 0
@@ -20634,7 +20634,7 @@ MonoBehaviour:
   pauseTimer: 2
   exhaleTimer: 2
   firstProgressionIncrease: 2.5
-  secondProgressionIncrease: 3.25
+  secondProgressionIncrease: 3
   targetDuration: 30
   tutorialDuration: 30
   fullDuration: 30
