@@ -126,13 +126,6 @@ public class BreathingManager : MonoBehaviour
             #region Inhale
             breathingAudioSource.Stop();
 
-            /*if (breathingUIBackdrop.color.a == 1)
-            {
-                var tempColor = breathingUIBackdrop.color;
-                tempColor.a = 0f;
-                breathingUIBackdrop.color = tempColor;
-            }*/
-
             //Inhale
             elapsedTime = 0f;
             inhale = true;

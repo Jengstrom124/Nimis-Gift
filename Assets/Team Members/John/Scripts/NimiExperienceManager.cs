@@ -40,7 +40,7 @@ public class NimiExperienceManager : MonoBehaviour
     [Header("Debugs: ")]
     [SerializeField] float elapsedTime = 0f;
     [SerializeField] bool fadeLights = false;
-    public Color startingAmbientLightColour, startingAmbientEquatorColour, startingAmbientGroundColour;
+    //public Color startingAmbientLightColour, startingAmbientEquatorColour, startingAmbientGroundColour;
     IVRInputDevice leftInput, rightInput;
     AmbientMode gradientAmbientMode;
 
@@ -167,6 +167,13 @@ public class NimiExperienceManager : MonoBehaviour
     {
         BreathingManager.instance.onBreathingFinishedEvent -= EndTutorial;
 
+        //Tutorial Environment Addons
+        /*TerrainData terrainData = treeTerrain.terrainData;
+        terrainData.wavingGrassSpeed = 0.25f;
+        treeTerrain.terrainData = terrainData;*/
+        //treeTerrain.terrainData.wavingGrassSpeed = 0.25f;
+        fallingLeaves.Play();
+
         postBreathingTutorialDialgoue.Interact();
 
         //Setup tree interaction
@@ -196,9 +203,12 @@ public class NimiExperienceManager : MonoBehaviour
         BreathingManager.instance.BeginBreathingExercise(firstPhaseDelay);
         BreathingManager.instance.onBreathingFinishedEvent += PostFirstPhaseBreathing;
     }
-    void PostFirstPhaseBreathing()
+    public void PostFirstPhaseBreathing()
     {
         BreathingManager.instance.onBreathingFinishedEvent -= PostFirstPhaseBreathing;
+
+        //Update Environment
+        EnableFirstEnvironmentAddition();
 
         //Start Dialogue
 
@@ -207,25 +217,14 @@ public class NimiExperienceManager : MonoBehaviour
 
     void EnableFirstEnvironmentAddition()
     {
-        BreathingManager.instance.onBreathingFinishedEvent -= EnableFirstEnvironmentAddition;
-
-        /*TerrainData terrainData = treeTerrain.terrainData;
-        terrainData.wavingGrassSpeed = 0.25f;
-        treeTerrain.terrainData = terrainData;*/
-        //treeTerrain.terrainData.wavingGrassSpeed = 0.25f;
         fireflies.Play();
         moonRays.Play();
-        fallingLeaves.Play();
-        iTween.AudioTo(nightAmbience.gameObject, iTween.Hash("audiosource", nightAmbience,"volume", 0.4f, "easetype", iTween.EaseType.easeInOutSine ,"time", 10f));
+        iTween.AudioTo(nightAmbience.gameObject, iTween.Hash("audiosource", nightAmbience, "volume", 0.4f, "easetype", iTween.EaseType.easeInOutSine, "time", 10f));
         RenderSettings.skybox = moonSkybox;
         RenderSettings.ambientMode = gradientAmbientMode;
         /*RenderSettings.ambientLight = startingAmbientLightColour;
         RenderSettings.ambientEquatorColor = startingAmbientEquatorColour;
         RenderSettings.ambientGroundColor = startingAmbientGroundColour;*/
-    }
-    public void UpgradeEnvironmentDebug()
-    {
-        EnableFirstEnvironmentAddition();
     }
 
     private void Update()
@@ -249,5 +248,10 @@ public class NimiExperienceManager : MonoBehaviour
 
             elapsedTime += Time.deltaTime;
         }
+    }
+
+    public void UpgradeEnvironmentDebug()
+    {
+        EnableFirstEnvironmentAddition();
     }
 }
