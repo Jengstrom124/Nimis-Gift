@@ -15,7 +15,7 @@ public class BreathingManager : MonoBehaviour
     public float firstProgressionIncrease = 2.5f;
     public float secondProgressionIncrease = 3.25f;
     public float targetDuration = 30f;
-    public float tutorialDuration, fullDuration;
+    public float tutorialDuration, firstPhaseDuration, secondPhaseDuration;
     public float delayAfterCompletingExercise = 2f;
 
     [Header("Light Config: ")]
@@ -28,7 +28,6 @@ public class BreathingManager : MonoBehaviour
     public float nimiFadeDuration = 2f;
     public GameObject uiRef;
     public Image[] breathingUIArray;
-    public Vector3[] pathPoints;
     public Image breathingUIBackdrop;
     public GameObject canvas;
 
@@ -37,11 +36,11 @@ public class BreathingManager : MonoBehaviour
     public AudioClip inhaleAudio, exhaleAudio;
 
     [Header("Debug/Refernces: ")]
-    [SerializeField] bool beginOnStart = false;
     [SerializeField] bool breathingInProgress = false;
     [SerializeField] float breathingTimer;
     [SerializeField] bool inhale, pause, exhale = false;
     [SerializeField] bool inTutorial = false;
+    bool firstPhaseSettingsComplete = false;
     Light topLight, bottomLight;
     float lightFadeDuration, topLightSV, bottomLightSV;
 
@@ -62,12 +61,6 @@ public class BreathingManager : MonoBehaviour
     {
         debugText.text = "";
 
-        if (beginOnStart)
-        {
-            canvas.SetActive(true);
-            StartCoroutine(BreathingExcerciseCoroutine());
-        }
-
         topLight = NimiExperienceManager.instance.topLight;
         bottomLight = NimiExperienceManager.instance.bottomLight;
         topLightSV = NimiExperienceManager.instance.topLightStartValue;
@@ -81,26 +74,38 @@ public class BreathingManager : MonoBehaviour
         inTutorial = true;
         targetDuration = tutorialDuration;
 
-        StartCoroutine(BreathingExcerciseCoroutine());
+        StartCoroutine(BreathingExcerciseCoroutine(0));
     }
-
-    public void BeginBreathingExercise()
+    public void BeginBreathingExercise(float delayBeforeStarting)
     {
-        if(!breathingTimersUpdated)
+        //Update Breathing Settings
+        if(!firstPhaseSettingsComplete)
         {
             inhaleTimer = firstProgressionIncrease;
             exhaleTimer = firstProgressionIncrease;
-            pauseTimer = firstProgressionIncrease;
-            targetDuration = fullDuration;
+            //pauseTimer = firstProgressionIncrease;
+            targetDuration = firstPhaseDuration;
+            firstPhaseSettingsComplete = true;
+        }
+        else
+        {
+            inhaleTimer = secondProgressionIncrease;
+            exhaleTimer = secondProgressionIncrease;
+            targetDuration = secondPhaseDuration;
         }
 
-        StartCoroutine(BreathingExcerciseCoroutine());
+        StartCoroutine(BreathingExcerciseCoroutine(delayBeforeStarting));
     }
-
-    IEnumerator BreathingExcerciseCoroutine()
+    IEnumerator BreathingExcerciseCoroutine(float delay)
     {
+        if(delay > 0)
+        {
+            yield return new WaitForSeconds(delay);
+        }
+
         onBreathingStartedEvent?.Invoke();
 
+        //Pre Tutorial has it's own sequence so this fading sequence only applies after tutorial
         if (!inTutorial)
         {
             UpdateBreathingUIState(1);
@@ -118,6 +123,7 @@ public class BreathingManager : MonoBehaviour
 
         do
         {
+            #region Inhale
             breathingAudioSource.Stop();
 
             /*if (breathingUIBackdrop.color.a == 1)
@@ -140,9 +146,11 @@ public class BreathingManager : MonoBehaviour
             MoveUIRef("x", 2.35f);
             breathingUIBackdrop.CrossFadeColor(new Color(1, 1, 1, 1), inhaleTimer, true, true);
             iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one * 1.5f, "easetype", iTween.EaseType.easeInOutSine, "time", inhaleTimer));
+            #endregion
 
             yield return new WaitForSeconds(inhaleTimer);
 
+            #region Pause/Hold
             //Pause
             elapsedTime = 0f;
             inhale = false;
@@ -150,9 +158,11 @@ public class BreathingManager : MonoBehaviour
             debugText.text = "Hold";
 
             MoveUIRef("y", -2.05f);
+            #endregion
 
             yield return new WaitForSeconds(pauseTimer);
 
+            #region Exhale
             breathingAudioSource.Stop();
 
             //Exhale
@@ -169,9 +179,11 @@ public class BreathingManager : MonoBehaviour
             MoveUIRef("x", 0f);
             breathingUIBackdrop.CrossFadeColor(new Color(1, 1, 1, 0), exhaleTimer, true, true);
             iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one, "easetype", iTween.EaseType.easeOutSine, "time", exhaleTimer));
+            #endregion
 
             yield return new WaitForSeconds(exhaleTimer);
 
+            #region Pause/Hold
             //Pause
             elapsedTime = 0f;
             pause = true;
@@ -179,6 +191,7 @@ public class BreathingManager : MonoBehaviour
             debugText.text = "Hold";
 
             MoveUIRef("y", 0);
+            #endregion
 
             yield return new WaitForSeconds(pauseTimer);
 
@@ -207,6 +220,8 @@ public class BreathingManager : MonoBehaviour
     {
         iTween.MoveTo(uiRef, iTween.Hash(axis, pos, "islocal", true, "easetype", iTween.EaseType.easeInOutSine, "time", pauseTimer));
     }
+
+    #region Fading Breathing UI
     /// <summary>
     /// This function is used to fade the breathing UI in or out.
     /// 1 = Fade in
@@ -216,12 +231,6 @@ public class BreathingManager : MonoBehaviour
     public void UpdateBreathingUIState(float alpha)
     {
         StartCoroutine(UpdateBreathingUIStateCoroutine(alpha));
-
-        /*foreach(Image image in breathingUIArray)
-        {
-            //image.DOFade(alpha, uiFadeDuration);
-            iTween.FadeTo(image.gameObject, alpha, uiFadeDuration);
-        }*/
     }
     IEnumerator UpdateBreathingUIStateCoroutine(float alpha)
     {
@@ -255,6 +264,7 @@ public class BreathingManager : MonoBehaviour
             onBreathingFinishedEvent?.Invoke();
         }
     }
+    #endregion
 
     bool breathingTimersUpdated = false;
     [SerializeField] float elapsedTime = 0f;
@@ -265,10 +275,11 @@ public class BreathingManager : MonoBehaviour
         {
             breathingTimer += Time.deltaTime;
 
-            if (!inTutorial)
+            /*if (!inTutorial)
             {
                 if (!breathingTimersUpdated)
                 {
+                    //Increase breathing progression midway through exercise (starting on next inhale)
                     if (breathingTimer > targetDuration / 2)
                     {
                         if (inhale)
@@ -280,7 +291,7 @@ public class BreathingManager : MonoBehaviour
                         }
                     }
                 }
-            }
+            }*/
 
             if(inhale)
             {
@@ -313,36 +324,9 @@ public class BreathingManager : MonoBehaviour
                 }
                 elapsedTime += Time.deltaTime;
             }
-
-
-
-            /*
-            if(inhale)
-            {
-                //xPos = Mathf.Lerp(0, 2.35f, timeElapsed / inhaleTimer);
-                //uiRef.position = new Vector3(xPos, 0f, 0f);
-                //uiRef.position = Vector3.Lerp(uiRef.position, desiredInhalePos, timeElapsed / inhaleTimer);
-                //Vector3.MoveTowards(uiRef.position, desiredInhalePos, //speed)
-            }
-            else if(exhale)
-            {
-                //xPos = Mathf.Lerp(2.35f, 0, timeElapsed / exhaleTimer);
-                //uiRef.position = new Vector3(xPos, -2.05f, 0f);
-                uiRef.position = Vector3.Lerp(uiRef.position, desiredExhalePos, timeElapsed / inhaleTimer);
-            }
-            else if(pause && wasInhale)
-            {
-                uiRef.position = new Vector3(2.35f, Mathf.Lerp(0, -2.05f, timeElapsed / inhaleTimer), 0f);
-            }
-            else
-            {
-                uiRef.position = new Vector3(Mathf.Lerp(-2.05f, 0, timeElapsed / inhaleTimer), 0f, 0f);
-            }
-
-            timeElapsed = Time.deltaTime;
-            */
         }
 
+        #region Fading Lights Before & After Breathing
         if (fadeLightsOut)
         {
             if (elapsedTime < lightFadeDuration)
@@ -374,5 +358,6 @@ public class BreathingManager : MonoBehaviour
             }
             elapsedTime += Time.deltaTime;
         }
+        #endregion
     }
 }

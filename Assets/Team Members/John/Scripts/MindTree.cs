@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿/*using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class MindTree : MonoBehaviour, IPointerClickHandler
@@ -15,4 +15,4 @@ public class MindTree : MonoBehaviour, IPointerClickHandler
         else
             Debug.Log("Interaction Unavailable");
     }
-}
+}*/

@@ -20634,10 +20634,11 @@ MonoBehaviour:
   pauseTimer: 2
   exhaleTimer: 2
   firstProgressionIncrease: 2.5
-  secondProgressionIncrease: 3
+  secondProgressionIncrease: 3.25
   targetDuration: 30
   tutorialDuration: 30
-  fullDuration: 30
+  firstPhaseDuration: 60
+  secondPhaseDuration: 90
   delayAfterCompletingExercise: 5
   desiredTopLightFadeValue: 2
   desiredBottomLightFadeValue: 1

@@ -11,7 +11,7 @@ public class BreathingManager_Editor : Editor
 
 		if (GUILayout.Button("Start Breathing Exercise"))
 		{
-			(target as BreathingManager)?.BeginBreathingExercise();
+			(target as BreathingManager)?.BeginBreathingExercise(0);
 		}
 	}
 }

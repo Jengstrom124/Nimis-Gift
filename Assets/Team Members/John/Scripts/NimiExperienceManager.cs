@@ -12,7 +12,6 @@ public class NimiExperienceManager : MonoBehaviour
     public float introDialogueDelayTime = 3f;
     public float environmentDialogueDelayTime = 2f;
     public float environmentFadeTime = 2f;
-
     public Material moonSkybox;
 
     [Header("Nimi: ")]
@@ -20,6 +19,8 @@ public class NimiExperienceManager : MonoBehaviour
     public AudioSource nimiAudioSource;
 
     [Header("Dialogue Sequences")]
+    [Tooltip("Delay before breathing Exercise starts after dialogue")]
+    public float firstPhaseDelay = 3f;
     public DialogueTrigger introDialogue, mindTreeDialogue;
     public DialogueTrigger breathingTutorialDialogue, postBreathingTutorialDialgoue;
 
@@ -35,15 +36,15 @@ public class NimiExperienceManager : MonoBehaviour
     public Light topLight, bottomLight, environmentLight;
     public float topLightStartValue, bottomLightStartValue, environmentLightStartValue;
     public Transform dialogueCanvas;
-    public bool canInteractWithTree = false;
 
     [Header("Debugs: ")]
-    public bool testFirstEnvironmentAddition = false;
+    [SerializeField] float elapsedTime = 0f;
+    [SerializeField] bool fadeLights = false;
     public Color startingAmbientLightColour, startingAmbientEquatorColour, startingAmbientGroundColour;
     IVRInputDevice leftInput, rightInput;
     AmbientMode gradientAmbientMode;
 
-    public event Action onTreeRevealEvent;
+    //public event Action onTreeRevealEvent;
 
     private void Awake()
     {
@@ -84,21 +85,15 @@ public class NimiExperienceManager : MonoBehaviour
 
         StartCoroutine(InitSequenceCoroutine());
 
-        if(testFirstEnvironmentAddition)
-        {
-            Debug.Log("Testing Environment Additions");
-            EnableFirstEnvironmentAddition();
-        }
-
-        var avatar = VRAvatar.Active;
+        /*var avatar = VRAvatar.Active;
 
         rightInput = GetInput(VRInputDeviceHand.Right);
         leftInput = GetInput(VRInputDeviceHand.Left);
         UpdateInteractableState();
 
-        BreathingManager.instance.onBreathingStartedEvent += UpdateInteractableState;
+        BreathingManager.instance.onBreathingStartedEvent += UpdateInteractableState;*/
     }
-    private IVRInputDevice GetInput(VRInputDeviceHand hand)
+    /*private IVRInputDevice GetInput(VRInputDeviceHand hand)
     {
         var device = VRDevice.Device;
         return hand == VRInputDeviceHand.Left ? device.SecondaryInputDevice : device.PrimaryInputDevice;
@@ -110,7 +105,7 @@ public class NimiExperienceManager : MonoBehaviour
         //leftInput.Pointer.Deactivate();
         //VRDevice.Device?.SecondaryInputDevice?.Pointer?.Deactivate();
         canInteractWithTree = false;
-    }
+    }*/
 
     IEnumerator InitSequenceCoroutine()
     {
@@ -129,10 +124,8 @@ public class NimiExperienceManager : MonoBehaviour
         StartCoroutine(MindTreeSequenceCoroutine());
     }
 
-    [SerializeField] bool fadeLights = false;
     IEnumerator MindTreeSequenceCoroutine()
     {
-
         yield return new WaitForSeconds(1f);
 
         //Fade Environment In
@@ -140,12 +133,13 @@ public class NimiExperienceManager : MonoBehaviour
         //onTreeRevealEvent?.Invoke();
         //iTween.FadeTo(mindTreeEnvironment, 1f, 5f);
 
-        //Begin Next Dialogue Sequence
+        //Update Dialogue Location
         dialogueCanvas.position = new Vector3(-4.45f, -3f, -2.68f);
         dialogueCanvas.rotation = Quaternion.Euler(0, -40f, 0);
 
         yield return new WaitForSeconds(environmentDialogueDelayTime);
 
+        //Begin Next Dialogue Sequence
         mindTreeDialogue.Interact();
         DialogueManager.instance.onDialogueFinishEvent += InitBreathingTutorial;
     }
@@ -154,6 +148,7 @@ public class NimiExperienceManager : MonoBehaviour
     {
         DialogueManager.instance.onDialogueFinishEvent -= InitBreathingTutorial;
 
+        //Fade in Breathing UI/Fade Out Nimi
         BreathingManager.instance.UpdateBreathingUIState(1f);
         StartCoroutine(InitTutorialDialogueCoroutine());
 
@@ -162,6 +157,7 @@ public class NimiExperienceManager : MonoBehaviour
     }
     IEnumerator InitTutorialDialogueCoroutine()
     {
+        //Wait for UI to fade in & begin next dialogue sequence
         yield return new WaitForSeconds(BreathingManager.instance.nimiFadeDuration + 2.5f);
 
         breathingTutorialDialogue.Interact();
@@ -174,13 +170,13 @@ public class NimiExperienceManager : MonoBehaviour
         postBreathingTutorialDialgoue.Interact();
 
         //Setup tree interaction
-        DialogueManager.instance.onDialogueFinishEvent += EnableTreeInteraction;
+        //DialogueManager.instance.onDialogueFinishEvent += EnableTreeInteraction;
 
-        //Fake tree interaction for now
-        //DialogueManager.instance.onDialogueFinishEvent += BeginBreathingExercisePlaceholder;
+        //Start First Phase of Breathing
+        DialogueManager.instance.onDialogueFinishEvent += BeginFirstPhasBreathingExercise;
     }
 
-    void EnableTreeInteraction()
+    /*void EnableTreeInteraction()
     {
         DialogueManager.instance.onDialogueFinishEvent -= EnableTreeInteraction;
 
@@ -191,13 +187,22 @@ public class NimiExperienceManager : MonoBehaviour
         VRDevice.Device?.SecondaryInputDevice?.Pointer?.Activate();
 
         BreathingManager.instance.onBreathingFinishedEvent += EnableFirstEnvironmentAddition;
-    }
+    }*/
 
-    void BeginBreathingExercisePlaceholder()
+    void BeginFirstPhasBreathingExercise()
     {
-        DialogueManager.instance.onDialogueFinishEvent -= BeginBreathingExercisePlaceholder;
+        DialogueManager.instance.onDialogueFinishEvent -= BeginFirstPhasBreathingExercise;
 
-        BreathingManager.instance.BeginBreathingExercise();
+        BreathingManager.instance.BeginBreathingExercise(firstPhaseDelay);
+        BreathingManager.instance.onBreathingFinishedEvent += PostFirstPhaseBreathing;
+    }
+    void PostFirstPhaseBreathing()
+    {
+        BreathingManager.instance.onBreathingFinishedEvent -= PostFirstPhaseBreathing;
+
+        //Start Dialogue
+
+        //Start new breathing after dialogue
     }
 
     void EnableFirstEnvironmentAddition()
@@ -223,7 +228,6 @@ public class NimiExperienceManager : MonoBehaviour
         EnableFirstEnvironmentAddition();
     }
 
-    [SerializeField] float elapsedTime = 0f;
     private void Update()
     {
         if(fadeLights)
@@ -245,16 +249,5 @@ public class NimiExperienceManager : MonoBehaviour
 
             elapsedTime += Time.deltaTime;
         }
-    }
-
-    //Hacking turning on & off the UI because the UI canvas are blocking the raycast/interaction from reaching the tree
-    void UpdateUIHack()
-    {
-        UIHack(false);
-    }
-    public void UIHack(bool turnUIOn)
-    {
-        dialogueCanvas.gameObject.SetActive(turnUIOn);
-        //breathingGO.SetActive(turnUIOn);
     }
 }
