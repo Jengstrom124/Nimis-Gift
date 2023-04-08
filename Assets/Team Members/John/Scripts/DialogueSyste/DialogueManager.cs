@@ -179,7 +179,7 @@ public class DialogueManager : MonoBehaviour
 		ContinueDialogue();
 	}
 
-	void EndDialogue()
+	public void EndDialogue()
     {
 		dialogueActive = false;
 		dialogueFinished = false;

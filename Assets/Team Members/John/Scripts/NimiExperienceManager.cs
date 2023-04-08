@@ -43,6 +43,7 @@ public class NimiExperienceManager : MonoBehaviour
     //public Color startingAmbientLightColour, startingAmbientEquatorColour, startingAmbientGroundColour;
     IVRInputDevice leftInput, rightInput;
     AmbientMode gradientAmbientMode;
+    bool removeThis;
 
     //public event Action onTreeRevealEvent;
 
