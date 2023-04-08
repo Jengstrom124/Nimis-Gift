@@ -143,7 +143,7 @@ public class BreathingManager : MonoBehaviour
             breathingAudioSource.Play();
 
             //Tween BreathingUI
-            MoveUIRef("x", 2.35f);
+            MoveUIRef("x", 2.35f, inhaleTimer);
             breathingUIBackdrop.CrossFadeColor(new Color(1, 1, 1, 1), inhaleTimer, true, true);
             iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one * 1.5f, "easetype", iTween.EaseType.easeInOutSine, "time", inhaleTimer));
             #endregion
@@ -157,7 +157,7 @@ public class BreathingManager : MonoBehaviour
             pause = true;
             debugText.text = "Hold";
 
-            MoveUIRef("y", -2.05f);
+            MoveUIRef("y", -2.05f, pauseTimer);
             #endregion
 
             yield return new WaitForSeconds(pauseTimer);
@@ -176,7 +176,7 @@ public class BreathingManager : MonoBehaviour
             breathingAudioSource.Play();
 
             //Tween BreathingUI
-            MoveUIRef("x", 0f);
+            MoveUIRef("x", 0f, exhaleTimer);
             breathingUIBackdrop.CrossFadeColor(new Color(1, 1, 1, 0), exhaleTimer, true, true);
             iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one, "easetype", iTween.EaseType.easeOutSine, "time", exhaleTimer));
             #endregion
@@ -190,7 +190,7 @@ public class BreathingManager : MonoBehaviour
             exhale = false;
             debugText.text = "Hold";
 
-            MoveUIRef("y", 0);
+            MoveUIRef("y", 0, pauseTimer);
             #endregion
 
             yield return new WaitForSeconds(pauseTimer);
@@ -216,9 +216,9 @@ public class BreathingManager : MonoBehaviour
         canvas.SetActive(false);
         uiRef.transform.localPosition = Vector3.zero;
     }
-    void MoveUIRef(string axis, float pos)
+    void MoveUIRef(string axis, float pos, float timer)
     {
-        iTween.MoveTo(uiRef, iTween.Hash(axis, pos, "islocal", true, "easetype", iTween.EaseType.easeInOutSine, "time", pauseTimer));
+        iTween.MoveTo(uiRef, iTween.Hash(axis, pos, "islocal", true, "easetype", iTween.EaseType.easeInOutSine, "time", timer));
     }
 
     #region Fading Breathing UI
