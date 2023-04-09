@@ -64,6 +64,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 2800000, guid: 39a00f3a4d887cc448b5d165b19938eb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -89,9 +93,11 @@ Material:
     - Vector1_9b49beae98e445ed8f4a2ea58eb68758: 0
     - Vector1_dcce7dbb5698433798c05674599c1b3a: 0
     - _BumpScale: 1
-    - _Cutoff: 0.5
+    - _Cull: 2
+    - _Cutoff: 0
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _EdgeWidth: 0.132
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
@@ -108,4 +114,5 @@ Material:
     - Color_480afc1c0c9a49c6b94f2d8e61998c21: {r: 1, g: 1, b: 1, a: 0}
     - Color_bc3f4e0f84384ce1ae8269a8f4fc029c: {r: 1, g: 1, b: 1, a: 0}
     - _Color: {r: 0.24563903, g: 0.3286964, b: 0.4528302, a: 1}
+    - _EdgeColor: {r: 1, g: 0.80864364, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
