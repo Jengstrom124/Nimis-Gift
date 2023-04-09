@@ -21,13 +21,14 @@ public class NimiExperienceManager : MonoBehaviour
     [Header("Dialogue Sequences")]
     [Tooltip("Delay before breathing Exercise starts after dialogue")]
     public float firstPhaseDelay = 3f;
+    public float postTutorialDialogueDelay = 2.5f;
     public DialogueTrigger introDialogue, mindTreeDialogue;
     public DialogueTrigger breathingTutorialDialogue, postBreathingTutorialDialgoue;
 
     [Header("Environment Additions")]
     public ParticleSystem fireflies;
     public ParticleSystem moonRays, fallingLeaves;
-    public AudioSource nightAmbience;
+    public AudioSource cricketAmbience, owlAmbiene, windAmbience;
     //public Terrain treeTerrain;
 
     [Header("Hacks")]
@@ -154,7 +155,7 @@ public class NimiExperienceManager : MonoBehaviour
         StartCoroutine(InitTutorialDialogueCoroutine());
 
         DialogueManager.instance.onDialogueFinishEvent += BreathingManager.instance.BeginBreathingExerciseTutorial;
-        BreathingManager.instance.onBreathingFinishedEvent += EndTutorial;
+        BreathingManager.instance.onBreathingFinishedEvent += PostBreathingTutorial;
     }
     IEnumerator InitTutorialDialogueCoroutine()
     {
@@ -164,39 +165,30 @@ public class NimiExperienceManager : MonoBehaviour
         breathingTutorialDialogue.Interact();
     }
 
-    void EndTutorial()
+    void PostBreathingTutorial()
     {
-        BreathingManager.instance.onBreathingFinishedEvent -= EndTutorial;
+        BreathingManager.instance.onBreathingFinishedEvent -= PostBreathingTutorial;
 
-        //Tutorial Environment Addons
+        StartCoroutine(PostBreathingTutorialCoroutine());
+    }
+    IEnumerator PostBreathingTutorialCoroutine()
+    {
+        //Post Tutorial Environment Addons
         /*TerrainData terrainData = treeTerrain.terrainData;
         terrainData.wavingGrassSpeed = 0.25f;
         treeTerrain.terrainData = terrainData;*/
         //treeTerrain.terrainData.wavingGrassSpeed = 0.25f;
         fallingLeaves.Play();
+        iTween.AudioTo(gameObject, iTween.Hash("audiosource", windAmbience, "volume", 1f, "easetype", iTween.EaseType.easeInOutSine, "time", 3f));
 
+        yield return new WaitForSeconds(postTutorialDialogueDelay);
+
+        //Start Dialogue Sequence
         postBreathingTutorialDialgoue.Interact();
 
-        //Setup tree interaction
-        //DialogueManager.instance.onDialogueFinishEvent += EnableTreeInteraction;
-
-        //Start First Phase of Breathing
+        //Init First Phase of Breathing After Dialogue
         DialogueManager.instance.onDialogueFinishEvent += BeginFirstPhasBreathingExercise;
     }
-
-    /*void EnableTreeInteraction()
-    {
-        DialogueManager.instance.onDialogueFinishEvent -= EnableTreeInteraction;
-
-        canInteractWithTree = true;
-        //UIHack(false);
-        //BreathingManager.instance.onBreathingFinishedEvent += UpdateUIHack;
-        VRDevice.Device?.PrimaryInputDevice?.Pointer?.Activate();
-        VRDevice.Device?.SecondaryInputDevice?.Pointer?.Activate();
-
-        BreathingManager.instance.onBreathingFinishedEvent += EnableFirstEnvironmentAddition;
-    }*/
-
     void BeginFirstPhasBreathingExercise()
     {
         DialogueManager.instance.onDialogueFinishEvent -= BeginFirstPhasBreathingExercise;
@@ -220,7 +212,8 @@ public class NimiExperienceManager : MonoBehaviour
     {
         fireflies.Play();
         moonRays.Play();
-        iTween.AudioTo(nightAmbience.gameObject, iTween.Hash("audiosource", nightAmbience, "volume", 0.4f, "easetype", iTween.EaseType.easeInOutSine, "time", 10f));
+        iTween.AudioTo(cricketAmbience.gameObject, iTween.Hash("audiosource", cricketAmbience, "volume", 0.25f, "easetype", iTween.EaseType.easeInOutSine, "time", 12f));
+        owlAmbiene.Play();
         RenderSettings.skybox = moonSkybox;
         RenderSettings.ambientMode = gradientAmbientMode;
         /*RenderSettings.ambientLight = startingAmbientLightColour;
