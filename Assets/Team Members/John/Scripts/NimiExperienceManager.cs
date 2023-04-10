@@ -5,6 +5,8 @@ using Liminal.SDK.VR;
 using Liminal.SDK.VR.Avatars;
 using Liminal.SDK.VR.Input;
 using UnityEngine.Rendering;
+using Liminal.SDK.Core;
+using Liminal.Core.Fader;
 
 public class NimiExperienceManager : MonoBehaviour
 {
@@ -19,11 +21,15 @@ public class NimiExperienceManager : MonoBehaviour
     public AudioSource nimiAudioSource;
 
     [Header("Dialogue Sequences")]
-    [Tooltip("Delay before breathing Exercise starts after dialogue")]
-    public float firstPhaseDelay = 3f;
     public float postTutorialDialogueDelay = 2.5f;
+    [Tooltip("Delay before breathing Exercise starts after dialogue")]
+    public float stage2ExerciseDelay = 3f;
+    public float postStage2DialogueDelay = 3f;
+    public float stage2MidDialogueDelay = 5f;
+    public float stage3AuroraSequenceDelay = 5f;
+    public float stage3MidDialogueDelay = 5f;
     public DialogueTrigger introDialogue, mindTreeDialogue;
-    public DialogueTrigger breathingTutorialDialogue, postBreathingTutorialDialgoue;
+    public DialogueTrigger breathingTutorialDialogue, postBreathingTutorialDialgoue, stage2Dialogue, stage2DialogueCont, stage3Dialogue, stage3DialogueCont, endingDialogue;
 
     [Header("Environment Additions")]
     public ParticleSystem fireflies;
@@ -81,11 +87,13 @@ public class NimiExperienceManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
         DialogueManager.instance.onDialogueFinishEvent += RevealMindTree;
 
-        StartCoroutine(InitSequenceCoroutine());
+        yield return new WaitForSeconds(introDialogueDelayTime);
+
+        introDialogue.Interact(0);
 
         /*var avatar = VRAvatar.Active;
 
@@ -108,13 +116,6 @@ public class NimiExperienceManager : MonoBehaviour
         //VRDevice.Device?.SecondaryInputDevice?.Pointer?.Deactivate();
         canInteractWithTree = false;
     }*/
-
-    IEnumerator InitSequenceCoroutine()
-    {
-        yield return new WaitForSeconds(introDialogueDelayTime);
-
-        introDialogue.Interact();
-    }
 
     void RevealMindTree()
     {
@@ -139,10 +140,10 @@ public class NimiExperienceManager : MonoBehaviour
         dialogueCanvas.position = new Vector3(-4.45f, -3f, -2.68f);
         dialogueCanvas.rotation = Quaternion.Euler(0, -40f, 0);
 
-        yield return new WaitForSeconds(environmentDialogueDelayTime);
+        //yield return new WaitForSeconds(environmentDialogueDelayTime);
 
         //Begin Next Dialogue Sequence
-        mindTreeDialogue.Interact();
+        mindTreeDialogue.Interact(environmentDialogueDelayTime);
         DialogueManager.instance.onDialogueFinishEvent += InitBreathingTutorial;
     }
 
@@ -152,27 +153,17 @@ public class NimiExperienceManager : MonoBehaviour
 
         //Fade in Breathing UI/Fade Out Nimi
         BreathingManager.instance.UpdateBreathingUIState(1f);
-        StartCoroutine(InitTutorialDialogueCoroutine());
+        //StartCoroutine(InitTutorialDialogueCoroutine());
+        breathingTutorialDialogue.Interact(BreathingManager.instance.nimiFadeDuration + 2.5f);
 
         DialogueManager.instance.onDialogueFinishEvent += BreathingManager.instance.BeginBreathingExerciseTutorial;
         BreathingManager.instance.onBreathingFinishedEvent += PostBreathingTutorial;
-    }
-    IEnumerator InitTutorialDialogueCoroutine()
-    {
-        //Wait for UI to fade in & begin next dialogue sequence
-        yield return new WaitForSeconds(BreathingManager.instance.nimiFadeDuration + 2.5f);
-
-        breathingTutorialDialogue.Interact();
     }
 
     void PostBreathingTutorial()
     {
         BreathingManager.instance.onBreathingFinishedEvent -= PostBreathingTutorial;
 
-        StartCoroutine(PostBreathingTutorialCoroutine());
-    }
-    IEnumerator PostBreathingTutorialCoroutine()
-    {
         //Post Tutorial Environment Addons
         /*TerrainData terrainData = treeTerrain.terrainData;
         terrainData.wavingGrassSpeed = 0.25f;
@@ -181,34 +172,96 @@ public class NimiExperienceManager : MonoBehaviour
         fallingLeaves.Play();
         iTween.AudioTo(gameObject, iTween.Hash("audiosource", windAmbience, "volume", 1f, "easetype", iTween.EaseType.easeInOutSine, "time", 3f));
 
-        yield return new WaitForSeconds(postTutorialDialogueDelay);
-
         //Start Dialogue Sequence
-        postBreathingTutorialDialgoue.Interact();
+        postBreathingTutorialDialgoue.Interact(postTutorialDialogueDelay);
 
         //Init First Phase of Breathing After Dialogue
-        DialogueManager.instance.onDialogueFinishEvent += BeginFirstPhasBreathingExercise;
+        DialogueManager.instance.onDialogueFinishEvent += BeginStage2BreathingExercise;
     }
-    void BeginFirstPhasBreathingExercise()
+    void BeginStage2BreathingExercise()
     {
-        DialogueManager.instance.onDialogueFinishEvent -= BeginFirstPhasBreathingExercise;
+        DialogueManager.instance.onDialogueFinishEvent -= BeginStage2BreathingExercise;
 
-        BreathingManager.instance.BeginBreathingExercise(firstPhaseDelay);
-        BreathingManager.instance.onBreathingFinishedEvent += PostFirstPhaseBreathing;
+        BreathingManager.instance.BeginBreathingExercise(stage2ExerciseDelay);
+        BreathingManager.instance.onBreathingFinishedEvent += PostStage2Breathing;
     }
-    public void PostFirstPhaseBreathing()
+    public void PostStage2Breathing()
     {
-        BreathingManager.instance.onBreathingFinishedEvent -= PostFirstPhaseBreathing;
+        BreathingManager.instance.onBreathingFinishedEvent -= PostStage2Breathing;
 
         //Update Environment
-        EnableFirstEnvironmentAddition();
+        Stage2EnvironmentUpgrade();
 
         //Start Dialogue
+        stage2Dialogue.Interact(postStage2DialogueDelay);
 
-        //Start new breathing after dialogue
+        //Continue Next Dialogue Sequence
+        DialogueManager.instance.onDialogueFinishEvent += PostStage2BreathingContinued;
+    }
+    void PostStage2BreathingContinued()
+    {
+        DialogueManager.instance.onDialogueFinishEvent -= PostStage2BreathingContinued;
+
+        //Continue Sequence
+        stage2DialogueCont.Interact(stage2MidDialogueDelay);
+        DialogueManager.instance.onDialogueFinishEvent += BeginStage3Breathing;
+    }
+    void BeginStage3Breathing()
+    {
+        DialogueManager.instance.onDialogueFinishEvent -= BeginStage3Breathing;
+
+        BreathingManager.instance.BeginBreathingExercise(1f);
+        BreathingManager.instance.onBreathingFinishedEvent += PostStage3Breathing;
+    }
+    void PostStage3Breathing()
+    {
+        BreathingManager.instance.onBreathingFinishedEvent -= PostStage3Breathing;
+
+        stage3Dialogue.Interact(1f);
+
+        DialogueManager.instance.onDialogueFinishEvent += Stage3AuroraSequence;
+    }
+    void Stage3AuroraSequence()
+    {
+        DialogueManager.instance.onDialogueFinishEvent -= Stage3AuroraSequence;
+
+        //Begin Aurora Here
+
+
+        //Dialogue
+        stage3DialogueCont.Interact(stage3AuroraSequenceDelay);
+        DialogueManager.instance.onDialogueFinishEvent += EndingSequence;
+    }
+    void EndingSequence()
+    {
+        DialogueManager.instance.onDialogueFinishEvent -= EndingSequence;
+        endingDialogue.Interact(stage3MidDialogueDelay);
+
+        //End Experience Here
+        StartCoroutine(FadeAndExit(2f));
+    }
+    // This coroutine fades the camera and audio simultaneously over the same length of time.
+    IEnumerator FadeAndExit(float fadeTime)
+    {
+        var elapsedTime = 0f; //instantiate a float with a value of 0 for use as a timer.
+        var startingVolume = AudioListener.volume; //this gets the current volume of the audio listener so that we can fade it to 0 over time.
+
+        ScreenFader.Instance.FadeTo(Color.black, fadeTime); // Tell the system to fade the camera to black over X seconds where X is the value of fadeTime.
+
+        while (elapsedTime < fadeTime)
+        {
+            elapsedTime += Time.deltaTime; // Count up
+            AudioListener.volume = Mathf.Lerp(startingVolume, 0f, elapsedTime / fadeTime); // This uses linear interpolation to change the volume of AudioListener over time.
+            yield return new WaitForEndOfFrame(); // Tell the coroutine to wait for a frame to avoid completing this loop in a single frame.
+        }
+
+        // when the while-loop has ended, the audiolistener volume should be 0 and the screen completely black. However, for safety's sake, we should manually set AudioListener volume to 0.
+        AudioListener.volume = 0f;
+
+        ExperienceApp.End(); // This tells the platform to exit the experience.
     }
 
-    void EnableFirstEnvironmentAddition()
+    void Stage2EnvironmentUpgrade()
     {
         fireflies.Play();
         moonRays.Play();
@@ -246,6 +299,6 @@ public class NimiExperienceManager : MonoBehaviour
 
     public void UpgradeEnvironmentDebug()
     {
-        EnableFirstEnvironmentAddition();
+        Stage2EnvironmentUpgrade();
     }
 }

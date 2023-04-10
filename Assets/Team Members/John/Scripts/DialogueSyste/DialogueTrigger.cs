@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,24 +40,18 @@ public class DialogueTrigger : MonoBehaviour
 
     int index = 0;
 
-    public void Interact()
+    public void Interact(float delay)
     {
-        if(!stopTriggerAfterDialogue)
+        StartCoroutine(InteractCoroutine(delay));
+    }
+    IEnumerator InteractCoroutine(float delay)
+    {
+        if(delay > 0)
         {
-            StartDialogue();
+            yield return new WaitForSeconds(delay);
         }
-        else
-        {
-            if (dialogueLaunched)
-                return;
-            else
-            {
-                dialogueLaunched = true;
 
-                StartDialogue();
-            }
-        }
-        
+        StartDialogue();
     }
     void StartDialogue()
     {

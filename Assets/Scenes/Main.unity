@@ -9911,6 +9911,69 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 141072767}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &207193254
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 207193255}
+  - component: {fileID: 207193256}
+  m_Layer: 0
+  m_Name: Stage3DialogueContinued
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &207193255
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207193254}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1293813355}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &207193256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207193254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6ab2b1d0ceddd34e8014715e6c7b1c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerDialogueFinisedEvent: 1
+  triggerDialogueStartedEvent: 0
+  multipleDialogueEntries: 0
+  repeatDialogueEntries: 0
+  stopTriggerAfterDialogue: 0
+  triggerOnAwake: 0
+  triggerOnEnableUsingTimeline: 0
+  useTriggerBox: 0
+  diagloueEntries:
+  - dialogue: "Incredible\u2026 your calming energy has transformed the Mind Realm\u2026"
+    useCustomDialogueSpeed: 0
+    customDelayTime: 0
+    customAudioSFX: {fileID: 0}
+    oneOffCustomSFX: {fileID: 0}
+  - dialogue: "This place sings in harmony, thanks to the life you breathe into it.\r\n"
+    useCustomDialogueSpeed: 0
+    customDelayTime: 0
+    customAudioSFX: {fileID: 0}
+    oneOffCustomSFX: {fileID: 0}
+  myDialogueEntries: []
 --- !u!1 &332038650
 GameObject:
   m_ObjectHideFlags: 0
@@ -10515,6 +10578,74 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &603389724
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 603389725}
+  - component: {fileID: 603389726}
+  m_Layer: 0
+  m_Name: Stage2DialogueContinued
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &603389725
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603389724}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1293813355}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &603389726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603389724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6ab2b1d0ceddd34e8014715e6c7b1c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerDialogueFinisedEvent: 1
+  triggerDialogueStartedEvent: 0
+  multipleDialogueEntries: 0
+  repeatDialogueEntries: 0
+  stopTriggerAfterDialogue: 0
+  triggerOnAwake: 0
+  triggerOnEnableUsingTimeline: 0
+  useTriggerBox: 0
+  diagloueEntries:
+  - dialogue: I think you are ready.
+    useCustomDialogueSpeed: 0
+    customDelayTime: 0
+    customAudioSFX: {fileID: 0}
+    oneOffCustomSFX: {fileID: 0}
+  - dialogue: I sense even more potential in you.
+    useCustomDialogueSpeed: 0
+    customDelayTime: 0
+    customAudioSFX: {fileID: 0}
+    oneOffCustomSFX: {fileID: 0}
+  - dialogue: "Let\u2019s breathe together one more time."
+    useCustomDialogueSpeed: 0
+    customDelayTime: 0
+    customAudioSFX: {fileID: 0}
+    oneOffCustomSFX: {fileID: 0}
+  myDialogueEntries: []
 --- !u!1 &621161875
 GameObject:
   m_ObjectHideFlags: 0
@@ -20569,6 +20700,64 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &960491127
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 960491128}
+  - component: {fileID: 960491129}
+  m_Layer: 0
+  m_Name: Stage3Dialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &960491128
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960491127}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1293813355}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &960491129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960491127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6ab2b1d0ceddd34e8014715e6c7b1c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerDialogueFinisedEvent: 1
+  triggerDialogueStartedEvent: 0
+  multipleDialogueEntries: 0
+  repeatDialogueEntries: 0
+  stopTriggerAfterDialogue: 0
+  triggerOnAwake: 0
+  triggerOnEnableUsingTimeline: 0
+  useTriggerBox: 0
+  diagloueEntries:
+  - dialogue: Look above...
+    useCustomDialogueSpeed: 0
+    customDelayTime: 0
+    customAudioSFX: {fileID: 0}
+    oneOffCustomSFX: {fileID: 0}
+  myDialogueEntries: []
 --- !u!1 &996806824
 GameObject:
   m_ObjectHideFlags: 0
@@ -21440,6 +21629,11 @@ Transform:
   - {fileID: 1757329321}
   - {fileID: 13222293}
   - {fileID: 1569109569}
+  - {fileID: 1874827689}
+  - {fileID: 603389725}
+  - {fileID: 960491128}
+  - {fileID: 207193255}
+  - {fileID: 1475540072}
   m_Father: {fileID: 1634877052}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -21587,6 +21781,80 @@ Transform:
   m_Father: {fileID: 1676988090}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1475540071
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1475540072}
+  - component: {fileID: 1475540073}
+  m_Layer: 0
+  m_Name: EndingDialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1475540072
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1475540071}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1293813355}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1475540073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1475540071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6ab2b1d0ceddd34e8014715e6c7b1c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerDialogueFinisedEvent: 1
+  triggerDialogueStartedEvent: 0
+  multipleDialogueEntries: 0
+  repeatDialogueEntries: 0
+  stopTriggerAfterDialogue: 0
+  triggerOnAwake: 0
+  triggerOnEnableUsingTimeline: 0
+  useTriggerBox: 0
+  diagloueEntries:
+  - dialogue: "Your calming energy, it\u2019s powerful, I sense you\u2019ve reached
+      a pure calm state."
+    useCustomDialogueSpeed: 0
+    customDelayTime: 0
+    customAudioSFX: {fileID: 0}
+    oneOffCustomSFX: {fileID: 0}
+  - dialogue: "The mind realm truly reflects peace.\r\n"
+    useCustomDialogueSpeed: 0
+    customDelayTime: 0
+    customAudioSFX: {fileID: 0}
+    oneOffCustomSFX: {fileID: 0}
+  - dialogue: If you ever long for peace, the mind realm will always be here for you.
+    useCustomDialogueSpeed: 0
+    customDelayTime: 0
+    customAudioSFX: {fileID: 0}
+    oneOffCustomSFX: {fileID: 0}
+  - dialogue: "Till we meet again\u2026"
+    useCustomDialogueSpeed: 0
+    customDelayTime: 0
+    customAudioSFX: {fileID: 0}
+    oneOffCustomSFX: {fileID: 0}
+  myDialogueEntries: []
 --- !u!1 &1492528390
 GameObject:
   m_ObjectHideFlags: 0
@@ -22014,18 +22282,23 @@ MonoBehaviour:
   triggerOnEnableUsingTimeline: 0
   useTriggerBox: 0
   diagloueEntries:
-  - dialogue: You did wonderful, I can already sense calming energy
+  - dialogue: You did wonderful, I can already sense calming energy.
+    useCustomDialogueSpeed: 0
+    customDelayTime: 0
+    customAudioSFX: {fileID: 0}
+    oneOffCustomSFX: {fileID: 0}
+  - dialogue: The tree is beginning to change.
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
   - dialogue: Continue feeding the tree nutrients to see it flourish, and be rewarded
-      with peace
+      with peace.
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
-  - dialogue: When you are ready, interact with the tree to breathe life into it.
+  - dialogue: "Let\u2019s try again\u2026"
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
@@ -22629,12 +22902,21 @@ MonoBehaviour:
   moonSkybox: {fileID: 2100000, guid: 8d5ea6ed8fe559345b42df250a255b5b, type: 2}
   nimiAnimator: {fileID: 1393262482}
   nimiAudioSource: {fileID: 2073536211}
-  firstPhaseDelay: 3
   postTutorialDialogueDelay: 2.5
+  stage2ExerciseDelay: 3
+  postStage2DialogueDelay: 3
+  stage2MidDialogueDelay: 5
+  stage3AuroraSequenceDelay: 5
+  stage3MidDialogueDelay: 5
   introDialogue: {fileID: 1627056135}
   mindTreeDialogue: {fileID: 1757329322}
   breathingTutorialDialogue: {fileID: 13222294}
   postBreathingTutorialDialgoue: {fileID: 1569109570}
+  stage2Dialogue: {fileID: 1874827690}
+  stage2DialogueCont: {fileID: 603389726}
+  stage3Dialogue: {fileID: 960491129}
+  stage3DialogueCont: {fileID: 207193256}
+  endingDialogue: {fileID: 1475540073}
   fireflies: {fileID: 6444636}
   moonRays: {fileID: 713020379}
   fallingLeaves: {fileID: 7111385184531911599}
@@ -22721,6 +23003,79 @@ MonoBehaviour:
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
   - dialogue: Allow me to show you...
+    useCustomDialogueSpeed: 0
+    customDelayTime: 0
+    customAudioSFX: {fileID: 0}
+    oneOffCustomSFX: {fileID: 0}
+  myDialogueEntries: []
+--- !u!1 &1874827688
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1874827689}
+  - component: {fileID: 1874827690}
+  m_Layer: 0
+  m_Name: Stage2Dialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1874827689
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1874827688}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1293813355}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1874827690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1874827688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6ab2b1d0ceddd34e8014715e6c7b1c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerDialogueFinisedEvent: 1
+  triggerDialogueStartedEvent: 0
+  multipleDialogueEntries: 0
+  repeatDialogueEntries: 0
+  stopTriggerAfterDialogue: 0
+  triggerOnAwake: 0
+  triggerOnEnableUsingTimeline: 0
+  useTriggerBox: 0
+  diagloueEntries:
+  - dialogue: "How soothing\u2026 look at how the tree thrives."
+    useCustomDialogueSpeed: 0
+    customDelayTime: 0
+    customAudioSFX: {fileID: 0}
+    oneOffCustomSFX: {fileID: 0}
+  - dialogue: Can you hear the crickets? The owl?
+    useCustomDialogueSpeed: 0
+    customDelayTime: 0
+    customAudioSFX: {fileID: 0}
+    oneOffCustomSFX: {fileID: 0}
+  - dialogue: Your calming aura unites the ecosystem the Mind Tree resides in.
+    useCustomDialogueSpeed: 0
+    customDelayTime: 0
+    customAudioSFX: {fileID: 0}
+    oneOffCustomSFX: {fileID: 0}
+  - dialogue: Take a second to be present in the environment around you.
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}

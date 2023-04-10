@@ -16,7 +16,7 @@ public class NimiExperienenceManager_Editor : Editor
 
 		if (GUILayout.Button("Upgrade Phase 1 Environment Sequence Debug"))
 		{
-			(target as NimiExperienceManager)?.PostFirstPhaseBreathing();
+			(target as NimiExperienceManager)?.PostStage2Breathing();
 		}
 	}
 }
