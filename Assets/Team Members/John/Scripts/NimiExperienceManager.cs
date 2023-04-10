@@ -236,7 +236,7 @@ public class NimiExperienceManager : MonoBehaviour
     }
     IEnumerator Stage3AuroraSequenceCoroutine()
     {
-        yield return new WaitForSeconds(4.5f);
+        yield return new WaitForSeconds(5f);
 
         //DialogueManager.instance.onDialogueFinishEvent -= Stage3AuroraSequence;
 
@@ -245,8 +245,10 @@ public class NimiExperienceManager : MonoBehaviour
         auroraAudioSource.Play();
         iTween.AudioTo(gameObject, iTween.Hash("audiosource", auroraAudioSource, "volume", 0.25f, "easetype", iTween.EaseType.easeInOutSine, "time", 7.5f));
 
+        yield return new WaitForSeconds(stage3AuroraSequenceDelay);
+
         //Dialogue
-        stage3DialogueCont.Interact(stage3AuroraSequenceDelay);
+        stage3DialogueCont.Interact(0);
         DialogueManager.instance.onDialogueFinishEvent += EndingSequence;
     }
     void EndingSequence()

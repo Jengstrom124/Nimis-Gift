@@ -9963,14 +9963,14 @@ MonoBehaviour:
   triggerOnEnableUsingTimeline: 0
   useTriggerBox: 0
   diagloueEntries:
-  - dialogue: "Incredible\u2026 your calming energy has transformed the Mind Realm\u2026"
-    useCustomDialogueSpeed: 0
-    customDelayTime: 0
+  - dialogue: "Incredible\u2026 your calming energy has transformed the Mind Realm."
+    useCustomDialogueSpeed: 1
+    customDelayTime: 7.5
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
   - dialogue: "This place sings in harmony, thanks to the life you breathe into it.\r\n"
-    useCustomDialogueSpeed: 0
-    customDelayTime: 0
+    useCustomDialogueSpeed: 1
+    customDelayTime: 6
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
   myDialogueEntries: []
@@ -10630,17 +10630,7 @@ MonoBehaviour:
   triggerOnEnableUsingTimeline: 0
   useTriggerBox: 0
   diagloueEntries:
-  - dialogue: I think you are ready.
-    useCustomDialogueSpeed: 0
-    customDelayTime: 0
-    customAudioSFX: {fileID: 0}
-    oneOffCustomSFX: {fileID: 0}
-  - dialogue: I sense even more potential in you.
-    useCustomDialogueSpeed: 0
-    customDelayTime: 0
-    customAudioSFX: {fileID: 0}
-    oneOffCustomSFX: {fileID: 0}
-  - dialogue: "Let\u2019s breathe together one more time."
+  - dialogue: Shall we breathe again? I sense even more potential in you...
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
@@ -21963,8 +21953,8 @@ MonoBehaviour:
   diagloueEntries:
   - dialogue: "Your calming energy, it\u2019s powerful, I sense you\u2019ve reached
       a pure calm state."
-    useCustomDialogueSpeed: 0
-    customDelayTime: 0
+    useCustomDialogueSpeed: 1
+    customDelayTime: 6
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
   - dialogue: "The mind realm truly reflects peace.\r\n"
@@ -22422,8 +22412,8 @@ MonoBehaviour:
     oneOffCustomSFX: {fileID: 0}
   - dialogue: Continue feeding the tree nutrients to see it flourish, and be rewarded
       with peace.
-    useCustomDialogueSpeed: 0
-    customDelayTime: 0
+    useCustomDialogueSpeed: 1
+    customDelayTime: 5
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
   - dialogue: "Let\u2019s try again\u2026"
@@ -23035,8 +23025,8 @@ MonoBehaviour:
   stage2ExerciseDelay: 3
   postStage2DialogueDelay: 7.5
   stage2MidDialogueDelay: 12
-  stage3AuroraSequenceDelay: 20
-  stage3MidDialogueDelay: 5
+  stage3AuroraSequenceDelay: 25
+  stage3MidDialogueDelay: 10
   introDialogue: {fileID: 1627056135}
   mindTreeDialogue: {fileID: 1757329322}
   breathingTutorialDialogue: {fileID: 13222294}
@@ -23117,14 +23107,14 @@ MonoBehaviour:
   useTriggerBox: 0
   diagloueEntries:
   - dialogue: "This is the Mind Tree, it reflects the state of one\u2019s soul."
-    useCustomDialogueSpeed: 0
-    customDelayTime: 0
+    useCustomDialogueSpeed: 1
+    customDelayTime: 5.5
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
   - dialogue: By bringing peace to your mind, you feed the tree nutrients, letting
       it flourish.
-    useCustomDialogueSpeed: 0
-    customDelayTime: 0
+    useCustomDialogueSpeed: 1
+    customDelayTime: 5
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
   - dialogue: You can do this by breathing life into it.
