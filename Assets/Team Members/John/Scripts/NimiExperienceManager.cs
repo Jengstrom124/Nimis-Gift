@@ -14,7 +14,7 @@ public class NimiExperienceManager : MonoBehaviour
     public float introDialogueDelayTime = 3f;
     public float environmentDialogueDelayTime = 2f;
     public float environmentFadeTime = 2f;
-    public Material moonSkybox;
+    public Material moonSkybox, auroraSkybox;
 
     [Header("Nimi: ")]
     public Animator nimiAnimator;
@@ -34,7 +34,7 @@ public class NimiExperienceManager : MonoBehaviour
     [Header("Environment Additions")]
     public ParticleSystem fireflies;
     public ParticleSystem moonRays, fallingLeaves;
-    public AudioSource cricketAmbience, owlAmbiene, windAmbience;
+    public AudioSource cricketAmbience, owlAmbiene, windAmbience, auroraAudioSource;
     //public Terrain treeTerrain;
 
     [Header("Hacks")]
@@ -198,6 +198,18 @@ public class NimiExperienceManager : MonoBehaviour
         //Continue Next Dialogue Sequence
         DialogueManager.instance.onDialogueFinishEvent += PostStage2BreathingContinued;
     }
+    void Stage2EnvironmentUpgrade()
+    {
+        fireflies.Play();
+        moonRays.Play();
+        iTween.AudioTo(cricketAmbience.gameObject, iTween.Hash("audiosource", cricketAmbience, "volume", 0.25f, "easetype", iTween.EaseType.easeInOutSine, "time", 12f));
+        owlAmbiene.Play();
+        RenderSettings.skybox = moonSkybox;
+        RenderSettings.ambientMode = gradientAmbientMode;
+        /*RenderSettings.ambientLight = startingAmbientLightColour;
+        RenderSettings.ambientEquatorColor = startingAmbientEquatorColour;
+        RenderSettings.ambientGroundColor = startingAmbientGroundColour;*/
+    }
     void PostStage2BreathingContinued()
     {
         DialogueManager.instance.onDialogueFinishEvent -= PostStage2BreathingContinued;
@@ -218,15 +230,20 @@ public class NimiExperienceManager : MonoBehaviour
         BreathingManager.instance.onBreathingFinishedEvent -= PostStage3Breathing;
 
         stage3Dialogue.Interact(1f);
+        StartCoroutine(Stage3AuroraSequenceCoroutine());
 
-        DialogueManager.instance.onDialogueFinishEvent += Stage3AuroraSequence;
+        //DialogueManager.instance.onDialogueFinishEvent += Stage3AuroraSequence;
     }
-    void Stage3AuroraSequence()
+    IEnumerator Stage3AuroraSequenceCoroutine()
     {
-        DialogueManager.instance.onDialogueFinishEvent -= Stage3AuroraSequence;
+        yield return new WaitForSeconds(4.5f);
+
+        //DialogueManager.instance.onDialogueFinishEvent -= Stage3AuroraSequence;
 
         //Begin Aurora Here
-
+        RenderSettings.skybox = auroraSkybox;
+        auroraAudioSource.Play();
+        iTween.AudioTo(gameObject, iTween.Hash("audiosource", auroraAudioSource, "volume", 0.25f, "easetype", iTween.EaseType.easeInOutSine, "time", 7.5f));
 
         //Dialogue
         stage3DialogueCont.Interact(stage3AuroraSequenceDelay);
@@ -237,12 +254,21 @@ public class NimiExperienceManager : MonoBehaviour
         DialogueManager.instance.onDialogueFinishEvent -= EndingSequence;
         endingDialogue.Interact(stage3MidDialogueDelay);
 
+        //End Experience after Dialogue
+        DialogueManager.instance.onDialogueFinishEvent += EndExperience;
+    }
+    void EndExperience()
+    {
+        DialogueManager.instance.onDialogueFinishEvent -= EndExperience;
+
         //End Experience Here
-        StartCoroutine(FadeAndExit(2f));
+        StartCoroutine(FadeAndExit(5f));
     }
     // This coroutine fades the camera and audio simultaneously over the same length of time.
     IEnumerator FadeAndExit(float fadeTime)
     {
+        yield return new WaitForSeconds(1f);
+
         var elapsedTime = 0f; //instantiate a float with a value of 0 for use as a timer.
         var startingVolume = AudioListener.volume; //this gets the current volume of the audio listener so that we can fade it to 0 over time.
 
@@ -259,19 +285,6 @@ public class NimiExperienceManager : MonoBehaviour
         AudioListener.volume = 0f;
 
         ExperienceApp.End(); // This tells the platform to exit the experience.
-    }
-
-    void Stage2EnvironmentUpgrade()
-    {
-        fireflies.Play();
-        moonRays.Play();
-        iTween.AudioTo(cricketAmbience.gameObject, iTween.Hash("audiosource", cricketAmbience, "volume", 0.25f, "easetype", iTween.EaseType.easeInOutSine, "time", 12f));
-        owlAmbiene.Play();
-        RenderSettings.skybox = moonSkybox;
-        RenderSettings.ambientMode = gradientAmbientMode;
-        /*RenderSettings.ambientLight = startingAmbientLightColour;
-        RenderSettings.ambientEquatorColor = startingAmbientEquatorColour;
-        RenderSettings.ambientGroundColor = startingAmbientGroundColour;*/
     }
 
     private void Update()
