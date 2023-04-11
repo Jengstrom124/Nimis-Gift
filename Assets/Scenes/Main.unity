@@ -10435,9 +10435,9 @@ MonoBehaviour:
   dialogueSpeed: 4.5
   dialogueFadeOutSpeed: 3
   dialogueFadeInSpeed: 3
-  defaultDialogueVolume: 0.4
+  defaultDialogueVolume: 0.325
   usePitchVariation: 1
-  volumeRandomisationRange: {x: 0.3, y: 0.4}
+  volumeRandomisationRange: {x: 0.25, y: 0.325}
   pitchChangeMultiplier: 0.1
   sfxDelay: 0.015
   specialCharacterDelay: 0.015
@@ -20999,7 +20999,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.2
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0

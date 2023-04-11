@@ -202,7 +202,7 @@ public class NimiExperienceManager : MonoBehaviour
     {
         fireflies.Play();
         moonRays.Play();
-        iTween.AudioTo(cricketAmbience.gameObject, iTween.Hash("audiosource", cricketAmbience, "volume", 0.25f, "easetype", iTween.EaseType.easeInOutSine, "time", 12f));
+        iTween.AudioTo(cricketAmbience.gameObject, iTween.Hash("audiosource", cricketAmbience, "volume", 0.2f, "easetype", iTween.EaseType.easeInOutSine, "time", 12f));
         owlAmbiene.Play();
         RenderSettings.skybox = moonSkybox;
         RenderSettings.ambientMode = gradientAmbientMode;
@@ -243,7 +243,7 @@ public class NimiExperienceManager : MonoBehaviour
         //Begin Aurora Here
         RenderSettings.skybox = auroraSkybox;
         auroraAudioSource.Play();
-        iTween.AudioTo(gameObject, iTween.Hash("audiosource", auroraAudioSource, "volume", 0.25f, "easetype", iTween.EaseType.easeInOutSine, "time", 7.5f));
+        iTween.AudioTo(gameObject, iTween.Hash("audiosource", auroraAudioSource, "volume", 0.2f, "easetype", iTween.EaseType.easeInOutSine, "time", 6f));
 
         yield return new WaitForSeconds(stage3AuroraSequenceDelay);
 
