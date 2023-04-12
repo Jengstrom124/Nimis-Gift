@@ -4,9 +4,10 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Aurora_2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Aurora_1
   m_Shader: {fileID: 4800000, guid: fc5776d3010696c40b14d41a62c07b7a, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -23,25 +24,25 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _ColorSlider: 0.54
+    - _ColorSlider: 0.86
     - _Emissive_Strength: 1.5
-    - _Indentation_Add: 0.9
-    - _Indentations_SPD_U: -0.03
+    - _Indentation_Add: 0.81
+    - _Indentations_SPD_U: -0.005
     - _Indentations_SPD_V: 0
     - _Indentations_Tile_V: 1
-    - _Lines_SPD_U: -0.02
+    - _Lines_SPD_U: -0.01
     - _Lines_SPD_V: 0
-    - _Lines_Strength: 5
-    - _Lines_Tile_U: 2
+    - _Lines_Strength: 3.5
+    - _Lines_Tile_U: 5
     - _Lines_Tile_V: 1
-    - _VO_SPD_U: -0.008
+    - _VO_SPD_U: -0.022
     - _VO_SPD_U_copy: 0.1
     - _VO_SPD_V: 0
     - _VO_SPD_V_copy: 0
-    - _VO_Strength: 0.018
+    - _VO_Strength: 0.025
     - _VO_Tile_U: 1.85
     - _VO_Tile_V: 1
     - _indentations_Tile_U: 3
     m_Colors:
-    - _Color_1: {r: 0.014705896, g: 0.021500973, b: 1, a: 1}
-    - _Color_2: {r: 1, g: 0.50425965, b: 0.2352941, a: 1}
+    - _Color_1: {r: 0.4815937, g: 0.6603774, b: 0.2834639, a: 1}
+    - _Color_2: {r: 0.18560876, g: 0.9150943, b: 0.5847034, a: 1}

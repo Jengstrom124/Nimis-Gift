@@ -35,6 +35,7 @@ public class NimiExperienceManager : MonoBehaviour
     public ParticleSystem fireflies;
     public ParticleSystem moonRays, fallingLeaves;
     public AudioSource cricketAmbience, owlAmbiene, windAmbience, auroraAudioSource;
+    public GameObject aurora;
     //public Terrain treeTerrain;
 
     [Header("Hacks")]
@@ -50,7 +51,6 @@ public class NimiExperienceManager : MonoBehaviour
     //public Color startingAmbientLightColour, startingAmbientEquatorColour, startingAmbientGroundColour;
     IVRInputDevice leftInput, rightInput;
     AmbientMode gradientAmbientMode;
-    bool removeThis;
 
     //public event Action onTreeRevealEvent;
 
@@ -231,17 +231,13 @@ public class NimiExperienceManager : MonoBehaviour
 
         stage3Dialogue.Interact(1f);
         StartCoroutine(Stage3AuroraSequenceCoroutine());
-
-        //DialogueManager.instance.onDialogueFinishEvent += Stage3AuroraSequence;
     }
     IEnumerator Stage3AuroraSequenceCoroutine()
     {
         yield return new WaitForSeconds(5f);
 
-        //DialogueManager.instance.onDialogueFinishEvent -= Stage3AuroraSequence;
-
         //Begin Aurora Here
-        RenderSettings.skybox = auroraSkybox;
+        aurora.SetActive(true);
         auroraAudioSource.Play();
         iTween.AudioTo(gameObject, iTween.Hash("audiosource", auroraAudioSource, "volume", 0.2f, "easetype", iTween.EaseType.easeInOutSine, "time", 6f));
 
