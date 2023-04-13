@@ -251,6 +251,10 @@ public class NimiExperienceManager : MonoBehaviour
         //End Experience after Dialogue
         DialogueManager.instance.onDialogueFinishEvent += EndExperience;
     }
+    public void PlayNimiExitAnimation()
+    {
+        nimiAnimator.SetTrigger("OnExperienceEnd");
+    }
     void EndExperience()
     {
         DialogueManager.instance.onDialogueFinishEvent -= EndExperience;
@@ -261,7 +265,7 @@ public class NimiExperienceManager : MonoBehaviour
     // This coroutine fades the camera and audio simultaneously over the same length of time.
     IEnumerator FadeAndExit(float fadeTime)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(10f);
 
         var elapsedTime = 0f; //instantiate a float with a value of 0 for use as a timer.
         var startingVolume = AudioListener.volume; //this gets the current volume of the audio listener so that we can fade it to 0 over time.

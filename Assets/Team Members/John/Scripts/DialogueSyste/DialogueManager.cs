@@ -127,6 +127,11 @@ public class DialogueManager : MonoBehaviour
 
 		dialogueAudioSource.clip = dialogueAudioClips[Random.Range(0, dialogueAudioClips.Length - 1)];
 
+		if(currentDialogueEntries[index].endingDialogueHack)
+        {
+			NimiExperienceManager.instance.PlayNimiExitAnimation();
+        }
+
 		yield return new WaitForSeconds(0.15f);
 
 		dialogueText.text = currentDialogue;

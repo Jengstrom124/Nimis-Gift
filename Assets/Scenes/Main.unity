@@ -4938,6 +4938,7 @@ MonoBehaviour:
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   myDialogueEntries: []
 --- !u!1001 &51483714
 PrefabInstance:
@@ -10059,11 +10060,13 @@ MonoBehaviour:
     customDelayTime: 7.5
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   - dialogue: "This place sings in harmony, thanks to the life you breathe into it.\r\n"
     useCustomDialogueSpeed: 1
     customDelayTime: 6
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   myDialogueEntries: []
 --- !u!1 &332038650
 GameObject:
@@ -10644,6 +10647,133 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: e450f67e66020794c849366a2f284c51, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a1b9309aa193e74abeb6b852b2929c2, type: 3}
+--- !u!1 &596159022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 596159024}
+  - component: {fileID: 596159023}
+  m_Layer: 0
+  m_Name: FluteAmbience
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &596159023
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 596159022}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: e1aab96afae54c246ba3bbe516ec121f, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &596159024
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 596159022}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1421335530}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &603389724
 GameObject:
   m_ObjectHideFlags: 0
@@ -10701,6 +10831,7 @@ MonoBehaviour:
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   myDialogueEntries: []
 --- !u!1 &621161875
 GameObject:
@@ -15732,6 +15863,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 764462982}
   m_CullTransparentMesh: 0
+--- !u!1 &816653419 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6753770467146001379, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2073536210}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &901313917
 GameObject:
   m_ObjectHideFlags: 0
@@ -20609,7 +20746,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1421335530}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &914817516
 GameObject:
@@ -20787,6 +20924,7 @@ MonoBehaviour:
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   myDialogueEntries: []
 --- !u!1 &996806824
 GameObject:
@@ -21008,6 +21146,7 @@ MonoBehaviour:
   inTutorial: 0
   debugText: {fileID: 1529246020}
   nimi: {fileID: 1393262480}
+  nimiParticles: {fileID: 816653419}
   postBreathingParticles: {fileID: 82267385}
   elapsedTime: 0
   fadeLightsOut: 0
@@ -21460,7 +21599,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1421335530}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1263543361
 AudioSource:
@@ -21683,7 +21822,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1421335530}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1293813354
 GameObject:
@@ -21810,8 +21949,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1367112389}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.670349, y: -6.630005, z: -2.0640182}
-  m_LocalScale: {x: 25, y: 1, z: 25}
+  m_LocalPosition: {x: -4.670349, y: -6.630005, z: -22.6}
+  m_LocalScale: {x: 25, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 646888768}
   m_RootOrder: 0
@@ -21862,6 +22001,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1492528391}
+  - {fileID: 596159024}
   - {fileID: 907414568}
   - {fileID: 1656854836}
   - {fileID: 1263543360}
@@ -21927,21 +22067,25 @@ MonoBehaviour:
     customDelayTime: 6
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   - dialogue: "The mind realm truly reflects peace.\r\n"
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   - dialogue: If you ever long for peace, the mind realm will always be here for you.
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   - dialogue: "Till we meet again\u2026"
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 1
   myDialogueEntries: []
 --- !u!1 &1492528390
 GameObject:
@@ -21984,7 +22128,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f4522d9326766224eb4a03b694b346bf, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 4c25761cad2c42845ab68344379ab07f, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -22381,22 +22525,26 @@ MonoBehaviour:
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   - dialogue: The tree is beginning to change.
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   - dialogue: Continue feeding the tree nutrients to see it flourish, and be rewarded
       with peace.
     useCustomDialogueSpeed: 1
     customDelayTime: 5
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   - dialogue: "Let\u2019s try again\u2026"
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   myDialogueEntries: []
 --- !u!1 &1613387777
 GameObject:
@@ -22606,26 +22754,31 @@ MonoBehaviour:
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   - dialogue: I am Nimi, the spirit of Peace.
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   - dialogue: Welcome to the Mind Realm.
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   - dialogue: I sense you are here for calming.
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   - dialogue: "Allow me to offer you a gift\u2026\r"
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   myDialogueEntries: []
 --- !u!4 &1627056136
 Transform:
@@ -22802,7 +22955,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1421335530}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1656854837
 AudioSource:
@@ -23019,7 +23172,8 @@ MonoBehaviour:
   owlAmbiene: {fileID: 1263543361}
   windAmbience: {fileID: 907414567}
   auroraAudioSource: {fileID: 1290928245}
-  aurora: {fileID: 0}
+  windFlutesAmbience: {fileID: 596159023}
+  aurora: {fileID: 1191523667}
   mindTreeEnvironment: {fileID: 621161875}
   environmentLights: {fileID: 107688146}
   topLight: {fileID: 1613387779}
@@ -23088,22 +23242,26 @@ MonoBehaviour:
     customDelayTime: 5.5
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   - dialogue: By bringing peace to your mind, you feed the tree nutrients, letting
       it flourish.
     useCustomDialogueSpeed: 1
     customDelayTime: 5
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   - dialogue: You can do this by breathing life into it.
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   - dialogue: Allow me to show you...
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   myDialogueEntries: []
 --- !u!1 &1874827688
 GameObject:
@@ -23162,21 +23320,25 @@ MonoBehaviour:
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   - dialogue: Can you hear the crickets? The owl?
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   - dialogue: Your calming aura unites the ecosystem the Mind Tree resides in.
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   - dialogue: Take a second to be present in the environment around you.
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
+    endingDialogueHack: 0
   myDialogueEntries: []
 --- !u!1001 &1973215223
 PrefabInstance:
@@ -23356,11 +23518,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Nimi_Model
       objectReference: {fileID: 0}
-    - target: {fileID: 7087613701493783776, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4626960623821295974, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -23466,335 +23623,10 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 2573300709768644381, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: m_Name
-      value: Nimi_Glow
-      objectReference: {fileID: 0}
-    - target: {fileID: 7725041432759482839, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
+    - target: {fileID: 6753770467146001379, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
         type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 512695738, guid: 6e2cd1262a9ba7b4588a3ac69dee253e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 512695738, guid: 6e2cd1262a9ba7b4588a3ac69dee253e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1250519274, guid: 6e2cd1262a9ba7b4588a3ac69dee253e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.59
-      objectReference: {fileID: 0}
-    - target: {fileID: 1250519274, guid: 6e2cd1262a9ba7b4588a3ac69dee253e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.47
-      objectReference: {fileID: 0}
-    - target: {fileID: 512695740, guid: 6e2cd1262a9ba7b4588a3ac69dee253e, type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 512695740, guid: 6e2cd1262a9ba7b4588a3ac69dee253e, type: 3}
-      propertyPath: ColorModule.gradient.maxGradient.key0.a
-      value: 0.27450982
-      objectReference: {fileID: 0}
-    - target: {fileID: 512695740, guid: 6e2cd1262a9ba7b4588a3ac69dee253e, type: 3}
-      propertyPath: ColorModule.gradient.maxGradient.key1.a
-      value: 0.19607843
-      objectReference: {fileID: 0}
-    - target: {fileID: 512695740, guid: 6e2cd1262a9ba7b4588a3ac69dee253e, type: 3}
-      propertyPath: ColorModule.gradient.maxGradient.key2.a
-      value: 0.11764706
-      objectReference: {fileID: 0}
-    - target: {fileID: 512695740, guid: 6e2cd1262a9ba7b4588a3ac69dee253e, type: 3}
-      propertyPath: NoiseModule.strength.scalar
-      value: 0.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 8635560601758828, guid: 6e2cd1262a9ba7b4588a3ac69dee253e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[1].countCurve.maxCurve.m_Curve.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[1].countCurve.minCurve.m_Curve.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: InitialModule.startLifetime.minScalar
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: lengthInSec
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].time
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].inSlope
-      value: -1.3926978
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].outSlope
-      value: -1.3926978
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].outWeight
-      value: 0.16666804
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].inSlope
-      value: 0.97787434
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].outSlope
-      value: 0.97787434
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].inWeight
-      value: 0.35605526
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: InitialModule.startSize.minScalar
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 2.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: looping
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: ClampVelocityModule.magnitude.minScalar
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: ClampVelocityModule.dampen
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: EmissionModule.m_BurstCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[1].countCurve.scalar
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[1].countCurve.minScalar
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[1].countCurve.maxCurve.m_Curve.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[1].countCurve.maxCurve.m_Curve.Array.data[1].time
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[1].countCurve.maxCurve.m_Curve.Array.data[1].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[1].countCurve.maxCurve.m_PreInfinity
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[1].countCurve.maxCurve.m_PostInfinity
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[1].countCurve.maxCurve.m_RotationOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[1].countCurve.minCurve.m_Curve.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[1].countCurve.minCurve.m_Curve.Array.data[1].time
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[1].countCurve.minCurve.m_Curve.Array.data[1].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[1].countCurve.minCurve.m_PreInfinity
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[1].countCurve.minCurve.m_PostInfinity
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[1].countCurve.minCurve.m_RotationOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[1].cycleCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[1].repeatInterval
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[1].probability
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: EmissionModule.m_Bursts.Array.data[1].time
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: ClampVelocityModule.separateAxis
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: ClampVelocityModule.magnitude.scalar
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: InitialModule.startSpeed.minMaxState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: InitialModule.startSpeed.minScalar
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: InitialModule.startSpeed.maxCurve.m_Curve.Array.data[0].time
-      value: 0.059930563
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: InitialModule.startSpeed.maxCurve.m_Curve.Array.data[0].inSlope
-      value: -1.3951787
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: InitialModule.startSpeed.maxCurve.m_Curve.Array.data[0].outSlope
-      value: -1.3951787
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: InitialModule.startSpeed.maxCurve.m_Curve.Array.data[1].inSlope
-      value: -1.3951787
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: InitialModule.startSpeed.maxCurve.m_Curve.Array.data[1].outSlope
-      value: -1.3951787
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: InitialModule.startSpeed.maxCurve.m_Curve.Array.data[0].value
-      value: 0.8688507
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: InitialModule.startSpeed.maxCurve.m_Curve.Array.data[1].value
-      value: 0.032791138
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: InitialModule.startSpeed.maxCurve.m_Curve.Array.data[1].time
-      value: 0.6591797
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: NoiseModule.scrollSpeed.scalar
-      value: 0.38
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: NoiseModule.strength.scalar
-      value: 0.63
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].time
-      value: 0.9887557
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4272997596823424613, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3048055705764565991, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e2cd1262a9ba7b4588a3ac69dee253e, type: 3}

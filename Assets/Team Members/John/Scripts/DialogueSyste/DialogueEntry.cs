@@ -13,6 +13,7 @@ public class DialogueEntry
 	public float customDelayTime;
 	public AudioClip customAudioSFX;
 	public AudioClip oneOffCustomSFX;
+	public bool endingDialogueHack = false;
 
     //SFX
     //public AudioClip audio;
