@@ -110,7 +110,7 @@ public class BreathingManager : MonoBehaviour
         {
             UpdateBreathingUIState(1);
 
-            yield return new WaitForSeconds(nimiFadeDuration + 3f);
+            yield return new WaitForSeconds(nimiFadeDuration + 4f);
         }
 
         breathingInProgress = true;

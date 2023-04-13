@@ -23153,9 +23153,9 @@ MonoBehaviour:
   postTutorialDialogueDelay: 1.75
   stage2ExerciseDelay: 3
   postStage2DialogueDelay: 7.5
-  stage2MidDialogueDelay: 12
+  stage2MidDialogueDelay: 10
   stage3AuroraSequenceDelay: 25
-  stage3MidDialogueDelay: 10
+  stage3MidDialogueDelay: 7.5
   introDialogue: {fileID: 1627056135}
   mindTreeDialogue: {fileID: 1757329322}
   breathingTutorialDialogue: {fileID: 13222294}
