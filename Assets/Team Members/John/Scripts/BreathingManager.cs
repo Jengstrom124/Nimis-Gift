@@ -231,6 +231,8 @@ public class BreathingManager : MonoBehaviour
         {
             //Fade Nimi out/UI in
             iTween.FadeTo(nimi, 0f, nimiFadeDuration);
+            /*iTween.FadeTo(nimi, iTween.Hash("alpha", 0f, "includechildren", false, "time", nimiFadeDuration));
+            iTween.FadeTo(nimiParticles, 0f, nimiFadeDuration);*/
 
             elapsedTime = 0f;
             fadeLightsOut = true;

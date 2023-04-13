@@ -127,12 +127,12 @@ public class DialogueManager : MonoBehaviour
 
 		dialogueAudioSource.clip = dialogueAudioClips[Random.Range(0, dialogueAudioClips.Length - 1)];
 
-		if(currentDialogueEntries[index].endingDialogueHack)
-        {
-			NimiExperienceManager.instance.PlayNimiExitAnimation();
-        }
-
 		yield return new WaitForSeconds(0.15f);
+
+		if (currentDialogueEntries[index].endingDialogueHack)
+		{
+			NimiExperienceManager.instance.TriggerNimiExitAnimation();
+		}
 
 		dialogueText.text = currentDialogue;
 
@@ -160,7 +160,7 @@ public class DialogueManager : MonoBehaviour
 				dialogueAudioSource.Play();
 		}
 
-		yield return new WaitForSeconds(dialogueSpeed);
+		yield return new WaitForSeconds(dialogueSpeed);	
 
 		StartCoroutine(OnCurrentDialogueFinished());
 	}
