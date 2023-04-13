@@ -34,7 +34,7 @@ public class NimiExperienceManager : MonoBehaviour
     [Header("Environment Additions")]
     public ParticleSystem fireflies;
     public ParticleSystem moonRays, fallingLeaves;
-    public AudioSource cricketAmbience, owlAmbiene, windAmbience, auroraAudioSource;
+    public AudioSource cricketAmbience, owlAmbiene, windAmbience, auroraAudioSource, windFlutesAmbience;
     public GameObject aurora;
     //public Terrain treeTerrain;
 
@@ -129,18 +129,14 @@ public class NimiExperienceManager : MonoBehaviour
 
     IEnumerator MindTreeSequenceCoroutine()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
 
         //Fade Environment In
         fadeLights = true;
-        //onTreeRevealEvent?.Invoke();
-        //iTween.FadeTo(mindTreeEnvironment, 1f, 5f);
+        /*windFlutesAmbience.Play();
+        iTween.AudioTo(gameObject, iTween.Hash("audiosource", windFlutesAmbience, "volume", 1f, "easetype", iTween.EaseType.easeInOutSine, "time", 3.5f));*/
 
-        //Update Dialogue Location
-        dialogueCanvas.position = new Vector3(-4.45f, -3f, -2.68f);
-        dialogueCanvas.rotation = Quaternion.Euler(0, -40f, 0);
-
-        //yield return new WaitForSeconds(environmentDialogueDelayTime);
+        yield return new WaitForSeconds(environmentDialogueDelayTime);
 
         //Begin Next Dialogue Sequence
         mindTreeDialogue.Interact(environmentDialogueDelayTime);

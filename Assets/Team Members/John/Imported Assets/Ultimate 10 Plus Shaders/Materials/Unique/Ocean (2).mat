@@ -29,11 +29,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _Cull: 0
-    - _Glossiness: 0.779
-    - _Metallic: 0.147
-    - _NormalStrength1: 0.17
-    - _NormalStrength2: 0.8
+    - _Glossiness: 0.861
+    - _Metallic: 0
+    - _NormalStrength1: 0.72
+    - _NormalStrength2: 0.47
     m_Colors:
-    - _Color: {r: 0, g: 0, b: 0, a: 0}
-    - _FlowDirection1: {r: 0.05, g: 0, b: 0, a: 1}
-    - _FlowDirection2: {r: 0, g: 0.005, b: 0, a: 1}
+    - _Color: {r: 0, g: 0.23950672, b: 1, a: 0}
+    - _FlowDirection1: {r: 0.01, g: 0.02, b: 0, a: 1}
+    - _FlowDirection2: {r: 0, g: 0.001, b: 0, a: 1}

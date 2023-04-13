@@ -45,7 +45,7 @@ public class BreathingManager : MonoBehaviour
     float lightFadeDuration, topLightSV, bottomLightSV;
 
     public TMP_Text debugText;
-    public GameObject nimi;
+    public GameObject nimi, nimiParticles;
     public ParticleSystem postBreathingParticles;
 
     //Events
@@ -250,7 +250,8 @@ public class BreathingManager : MonoBehaviour
 
             yield return new WaitForSeconds(delayAfterCompletingExercise);
 
-            iTween.FadeTo(nimi, 1f, nimiFadeDuration);
+            iTween.FadeTo(nimi, iTween.Hash("alpha", 0.35f, "includechildren", false, "time", nimiFadeDuration));
+            iTween.FadeTo(nimiParticles, 1f, nimiFadeDuration);
 
             yield return new WaitForSeconds(nimiFadeDuration + 1f);
 
