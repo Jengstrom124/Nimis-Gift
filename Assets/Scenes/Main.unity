@@ -23466,6 +23466,34 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 512695738, guid: 6e2cd1262a9ba7b4588a3ac69dee253e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 512695738, guid: 6e2cd1262a9ba7b4588a3ac69dee253e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 512695740, guid: 6e2cd1262a9ba7b4588a3ac69dee253e, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 512695740, guid: 6e2cd1262a9ba7b4588a3ac69dee253e, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.a
+      value: 0.27450982
+      objectReference: {fileID: 0}
+    - target: {fileID: 512695740, guid: 6e2cd1262a9ba7b4588a3ac69dee253e, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.a
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 512695740, guid: 6e2cd1262a9ba7b4588a3ac69dee253e, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key2.a
+      value: 0.11764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 512695740, guid: 6e2cd1262a9ba7b4588a3ac69dee253e, type: 3}
+      propertyPath: NoiseModule.strength.scalar
+      value: 0.08
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e2cd1262a9ba7b4588a3ac69dee253e, type: 3}
 --- !u!82 &2073536211 stripped
