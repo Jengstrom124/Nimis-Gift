@@ -4929,9 +4929,6 @@ MonoBehaviour:
   multipleDialogueEntries: 0
   repeatDialogueEntries: 0
   stopTriggerAfterDialogue: 0
-  triggerOnAwake: 0
-  triggerOnEnableUsingTimeline: 0
-  useTriggerBox: 0
   diagloueEntries:
   - dialogue: "Listen to my voice, and follow these four, simple steps in rhythm\u2026"
     useCustomDialogueSpeed: 0
@@ -10051,9 +10048,6 @@ MonoBehaviour:
   multipleDialogueEntries: 0
   repeatDialogueEntries: 0
   stopTriggerAfterDialogue: 0
-  triggerOnAwake: 0
-  triggerOnEnableUsingTimeline: 0
-  useTriggerBox: 0
   diagloueEntries:
   - dialogue: "Incredible\u2026 your calming energy has transformed the Mind Realm."
     useCustomDialogueSpeed: 1
@@ -10822,9 +10816,6 @@ MonoBehaviour:
   multipleDialogueEntries: 0
   repeatDialogueEntries: 0
   stopTriggerAfterDialogue: 0
-  triggerOnAwake: 0
-  triggerOnEnableUsingTimeline: 0
-  useTriggerBox: 0
   diagloueEntries:
   - dialogue: Shall we breathe again? I sense even more potential in you...
     useCustomDialogueSpeed: 0
@@ -20915,9 +20906,6 @@ MonoBehaviour:
   multipleDialogueEntries: 0
   repeatDialogueEntries: 0
   stopTriggerAfterDialogue: 0
-  triggerOnAwake: 0
-  triggerOnEnableUsingTimeline: 0
-  useTriggerBox: 0
   diagloueEntries:
   - dialogue: Look above...
     useCustomDialogueSpeed: 0
@@ -21119,9 +21107,10 @@ MonoBehaviour:
   firstProgressionIncrease: 2.5
   secondProgressionIncrease: 3.25
   targetDuration: 30
-  tutorialDuration: 5
-  firstPhaseDuration: 5
-  secondPhaseDuration: 5
+  tutorialDuration: 30
+  firstPhaseDuration: 45
+  secondPhaseDuration: 60
+  delayBeforeExercise: 5
   delayAfterCompletingExercise: 5
   desiredTopLightFadeValue: 2
   desiredBottomLightFadeValue: 1
@@ -22057,9 +22046,6 @@ MonoBehaviour:
   multipleDialogueEntries: 0
   repeatDialogueEntries: 0
   stopTriggerAfterDialogue: 0
-  triggerOnAwake: 0
-  triggerOnEnableUsingTimeline: 0
-  useTriggerBox: 0
   diagloueEntries:
   - dialogue: "Your calming energy, it\u2019s powerful, I sense you\u2019ve reached
       a pure calm state."
@@ -22516,9 +22502,6 @@ MonoBehaviour:
   multipleDialogueEntries: 0
   repeatDialogueEntries: 0
   stopTriggerAfterDialogue: 0
-  triggerOnAwake: 0
-  triggerOnEnableUsingTimeline: 0
-  useTriggerBox: 0
   diagloueEntries:
   - dialogue: You did wonderful, I can already sense calming energy.
     useCustomDialogueSpeed: 0
@@ -22745,9 +22728,6 @@ MonoBehaviour:
   multipleDialogueEntries: 0
   repeatDialogueEntries: 0
   stopTriggerAfterDialogue: 0
-  triggerOnAwake: 0
-  triggerOnEnableUsingTimeline: 0
-  useTriggerBox: 0
   diagloueEntries:
   - dialogue: Hello.
     useCustomDialogueSpeed: 0
@@ -23153,7 +23133,7 @@ MonoBehaviour:
   postTutorialDialogueDelay: 1.75
   stage2ExerciseDelay: 3
   postStage2DialogueDelay: 7.5
-  stage2MidDialogueDelay: 10
+  stage2MidDialogueDelay: 12
   stage3AuroraSequenceDelay: 25
   stage3MidDialogueDelay: 7.5
   introDialogue: {fileID: 1627056135}
@@ -23233,9 +23213,6 @@ MonoBehaviour:
   multipleDialogueEntries: 0
   repeatDialogueEntries: 0
   stopTriggerAfterDialogue: 0
-  triggerOnAwake: 0
-  triggerOnEnableUsingTimeline: 0
-  useTriggerBox: 0
   diagloueEntries:
   - dialogue: "This is the Mind Tree, it reflects the state of one\u2019s soul."
     useCustomDialogueSpeed: 0
@@ -23311,9 +23288,6 @@ MonoBehaviour:
   multipleDialogueEntries: 0
   repeatDialogueEntries: 0
   stopTriggerAfterDialogue: 0
-  triggerOnAwake: 0
-  triggerOnEnableUsingTimeline: 0
-  useTriggerBox: 0
   diagloueEntries:
   - dialogue: "How soothing\u2026 look at how the tree thrives."
     useCustomDialogueSpeed: 0

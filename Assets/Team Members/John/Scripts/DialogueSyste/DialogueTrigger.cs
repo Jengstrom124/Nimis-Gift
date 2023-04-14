@@ -9,30 +9,14 @@ public class DialogueEntryHolder
 }
 public class DialogueTrigger : MonoBehaviour
 {
-    //Using this setup for now whilst NPC's don't have anything unique about them other then their dialogue (so no need to code anything NPC specific)
-    [Header("NPC SETUP")]
+    [Header("Settings: ")]
     public bool triggerDialogueFinisedEvent = false;
     public bool triggerDialogueStartedEvent = false;
     public bool multipleDialogueEntries = false;
     public bool repeatDialogueEntries = false;
     public bool stopTriggerAfterDialogue = false;
-    bool dialogueLaunched;
-
-    [Header("Cutscene Setup")]
-    public bool triggerOnAwake = false;
-    public bool triggerOnEnableUsingTimeline = false;
-    public bool useTriggerBox = false;
-
-    private void Start()
-    {
-        if (triggerOnAwake)
-        {
-            DialogueManager.instance.StartDialogue(diagloueEntries, triggerDialogueFinisedEvent, triggerDialogueStartedEvent);
-        }
-    }
 
     //This holds all the dialogue entries
-    //TODO: Maybe have multiple lists for when player tries to interact again to have more variations in dialogue?
     public List<DialogueEntry> diagloueEntries;
 
     //If we want to create a library of dialogue entries we can use this

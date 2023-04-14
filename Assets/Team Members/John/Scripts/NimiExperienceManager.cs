@@ -52,8 +52,6 @@ public class NimiExperienceManager : MonoBehaviour
     IVRInputDevice leftInput, rightInput;
     AmbientMode gradientAmbientMode;
 
-    //public event Action onTreeRevealEvent;
-
     private void Awake()
     {
         instance = this;

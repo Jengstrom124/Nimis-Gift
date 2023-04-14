@@ -16,6 +16,7 @@ public class BreathingManager : MonoBehaviour
     public float secondProgressionIncrease = 3.25f;
     public float targetDuration = 30f;
     public float tutorialDuration, firstPhaseDuration, secondPhaseDuration;
+    public float delayBeforeExercise = 4.5f;
     public float delayAfterCompletingExercise = 2f;
 
     [Header("Light Config: ")]
@@ -98,6 +99,7 @@ public class BreathingManager : MonoBehaviour
     }
     IEnumerator BreathingExcerciseCoroutine(float delay)
     {
+        //Delay check for initialising breathing during a sequence
         if(delay > 0)
         {
             yield return new WaitForSeconds(delay);
@@ -110,7 +112,8 @@ public class BreathingManager : MonoBehaviour
         {
             UpdateBreathingUIState(1);
 
-            yield return new WaitForSeconds(nimiFadeDuration + 4f);
+            //short delay to let all UI fade in before jumping straight into the exercise
+            yield return new WaitForSeconds(nimiFadeDuration + delayBeforeExercise);
         }
 
         breathingInProgress = true;
@@ -118,8 +121,6 @@ public class BreathingManager : MonoBehaviour
 
         //Debug Text
         debugText.text = "";
-
-        //yield return new WaitForSeconds(1f);
 
         do
         {
