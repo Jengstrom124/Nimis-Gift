@@ -21106,9 +21106,9 @@ MonoBehaviour:
   pauseTimer: 2
   exhaleTimer: 2
   secondProgressionIncrease: 3
-  targetDuration: 45
-  firstPhaseDuration: 45
-  secondPhaseDuration: 90
+  targetDuration: 30
+  firstPhaseDuration: 30
+  secondPhaseDuration: 60
   delayBeforeExercise: 5
   delayAfterCompletingExercise: 5
   desiredTopLightFadeValue: 2
