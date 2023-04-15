@@ -23341,7 +23341,7 @@ MonoBehaviour:
   repeatDialogueEntries: 0
   stopTriggerAfterDialogue: 0
   diagloueEntries:
-  - dialogue: "How soothing\u2026 look at how the tree thrives."
+  - dialogue: "You did wonderful, I can already sense calming energy.\r"
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
