@@ -35,7 +35,7 @@ public class NimiExperienceManager : MonoBehaviour
     public ParticleSystem fireflies;
     public ParticleSystem moonRays, fallingLeaves;
     public AudioSource cricketAmbience, owlAmbiene, windAmbience, auroraAudioSource, windFlutesAmbience;
-    public GameObject aurora;
+    public GameObject aurora, constellations;
     //public Terrain treeTerrain;
 
     [Header("Hacks")]
@@ -131,19 +131,19 @@ public class NimiExperienceManager : MonoBehaviour
 
         //Fade Environment In
         fadeLights = true;
-        /*windFlutesAmbience.Play();
-        iTween.AudioTo(gameObject, iTween.Hash("audiosource", windFlutesAmbience, "volume", 1f, "easetype", iTween.EaseType.easeInOutSine, "time", 3.5f));*/
+        windFlutesAmbience.Play();
+        iTween.AudioTo(gameObject, iTween.Hash("audiosource", windFlutesAmbience, "volume", 1f, "easetype", iTween.EaseType.easeInOutSine, "time", 3f));
 
         yield return new WaitForSeconds(environmentDialogueDelayTime);
 
         //Begin Next Dialogue Sequence
         mindTreeDialogue.Interact(environmentDialogueDelayTime);
-        DialogueManager.instance.onDialogueFinishEvent += InitBreathingTutorial;
+        DialogueManager.instance.onDialogueFinishEvent += InitStage1Breathing;
     }
 
-    void InitBreathingTutorial()
+    void InitStage1Breathing()
     {
-        DialogueManager.instance.onDialogueFinishEvent -= InitBreathingTutorial;
+        DialogueManager.instance.onDialogueFinishEvent -= InitStage1Breathing;
 
         //Fade in Breathing UI/Fade Out Nimi
         BreathingManager.instance.UpdateBreathingUIState(1f);
@@ -151,28 +151,25 @@ public class NimiExperienceManager : MonoBehaviour
         breathingTutorialDialogue.Interact(BreathingManager.instance.nimiFadeDuration + 2.5f);
 
         DialogueManager.instance.onDialogueFinishEvent += BreathingManager.instance.BeginBreathingExerciseTutorial;
-        BreathingManager.instance.onBreathingFinishedEvent += PostBreathingTutorial;
+        BreathingManager.instance.onBreathingFinishedEvent += PostStage1Breathing;
     }
 
-    void PostBreathingTutorial()
+    public void PostStage1Breathing()
     {
-        BreathingManager.instance.onBreathingFinishedEvent -= PostBreathingTutorial;
+        BreathingManager.instance.onBreathingFinishedEvent -= PostStage1Breathing;
 
-        //Post Tutorial Environment Addons
-        /*TerrainData terrainData = treeTerrain.terrainData;
-        terrainData.wavingGrassSpeed = 0.25f;
-        treeTerrain.terrainData = terrainData;*/
-        //treeTerrain.terrainData.wavingGrassSpeed = 0.25f;
-        fallingLeaves.Play();
-        iTween.AudioTo(gameObject, iTween.Hash("audiosource", windAmbience, "volume", 1f, "easetype", iTween.EaseType.easeInOutSine, "time", 3f));
+        //First Environment Upgrade
+        Stage1EnvironmentUpgrade();
 
         //Start Dialogue Sequence
-        postBreathingTutorialDialgoue.Interact(postTutorialDialogueDelay);
+        //postBreathingTutorialDialgoue.Interact(postTutorialDialogueDelay);
+        stage2Dialogue.Interact(postStage2DialogueDelay);
 
         //Init First Phase of Breathing After Dialogue
-        DialogueManager.instance.onDialogueFinishEvent += BeginStage2BreathingExercise;
+        //DialogueManager.instance.onDialogueFinishEvent += BeginStage2BreathingExercise;
+        DialogueManager.instance.onDialogueFinishEvent += PostStage1BreathingContinued;
     }
-    void BeginStage2BreathingExercise()
+    /*void BeginStage2BreathingExercise()
     {
         DialogueManager.instance.onDialogueFinishEvent -= BeginStage2BreathingExercise;
 
@@ -191,42 +188,49 @@ public class NimiExperienceManager : MonoBehaviour
 
         //Continue Next Dialogue Sequence
         DialogueManager.instance.onDialogueFinishEvent += PostStage2BreathingContinued;
-    }
-    void Stage2EnvironmentUpgrade()
+    }*/
+    void Stage1EnvironmentUpgrade()
     {
+        /*TerrainData terrainData = treeTerrain.terrainData;
+        terrainData.wavingGrassSpeed = 0.25f;
+        treeTerrain.terrainData = terrainData;*/
+        //treeTerrain.terrainData.wavingGrassSpeed = 0.25f;
+        fallingLeaves.Play();
+        iTween.AudioTo(gameObject, iTween.Hash("audiosource", windAmbience, "volume", 1f, "easetype", iTween.EaseType.easeInOutSine, "time", 3f));
         fireflies.Play();
         moonRays.Play();
-        iTween.AudioTo(cricketAmbience.gameObject, iTween.Hash("audiosource", cricketAmbience, "volume", 0.2f, "easetype", iTween.EaseType.easeInOutSine, "time", 12f));
+        iTween.AudioTo(cricketAmbience.gameObject, iTween.Hash("audiosource", cricketAmbience, "volume", 0.32f, "easetype", iTween.EaseType.easeInOutSine, "time", 12f));
         owlAmbiene.Play();
         RenderSettings.skybox = moonSkybox;
         RenderSettings.ambientMode = gradientAmbientMode;
+        constellations.SetActive(true);
         /*RenderSettings.ambientLight = startingAmbientLightColour;
         RenderSettings.ambientEquatorColor = startingAmbientEquatorColour;
         RenderSettings.ambientGroundColor = startingAmbientGroundColour;*/
     }
-    void PostStage2BreathingContinued()
+    void PostStage1BreathingContinued()
     {
-        DialogueManager.instance.onDialogueFinishEvent -= PostStage2BreathingContinued;
+        DialogueManager.instance.onDialogueFinishEvent -= PostStage1BreathingContinued;
 
         //Continue Sequence
         stage2DialogueCont.Interact(stage2MidDialogueDelay);
-        DialogueManager.instance.onDialogueFinishEvent += BeginStage3Breathing;
+        DialogueManager.instance.onDialogueFinishEvent += BeginStage2Breathing;
     }
-    void BeginStage3Breathing()
+    void BeginStage2Breathing()
     {
-        DialogueManager.instance.onDialogueFinishEvent -= BeginStage3Breathing;
+        DialogueManager.instance.onDialogueFinishEvent -= BeginStage2Breathing;
 
         BreathingManager.instance.BeginBreathingExercise(1f);
-        BreathingManager.instance.onBreathingFinishedEvent += PostStage3Breathing;
+        BreathingManager.instance.onBreathingFinishedEvent += PostStage2Breathing;
     }
-    void PostStage3Breathing()
+    void PostStage2Breathing()
     {
-        BreathingManager.instance.onBreathingFinishedEvent -= PostStage3Breathing;
+        BreathingManager.instance.onBreathingFinishedEvent -= PostStage2Breathing;
 
         stage3Dialogue.Interact(1f);
-        StartCoroutine(Stage3AuroraSequenceCoroutine());
+        StartCoroutine(Stage2AuroraSequenceCoroutine());
     }
-    IEnumerator Stage3AuroraSequenceCoroutine()
+    IEnumerator Stage2AuroraSequenceCoroutine()
     {
         yield return new WaitForSeconds(5f);
 
@@ -308,6 +312,6 @@ public class NimiExperienceManager : MonoBehaviour
 
     public void UpgradeEnvironmentDebug()
     {
-        Stage2EnvironmentUpgrade();
+        Stage1EnvironmentUpgrade();
     }
 }

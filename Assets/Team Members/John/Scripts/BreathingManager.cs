@@ -12,10 +12,9 @@ public class BreathingManager : MonoBehaviour
     [Tooltip("Timer in seconds")]
     public float inhaleTimer;
     public float pauseTimer, exhaleTimer;
-    public float firstProgressionIncrease = 2.5f;
-    public float secondProgressionIncrease = 3.25f;
+    public float secondProgressionIncrease = 3f;
     public float targetDuration = 30f;
-    public float tutorialDuration, firstPhaseDuration, secondPhaseDuration;
+    public float firstPhaseDuration, secondPhaseDuration;
     public float delayBeforeExercise = 4.5f;
     public float delayAfterCompletingExercise = 2f;
 
@@ -41,7 +40,7 @@ public class BreathingManager : MonoBehaviour
     [SerializeField] float breathingTimer;
     [SerializeField] bool inhale, pause, exhale = false;
     [SerializeField] bool inTutorial = false;
-    bool firstPhaseSettingsComplete = false;
+    bool breathingSettingsUpdated = false;
     Light topLight, bottomLight;
     float lightFadeDuration, topLightSV, bottomLightSV;
 
@@ -73,26 +72,19 @@ public class BreathingManager : MonoBehaviour
     {
         DialogueManager.instance.onDialogueFinishEvent -= BeginBreathingExerciseTutorial;
         inTutorial = true;
-        targetDuration = tutorialDuration;
+        targetDuration = firstPhaseDuration;
 
         StartCoroutine(BreathingExcerciseCoroutine(0));
     }
     public void BeginBreathingExercise(float delayBeforeStarting)
     {
         //Update Breathing Settings
-        if(!firstPhaseSettingsComplete)
-        {
-            inhaleTimer = firstProgressionIncrease;
-            exhaleTimer = firstProgressionIncrease;
-            //pauseTimer = firstProgressionIncrease;
-            targetDuration = firstPhaseDuration;
-            firstPhaseSettingsComplete = true;
-        }
-        else
+        if(!breathingSettingsUpdated)
         {
             inhaleTimer = secondProgressionIncrease;
             exhaleTimer = secondProgressionIncrease;
             targetDuration = secondPhaseDuration;
+            breathingSettingsUpdated = true;
         }
 
         StartCoroutine(BreathingExcerciseCoroutine(delayBeforeStarting));

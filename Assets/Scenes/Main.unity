@@ -10890,6 +10890,7 @@ Transform:
   - {fileID: 385656528}
   - {fileID: 1393262481}
   - {fileID: 1191523668}
+  - {fileID: 1757728806}
   m_Father: {fileID: 1676988090}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -21104,12 +21105,10 @@ MonoBehaviour:
   inhaleTimer: 2
   pauseTimer: 2
   exhaleTimer: 2
-  firstProgressionIncrease: 2.5
-  secondProgressionIncrease: 3.25
-  targetDuration: 30
-  tutorialDuration: 30
+  secondProgressionIncrease: 3
+  targetDuration: 45
   firstPhaseDuration: 45
-  secondPhaseDuration: 60
+  secondPhaseDuration: 90
   delayBeforeExercise: 5
   delayAfterCompletingExercise: 5
   desiredTopLightFadeValue: 2
@@ -23125,7 +23124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   introDialogueDelayTime: 5
   environmentDialogueDelayTime: 3
-  environmentFadeTime: 3
+  environmentFadeTime: 6
   moonSkybox: {fileID: 2100000, guid: 8d5ea6ed8fe559345b42df250a255b5b, type: 2}
   auroraSkybox: {fileID: 2100000, guid: cb461174653fa3e4fbbf306c2d4e914e, type: 2}
   nimiAnimator: {fileID: 1393262482}
@@ -23154,6 +23153,7 @@ MonoBehaviour:
   auroraAudioSource: {fileID: 1290928245}
   windFlutesAmbience: {fileID: 596159023}
   aurora: {fileID: 1191523667}
+  constellations: {fileID: 1757728804}
   mindTreeEnvironment: {fileID: 621161875}
   environmentLights: {fileID: 107688146}
   topLight: {fileID: 1613387779}
@@ -23240,6 +23240,58 @@ MonoBehaviour:
     oneOffCustomSFX: {fileID: 0}
     endingDialogueHack: 0
   myDialogueEntries: []
+--- !u!1 &1757728804
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1757728806}
+  - component: {fileID: 1757728805}
+  m_Layer: 0
+  m_Name: Constellations
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1757728805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757728804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66bd5c73cd1c467458a55f95ff648743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plexus: {fileID: 7200000, guid: 0396ae06a645dc94696336944bc11f1f, type: 3}
+  amountOfPoints: 200
+  PPPS: 1
+  lineWidth: 0.3
+  lineMaterial: {fileID: 2100000, guid: 046739a9e8dbba24e8183a7a3cdfbb9a, type: 2}
+  box: {x: 100, y: 10, z: 100}
+  particleSpeed: 0.5
+  maxConnDistance: 11
+  isEnabled: 0
+--- !u!4 &1757728806
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757728804}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.5, y: 62.4, z: 32.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 646888768}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1874827688
 GameObject:
   m_ObjectHideFlags: 0
