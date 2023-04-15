@@ -12,6 +12,7 @@ public class NimiExperienceManager : MonoBehaviour
 {
     public static NimiExperienceManager instance;
     public float introDialogueDelayTime = 3f;
+    public float nimiFadeInDelayTime = 6.5f;
     public float environmentDialogueDelayTime = 2f;
     public float environmentFadeTime = 2f;
     public Material moonSkybox, auroraSkybox;
@@ -44,6 +45,7 @@ public class NimiExperienceManager : MonoBehaviour
     public Light topLight, bottomLight, environmentLight;
     public float topLightStartValue, bottomLightStartValue, environmentLightStartValue;
     public Transform dialogueCanvas;
+    public Animator nimiIntroAnimator;
 
     [Header("Debugs: ")]
     [SerializeField] float elapsedTime = 0f;
@@ -89,6 +91,18 @@ public class NimiExperienceManager : MonoBehaviour
     {
         DialogueManager.instance.onDialogueFinishEvent += RevealMindTree;
 
+        yield return new WaitForSeconds(3.5f);
+
+        nimiIntroAnimator.SetTrigger("Begin");
+
+        yield return new WaitForSeconds(nimiFadeInDelayTime);
+
+        BreathingManager.instance.FadeNimiIn();
+
+        yield return new WaitForSeconds(BreathingManager.instance.nimiFadeDuration + 1f);
+
+        nimiAnimator.SetTrigger("OnSpawn");
+
         yield return new WaitForSeconds(introDialogueDelayTime);
 
         introDialogue.Interact(0);
@@ -119,20 +133,22 @@ public class NimiExperienceManager : MonoBehaviour
     {
         DialogueManager.instance.onDialogueFinishEvent -= RevealMindTree;
 
-        //Update Nimi
-        nimiAnimator.SetTrigger("OnTreeSpawn");
-
         StartCoroutine(MindTreeSequenceCoroutine());
     }
 
     IEnumerator MindTreeSequenceCoroutine()
     {
-        yield return new WaitForSeconds(1.5f);
+        //yield return new WaitForSeconds(1.5f);
 
         //Fade Environment In
         fadeLights = true;
         windFlutesAmbience.Play();
         iTween.AudioTo(gameObject, iTween.Hash("audiosource", windFlutesAmbience, "volume", 1f, "easetype", iTween.EaseType.easeInOutSine, "time", 3f));
+
+        yield return new WaitForSeconds(1.5f);
+
+        //Update Nimi
+        nimiAnimator.SetTrigger("OnTreeSpawn");
 
         yield return new WaitForSeconds(environmentDialogueDelayTime);
 

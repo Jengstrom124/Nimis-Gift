@@ -40,21 +40,29 @@ public class BreathingManager : MonoBehaviour
     [SerializeField] float breathingTimer;
     [SerializeField] bool inhale, pause, exhale = false;
     [SerializeField] bool inTutorial = false;
+    [SerializeField] float elapsedTime = 0f;
+    [SerializeField] bool fadeLightsOut, fadeLightsIn;
     bool breathingSettingsUpdated = false;
     Light topLight, bottomLight;
     float lightFadeDuration, topLightSV, bottomLightSV;
 
+    [Header("Hacks: ")]
     public TMP_Text debugText;
     public GameObject nimi, nimiParticles;
+    public AudioSource nimiAmbienceAudio;
+    float nimiAmbienceStartVolume;
     public ParticleSystem postBreathingParticles;
 
     //Events
     public event Action onBreathingFinishedEvent;
     public event Action onBreathingStartedEvent;
+    bool introHack = true;
 
     private void Awake()
     {
         instance = this;
+
+        FadeNimiOut();
     }
 
     private void Start()
@@ -66,6 +74,7 @@ public class BreathingManager : MonoBehaviour
         topLightSV = NimiExperienceManager.instance.topLightStartValue;
         bottomLightSV = NimiExperienceManager.instance.bottomLightStartValue;
         lightFadeDuration = nimiFadeDuration + 2.5f;
+        nimiAmbienceStartVolume = nimiAmbienceAudio.volume;
     }
 
     public void BeginBreathingExerciseTutorial()
@@ -223,7 +232,7 @@ public class BreathingManager : MonoBehaviour
         if (alpha == 1)
         {
             //Fade Nimi out/UI in
-            iTween.FadeTo(nimi, 0f, nimiFadeDuration);
+            FadeNimiOut();
             /*iTween.FadeTo(nimi, iTween.Hash("alpha", 0f, "includechildren", false, "time", nimiFadeDuration));
             iTween.FadeTo(nimiParticles, 0f, nimiFadeDuration);*/
 
@@ -245,19 +254,47 @@ public class BreathingManager : MonoBehaviour
 
             yield return new WaitForSeconds(delayAfterCompletingExercise);
 
-            iTween.FadeTo(nimi, iTween.Hash("alpha", 0.35f, "includechildren", false, "time", nimiFadeDuration));
-            iTween.FadeTo(nimiParticles, 1f, nimiFadeDuration);
+            FadeNimiIn();
 
             yield return new WaitForSeconds(nimiFadeDuration + 1f);
 
             onBreathingFinishedEvent?.Invoke();
         }
     }
+    public void FadeNimiOut()
+    {
+        if (introHack)
+        {
+            iTween.FadeTo(nimi, 0f, 0f);
+            iTween.AudioTo(gameObject, iTween.Hash("audiosource", nimiAmbienceAudio, "volume", 0f, "easetype", iTween.EaseType.easeInOutSine, "time", 0f));
+        }
+        else
+        {
+            iTween.FadeTo(nimi, 0f, nimiFadeDuration);
+            iTween.AudioTo(gameObject, iTween.Hash("audiosource", nimiAmbienceAudio, "volume", 0f, "easetype", iTween.EaseType.easeInOutSine, "time", nimiFadeDuration));
+        }
+    }
+    public void FadeNimiIn()
+    {
+        //Hack for Intro Fade In
+        if (introHack)
+        {
+            float introDuration = nimiFadeDuration + 3f;
+            iTween.FadeTo(nimi, iTween.Hash("alpha", 0.35f, "includechildren", false, "time", introDuration));
+            iTween.FadeTo(nimiParticles, 1f, introDuration);
+            iTween.AudioTo(gameObject, iTween.Hash("audiosource", nimiAmbienceAudio, "volume", nimiAmbienceStartVolume, "easetype", iTween.EaseType.easeInOutSine, "time", introDuration));
+            introHack = false;
+        }
+        else
+        {
+            iTween.FadeTo(nimi, iTween.Hash("alpha", 0.35f, "includechildren", false, "time", nimiFadeDuration));
+            iTween.FadeTo(nimiParticles, 1f, nimiFadeDuration);
+            iTween.AudioTo(gameObject, iTween.Hash("audiosource", nimiAmbienceAudio, "volume", nimiAmbienceStartVolume, "easetype", iTween.EaseType.easeInOutSine, "time", nimiFadeDuration));
+        }
+    }
     #endregion
 
     bool breathingTimersUpdated = false;
-    [SerializeField] float elapsedTime = 0f;
-    [SerializeField] bool fadeLightsOut, fadeLightsIn;
     private void Update()
     {
         if (breathingInProgress)
