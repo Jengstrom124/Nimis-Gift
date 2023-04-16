@@ -34,7 +34,7 @@ public class NimiExperienceManager : MonoBehaviour
 
     [Header("Environment Additions")]
     public ParticleSystem fireflies;
-    public ParticleSystem moonRays, fallingLeaves;
+    public ParticleSystem moonRays, fallingLeaves, glowAmbientParticles;
     public AudioSource cricketAmbience, owlAmbiene, windAmbience, auroraAudioSource, windFlutesAmbience;
     public GameObject aurora, constellations;
     //public Terrain treeTerrain;
@@ -91,7 +91,7 @@ public class NimiExperienceManager : MonoBehaviour
     {
         DialogueManager.instance.onDialogueFinishEvent += RevealMindTree;
 
-        yield return new WaitForSeconds(3.5f);
+        yield return new WaitForSeconds(5f);
 
         nimiIntroAnimator.SetTrigger("Begin");
 
@@ -218,8 +218,9 @@ public class NimiExperienceManager : MonoBehaviour
         iTween.AudioTo(cricketAmbience.gameObject, iTween.Hash("audiosource", cricketAmbience, "volume", 0.35f, "easetype", iTween.EaseType.easeInOutSine, "time", 12f));
         owlAmbiene.Play();
         RenderSettings.skybox = moonSkybox;
-        RenderSettings.ambientMode = gradientAmbientMode;
-        constellations.SetActive(true);
+        glowAmbientParticles.Play();
+        //RenderSettings.ambientMode = gradientAmbientMode;
+        //constellations.SetActive(true);
         /*RenderSettings.ambientLight = startingAmbientLightColour;
         RenderSettings.ambientEquatorColor = startingAmbientEquatorColour;
         RenderSettings.ambientGroundColor = startingAmbientGroundColour;*/
