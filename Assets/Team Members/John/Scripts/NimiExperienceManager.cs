@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using System;
 using UnityEngine.Rendering;
 using Liminal.SDK.Core;
 using Liminal.Core.Fader;
@@ -18,6 +17,7 @@ public class NimiExperienceManager : MonoBehaviour
     [Header("Nimi: ")]
     public Animator nimiAnimator;
     public AudioSource nimiAudioSource;
+    public Animator nimiIntroAnimator;
 
     [Header("Dialogue Sequences")]
     public float postTutorialDialogueDelay = 2.5f;
@@ -43,14 +43,12 @@ public class NimiExperienceManager : MonoBehaviour
     public Light topLight, bottomLight, environmentLight;
     public float topLightStartValue, bottomLightStartValue, environmentLightStartValue;
     public Transform dialogueCanvas;
-    public Animator nimiIntroAnimator;
-    public TMP_Text timerText;
-    public bool useTimer = false;
 
     [Header("Debugs: ")]
     [SerializeField] float elapsedTime = 0f;
     [SerializeField] bool fadeLights = false;
-    //public Color startingAmbientLightColour, startingAmbientEquatorColour, startingAmbientGroundColour;
+    public TMP_Text timerText;
+    public bool useTimer = false;
     AmbientMode gradientAmbientMode;
 
     private void Awake()
@@ -77,7 +75,6 @@ public class NimiExperienceManager : MonoBehaviour
         RenderSettings.ambientMode = AmbientMode.Skybox;
     }
 
-    // Start is called before the first frame update
     IEnumerator Start()
     {
         DialogueManager.instance.onDialogueFinishEvent += RevealMindTree;
