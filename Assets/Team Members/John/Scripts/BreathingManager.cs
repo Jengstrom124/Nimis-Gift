@@ -45,6 +45,7 @@ public class BreathingManager : MonoBehaviour
     bool breathingSettingsUpdated = false;
     Light topLight, bottomLight;
     float lightFadeDuration, topLightSV, bottomLightSV;
+    bool tutorialComplete = false;
 
     [Header("Hacks: ")]
     public TMP_Text debugText;
@@ -53,6 +54,7 @@ public class BreathingManager : MonoBehaviour
     float nimiAmbienceStartVolume;
     public ParticleSystem postBreathingParticles, ambientParticles1, ambientParticles2;
     public float particleFadeValue = 0.1f;
+    public Animator ambientParticles2Animator;
 
     //Events
     public event Action onBreathingFinishedEvent;
@@ -143,6 +145,8 @@ public class BreathingManager : MonoBehaviour
             breathingUIBackdrop.CrossFadeColor(new Color(1, 1, 1, 1), inhaleTimer, true, true);
             iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one * 1.5f, "easetype", iTween.EaseType.easeInOutSine, "time", inhaleTimer));
             iTween.FadeTo(ambientParticlesGO, 1f, inhaleTimer);
+            if (tutorialComplete)
+                ambientParticles2Animator.Play("AmbientParticleGlow_FadeIn");
             if (pauseEnvironmentParticles)
             {
                 PauseEnvironmentParticles(false);
@@ -188,6 +192,8 @@ public class BreathingManager : MonoBehaviour
             breathingUIBackdrop.CrossFadeColor(new Color(1, 1, 1, 0), exhaleTimer, true, true);
             iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one, "easetype", iTween.EaseType.easeOutSine, "time", exhaleTimer));
             iTween.FadeTo(ambientParticlesGO, particleFadeValue, exhaleTimer);
+            if (tutorialComplete)
+                ambientParticles2Animator.Play("AmbientParticleGlow_FadeOut");
             if (pauseEnvironmentParticles)
             {
                 PauseEnvironmentParticles(false);
@@ -224,6 +230,7 @@ public class BreathingManager : MonoBehaviour
         if (inTutorial)
         {
             inTutorial = false;
+            tutorialComplete = true;
         }
 
         UpdateBreathingUIState(0f);
@@ -289,6 +296,9 @@ public class BreathingManager : MonoBehaviour
             canvas.SetActive(true);
             uiAnimator.Play("BreathingUI_FadeIn");
 
+            if (tutorialComplete)
+                ambientParticles2Animator.Play("AmbientParticleGlow_FadeOut");
+
             yield return new WaitForSeconds(2f);
 
             iTween.FadeTo(ambientParticlesGO, particleFadeValue, 1.75f);
@@ -301,6 +311,8 @@ public class BreathingManager : MonoBehaviour
             elapsedTime = 0f;
             fadeLightsIn = true;
             iTween.FadeTo(ambientParticlesGO, 1f, 5f);
+            if (tutorialComplete)
+                ambientParticles2Animator.Play("AmbientParticleGlow_FadeIn");
 
             yield return new WaitForSeconds(delayAfterCompletingExercise);
 

@@ -1,9 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
 using System;
-using Liminal.SDK.VR;
-using Liminal.SDK.VR.Avatars;
-using Liminal.SDK.VR.Input;
 using UnityEngine.Rendering;
 using Liminal.SDK.Core;
 using Liminal.Core.Fader;
@@ -15,7 +12,7 @@ public class NimiExperienceManager : MonoBehaviour
     public float nimiFadeInDelayTime = 6.5f;
     public float environmentDialogueDelayTime = 2f;
     public float environmentFadeTime = 2f;
-    public Material moonSkybox, auroraSkybox;
+    public Material moonSkybox, voidSkyBox, auroraSkybox;
 
     [Header("Nimi: ")]
     public Animator nimiAnimator;
@@ -51,7 +48,6 @@ public class NimiExperienceManager : MonoBehaviour
     [SerializeField] float elapsedTime = 0f;
     [SerializeField] bool fadeLights = false;
     //public Color startingAmbientLightColour, startingAmbientEquatorColour, startingAmbientGroundColour;
-    IVRInputDevice leftInput, rightInput;
     AmbientMode gradientAmbientMode;
 
     private void Awake()
@@ -73,17 +69,9 @@ public class NimiExperienceManager : MonoBehaviour
         RenderSettings.ambientLight = Color.black;
         RenderSettings.ambientEquatorColor = Color.black;
         RenderSettings.ambientGroundColor = Color.black;*/
-        //Check this
+
         gradientAmbientMode = RenderSettings.ambientMode;
         RenderSettings.ambientMode = AmbientMode.Skybox;
-
-        /*if (environmentLights.activeSelf)
-            environmentLights.SetActive(false);*/
-
-        /*foreach (GameObject light in environmentLights)
-        {
-            light.SetActive(false);
-        }*/
     }
 
     // Start is called before the first frame update
@@ -106,28 +94,7 @@ public class NimiExperienceManager : MonoBehaviour
         yield return new WaitForSeconds(introDialogueDelayTime);
 
         introDialogue.Interact(0);
-
-        /*var avatar = VRAvatar.Active;
-
-        rightInput = GetInput(VRInputDeviceHand.Right);
-        leftInput = GetInput(VRInputDeviceHand.Left);
-        UpdateInteractableState();
-
-        BreathingManager.instance.onBreathingStartedEvent += UpdateInteractableState;*/
     }
-    /*private IVRInputDevice GetInput(VRInputDeviceHand hand)
-    {
-        var device = VRDevice.Device;
-        return hand == VRInputDeviceHand.Left ? device.SecondaryInputDevice : device.PrimaryInputDevice;
-    }
-    void UpdateInteractableState()
-    {
-        VRDevice.Device?.PrimaryInputDevice?.Pointer?.Deactivate();
-        rightInput.Pointer.Deactivate();
-        //leftInput.Pointer.Deactivate();
-        //VRDevice.Device?.SecondaryInputDevice?.Pointer?.Deactivate();
-        canInteractWithTree = false;
-    }*/
 
     void RevealMindTree()
     {
@@ -163,7 +130,6 @@ public class NimiExperienceManager : MonoBehaviour
 
         //Fade in Breathing UI/Fade Out Nimi
         BreathingManager.instance.UpdateBreathingUIState(1f);
-        //StartCoroutine(InitTutorialDialogueCoroutine());
         breathingTutorialDialogue.Interact(BreathingManager.instance.nimiFadeDuration + 2.5f);
 
         DialogueManager.instance.onDialogueFinishEvent += BreathingManager.instance.BeginBreathingExerciseTutorial;
@@ -178,33 +144,12 @@ public class NimiExperienceManager : MonoBehaviour
         Stage1EnvironmentUpgrade();
 
         //Start Dialogue Sequence
-        //postBreathingTutorialDialgoue.Interact(postTutorialDialogueDelay);
         stage2Dialogue.Interact(postStage2DialogueDelay);
 
         //Init First Phase of Breathing After Dialogue
-        //DialogueManager.instance.onDialogueFinishEvent += BeginStage2BreathingExercise;
         DialogueManager.instance.onDialogueFinishEvent += PostStage1BreathingContinued;
     }
-    /*void BeginStage2BreathingExercise()
-    {
-        DialogueManager.instance.onDialogueFinishEvent -= BeginStage2BreathingExercise;
-
-        BreathingManager.instance.BeginBreathingExercise(stage2ExerciseDelay);
-        BreathingManager.instance.onBreathingFinishedEvent += PostStage2Breathing;
-    }
-    public void PostStage2Breathing()
-    {
-        BreathingManager.instance.onBreathingFinishedEvent -= PostStage2Breathing;
-
-        //Update Environment
-        Stage2EnvironmentUpgrade();
-
-        //Start Dialogue
-        stage2Dialogue.Interact(postStage2DialogueDelay);
-
-        //Continue Next Dialogue Sequence
-        DialogueManager.instance.onDialogueFinishEvent += PostStage2BreathingContinued;
-    }*/
+ 
     void Stage1EnvironmentUpgrade()
     {
         /*TerrainData terrainData = treeTerrain.terrainData;
@@ -219,7 +164,7 @@ public class NimiExperienceManager : MonoBehaviour
         owlAmbiene.Play();
         RenderSettings.skybox = moonSkybox;
         glowAmbientParticles.Play();
-        //RenderSettings.ambientMode = gradientAmbientMode;
+        RenderSettings.ambientMode = gradientAmbientMode;
         //constellations.SetActive(true);
         /*RenderSettings.ambientLight = startingAmbientLightColour;
         RenderSettings.ambientEquatorColor = startingAmbientEquatorColour;
@@ -306,7 +251,7 @@ public class NimiExperienceManager : MonoBehaviour
 
     private void Update()
     {
-        if(fadeLights)
+        if (fadeLights)
         {
             if (elapsedTime < environmentFadeTime)
             {

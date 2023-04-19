@@ -9986,6 +9986,16 @@ PrefabInstance:
       propertyPath: m_MaxRayIntersections
       value: 64
       objectReference: {fileID: 0}
+    - target: {fileID: 1260162968871696499, guid: 22276a8657744e04cba8ad0a2caf4195,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1260162969354081713, guid: 22276a8657744e04cba8ad0a2caf4195,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22276a8657744e04cba8ad0a2caf4195, type: 3}
 --- !u!4 &141072768 stripped
@@ -20651,6 +20661,7 @@ GameObject:
   - component: {fileID: 901313918}
   - component: {fileID: 901313920}
   - component: {fileID: 901313919}
+  - component: {fileID: 901313921}
   m_Layer: 0
   m_Name: AmbientParticles_Glow
   m_TagString: Untagged
@@ -25392,6 +25403,25 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!95 &901313921
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 901313917}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1b1bb8e94906a9d4a87432f7cc188a8d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &907414566
 GameObject:
   m_ObjectHideFlags: 0
@@ -25924,6 +25954,7 @@ MonoBehaviour:
   ambientParticles1: {fileID: 1744302714}
   ambientParticles2: {fileID: 901313920}
   particleFadeValue: 0.1
+  ambientParticles2Animator: {fileID: 901313921}
 --- !u!4 &1021498305
 Transform:
   m_ObjectHideFlags: 0
@@ -27970,6 +28001,7 @@ MonoBehaviour:
   environmentDialogueDelayTime: 5
   environmentFadeTime: 9
   moonSkybox: {fileID: 2100000, guid: 8d5ea6ed8fe559345b42df250a255b5b, type: 2}
+  voidSkyBox: {fileID: 2100000, guid: fe2cf96a963b2bb4992ddd77e18a81af, type: 2}
   auroraSkybox: {fileID: 2100000, guid: cb461174653fa3e4fbbf306c2d4e914e, type: 2}
   nimiAnimator: {fileID: 1393262482}
   nimiAudioSource: {fileID: 0}
