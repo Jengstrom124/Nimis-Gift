@@ -4,6 +4,7 @@ using System;
 using UnityEngine.Rendering;
 using Liminal.SDK.Core;
 using Liminal.Core.Fader;
+using TMPro;
 
 public class NimiExperienceManager : MonoBehaviour
 {
@@ -43,6 +44,8 @@ public class NimiExperienceManager : MonoBehaviour
     public float topLightStartValue, bottomLightStartValue, environmentLightStartValue;
     public Transform dialogueCanvas;
     public Animator nimiIntroAnimator;
+    public TMP_Text timerText;
+    public bool useTimer = false;
 
     [Header("Debugs: ")]
     [SerializeField] float elapsedTime = 0f;
@@ -251,6 +254,9 @@ public class NimiExperienceManager : MonoBehaviour
 
     private void Update()
     {
+        if (useTimer)
+            timerText.text = "" + Time.time;
+
         if (fadeLights)
         {
             if (elapsedTime < environmentFadeTime)
