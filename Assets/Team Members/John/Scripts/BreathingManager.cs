@@ -19,8 +19,8 @@ public class BreathingManager : MonoBehaviour
     public float delayAfterCompletingExercise = 2f;
 
     [Header("Light Config: ")]
-    public float desiredTopLightFadeValue;
-    public float desiredBottomLightFadeValue;
+    public float topLightFadeOutValue = 2f;
+    public float bottomLightFadeOutValue = 1f;
 
     [Header("UI: ")]
     public Animator uiAnimator;
@@ -41,17 +41,18 @@ public class BreathingManager : MonoBehaviour
     [SerializeField] bool inhale, pause, exhale = false;
     [SerializeField] bool inTutorial = false;
     [SerializeField] float elapsedTime = 0f;
-    [SerializeField] bool fadeLightsOut, fadeLightsIn;
+    [SerializeField] bool fadeLightsOut, fadeLightsIn, pauseEnvironmentParticles;
     bool breathingSettingsUpdated = false;
     Light topLight, bottomLight;
     float lightFadeDuration, topLightSV, bottomLightSV;
 
     [Header("Hacks: ")]
     public TMP_Text debugText;
-    public GameObject nimi, nimiParticles;
+    public GameObject nimi, nimiParticles, ambientParticlesGO;
     public AudioSource nimiAmbienceAudio;
     float nimiAmbienceStartVolume;
-    public ParticleSystem postBreathingParticles;
+    public ParticleSystem postBreathingParticles, ambientParticles1, ambientParticles2;
+    public float particleFadeValue = 0.1f;
 
     //Events
     public event Action onBreathingFinishedEvent;
@@ -141,6 +142,12 @@ public class BreathingManager : MonoBehaviour
             MoveUIRef("x", 2.35f, inhaleTimer);
             breathingUIBackdrop.CrossFadeColor(new Color(1, 1, 1, 1), inhaleTimer, true, true);
             iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one * 1.5f, "easetype", iTween.EaseType.easeInOutSine, "time", inhaleTimer));
+            iTween.FadeTo(ambientParticlesGO, 1f, inhaleTimer);
+            if (pauseEnvironmentParticles)
+            {
+                PauseEnvironmentParticles(false);
+            }
+
             #endregion
 
             yield return new WaitForSeconds(inhaleTimer);
@@ -152,7 +159,13 @@ public class BreathingManager : MonoBehaviour
             pause = true;
             debugText.text = "Hold";
 
+            //Tweens
             MoveUIRef("y", -2.05f, pauseTimer);
+            if(pauseEnvironmentParticles)
+            {
+                PauseEnvironmentParticles(true);
+            }
+
             #endregion
 
             yield return new WaitForSeconds(pauseTimer);
@@ -174,6 +187,12 @@ public class BreathingManager : MonoBehaviour
             MoveUIRef("x", 0f, exhaleTimer);
             breathingUIBackdrop.CrossFadeColor(new Color(1, 1, 1, 0), exhaleTimer, true, true);
             iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one, "easetype", iTween.EaseType.easeOutSine, "time", exhaleTimer));
+            iTween.FadeTo(ambientParticlesGO, particleFadeValue, exhaleTimer);
+            if (pauseEnvironmentParticles)
+            {
+                PauseEnvironmentParticles(false);
+            }
+
             #endregion
 
             yield return new WaitForSeconds(exhaleTimer);
@@ -186,6 +205,10 @@ public class BreathingManager : MonoBehaviour
             debugText.text = "Hold";
 
             MoveUIRef("y", 0, pauseTimer);
+            if (pauseEnvironmentParticles)
+            {
+                PauseEnvironmentParticles(true);
+            }
             #endregion
 
             yield return new WaitForSeconds(pauseTimer);
@@ -215,6 +238,28 @@ public class BreathingManager : MonoBehaviour
     {
         iTween.MoveTo(uiRef, iTween.Hash(axis, pos, "islocal", true, "easetype", iTween.EaseType.easeInOutSine, "time", timer));
     }
+    void PauseEnvironmentParticles(bool pause)
+    {
+        if (pause)
+        {
+            ambientParticles1.Pause();
+
+            if (ambientParticles2.isPlaying)
+            {
+                ambientParticles2.Pause();
+            }
+
+        }
+        else
+        {
+            ambientParticles1.Play();
+
+            if (ambientParticles2.isPaused)
+            {
+                ambientParticles2.Play();
+            }
+        }
+    }
 
     #region Fading Breathing UI
     /// <summary>
@@ -243,6 +288,10 @@ public class BreathingManager : MonoBehaviour
 
             canvas.SetActive(true);
             uiAnimator.Play("BreathingUI_FadeIn");
+
+            yield return new WaitForSeconds(2f);
+
+            iTween.FadeTo(ambientParticlesGO, particleFadeValue, 1.75f);
         }
         else
         {
@@ -251,6 +300,7 @@ public class BreathingManager : MonoBehaviour
 
             elapsedTime = 0f;
             fadeLightsIn = true;
+            iTween.FadeTo(ambientParticlesGO, 1f, 5f);
 
             yield return new WaitForSeconds(delayAfterCompletingExercise);
 
@@ -324,8 +374,8 @@ public class BreathingManager : MonoBehaviour
                 //Fade Lights In
                 if (elapsedTime < inhaleTimer)
                 {
-                    topLight.intensity = Mathf.Lerp(desiredTopLightFadeValue, topLightSV, elapsedTime / inhaleTimer);
-                    bottomLight.intensity = Mathf.Lerp(desiredBottomLightFadeValue, bottomLightSV, elapsedTime / inhaleTimer);
+                    topLight.intensity = Mathf.Lerp(topLightFadeOutValue, topLightSV, elapsedTime / inhaleTimer);
+                    bottomLight.intensity = Mathf.Lerp(bottomLightFadeOutValue, bottomLightSV, elapsedTime / inhaleTimer);
                 }
                 else
                 {
@@ -340,13 +390,13 @@ public class BreathingManager : MonoBehaviour
                 //Fade Lights Out
                 if (elapsedTime < exhaleTimer)
                 {
-                    topLight.intensity = Mathf.Lerp(topLightSV, desiredTopLightFadeValue, elapsedTime / exhaleTimer);
-                    bottomLight.intensity = Mathf.Lerp(bottomLightSV, desiredBottomLightFadeValue, elapsedTime / exhaleTimer);
+                    topLight.intensity = Mathf.Lerp(topLightSV, topLightFadeOutValue, elapsedTime / exhaleTimer);
+                    bottomLight.intensity = Mathf.Lerp(bottomLightSV, bottomLightFadeOutValue, elapsedTime / exhaleTimer);
                 }
                 else
                 {
-                    topLight.intensity = desiredTopLightFadeValue;
-                    bottomLight.intensity = desiredBottomLightFadeValue;
+                    topLight.intensity = topLightFadeOutValue;
+                    bottomLight.intensity = bottomLightFadeOutValue;
                 }
                 elapsedTime += Time.deltaTime;
             }
@@ -357,13 +407,13 @@ public class BreathingManager : MonoBehaviour
         {
             if (elapsedTime < lightFadeDuration)
             {
-                topLight.intensity = Mathf.Lerp(topLightSV, desiredTopLightFadeValue, elapsedTime / lightFadeDuration);
-                bottomLight.intensity = Mathf.Lerp(bottomLightSV, desiredBottomLightFadeValue, elapsedTime / lightFadeDuration);
+                topLight.intensity = Mathf.Lerp(topLightSV, topLightFadeOutValue, elapsedTime / lightFadeDuration);
+                bottomLight.intensity = Mathf.Lerp(bottomLightSV, bottomLightFadeOutValue, elapsedTime / lightFadeDuration);
             }
             else
             {
-                topLight.intensity = desiredTopLightFadeValue;
-                bottomLight.intensity = desiredBottomLightFadeValue;
+                topLight.intensity = topLightFadeOutValue;
+                bottomLight.intensity = bottomLightFadeOutValue;
                 fadeLightsOut = false;
             }
             elapsedTime += Time.deltaTime;
@@ -373,8 +423,8 @@ public class BreathingManager : MonoBehaviour
         {            
             if(elapsedTime < lightFadeDuration)
             {
-                topLight.intensity = Mathf.Lerp(desiredTopLightFadeValue, topLightSV, elapsedTime / lightFadeDuration);
-                bottomLight.intensity = Mathf.Lerp(desiredBottomLightFadeValue, bottomLightSV, elapsedTime / lightFadeDuration);
+                topLight.intensity = Mathf.Lerp(topLightFadeOutValue, topLightSV, elapsedTime / lightFadeDuration);
+                bottomLight.intensity = Mathf.Lerp(bottomLightFadeOutValue, bottomLightSV, elapsedTime / lightFadeDuration);
             }
             else
             {
