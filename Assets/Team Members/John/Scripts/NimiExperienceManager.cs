@@ -191,12 +191,13 @@ public class NimiExperienceManager : MonoBehaviour
     {
         BreathingManager.instance.onBreathingFinishedEvent -= PostStage2Breathing;
 
-        stage3Dialogue.Interact(1f);
+        nimiAnimator.SetTrigger("SummonAurora");
+        stage3Dialogue.Interact(2f);
         StartCoroutine(Stage2AuroraSequenceCoroutine());
     }
     IEnumerator Stage2AuroraSequenceCoroutine()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(7.5f);
 
         //Begin Aurora Here
         aurora.SetActive(true);

@@ -3939,7 +3939,7 @@ ParticleSystem:
       properties: 0
       emitProbability: 1
   LightsModule:
-    enabled: 1
+    enabled: 0
     ratio: 1
     light: {fileID: 6587059848519547280, guid: b44e8b8a129ce4948b32df489168ecd2, type: 3}
     randomDistribution: 1
@@ -4878,8 +4878,8 @@ Transform:
   m_LocalPosition: {x: 0.1903534, y: 0.16999817, z: 11.66402}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 385656528}
-  m_RootOrder: 3
+  m_Father: {fileID: 1310289313}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &13222292
 GameObject:
@@ -14912,7 +14912,6 @@ Transform:
   - {fileID: 1310289313}
   - {fileID: 82267383}
   - {fileID: 2165873327936252508}
-  - {fileID: 6444637}
   - {fileID: 713020377}
   m_Father: {fileID: 646888768}
   m_RootOrder: 4
@@ -15365,7 +15364,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 5a1b9309aa193e74abeb6b852b2929c2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5a1b9309aa193e74abeb6b852b2929c2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15842,7 +15841,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 385656528}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 126.6, y: -20.2, z: -54.363983}
 --- !u!199 &713020378
 ParticleSystemRenderer:
@@ -25816,7 +25815,7 @@ MonoBehaviour:
   repeatDialogueEntries: 0
   stopTriggerAfterDialogue: 0
   diagloueEntries:
-  - dialogue: Look above...
+  - dialogue: Look...
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
@@ -26052,7 +26051,7 @@ MonoBehaviour:
   postBreathingParticles: {fileID: 82267385}
   ambientParticles1: {fileID: 1744302714}
   ambientParticles2: {fileID: 901313920}
-  particleFadeValue: 0.1
+  particleFadeValue: 0.075
   ambientParticles2Animator: {fileID: 901313921}
 --- !u!4 &1021498305
 Transform:
@@ -26796,6 +26795,7 @@ Transform:
   m_Children:
   - {fileID: 901313918}
   - {fileID: 1744302712}
+  - {fileID: 6444637}
   m_Father: {fileID: 385656528}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -28110,7 +28110,7 @@ MonoBehaviour:
   stage2ExerciseDelay: 3
   postStage2DialogueDelay: 7.5
   stage2MidDialogueDelay: 12
-  stage3AuroraSequenceDelay: 25
+  stage3AuroraSequenceDelay: 41
   stage3MidDialogueDelay: 7.5
   introDialogue: {fileID: 1627056135}
   mindTreeDialogue: {fileID: 1757329322}

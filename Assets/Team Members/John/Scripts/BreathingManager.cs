@@ -305,12 +305,14 @@ public class BreathingManager : MonoBehaviour
         }
         else
         {
-            //Fade UI out/Nimi in
+            //Fade UI out
             uiAnimator.Play("BreathingUI_FadeOut");
 
+            //Fade Environment Back In
             elapsedTime = 0f;
             fadeLightsIn = true;
             iTween.FadeTo(ambientParticlesGO, 1f, 5f);
+            PauseEnvironmentParticles(false);
             if (tutorialComplete)
                 ambientParticles2Animator.Play("AmbientParticleGlow_FadeIn");
 
