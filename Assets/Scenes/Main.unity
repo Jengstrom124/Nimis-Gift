@@ -25944,7 +25944,7 @@ MonoBehaviour:
   elapsedTime: 0
   fadeLightsOut: 0
   fadeLightsIn: 0
-  pauseEnvironmentParticles: 0
+  pauseEnvironmentParticles: 1
   debugText: {fileID: 1529246020}
   nimi: {fileID: 1393262480}
   nimiParticles: {fileID: 816653419}
