@@ -26516,7 +26516,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d2f23f717bd6331409784a3ff58f3ac6, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -28102,8 +28102,10 @@ MonoBehaviour:
   moonSkybox: {fileID: 2100000, guid: 8d5ea6ed8fe559345b42df250a255b5b, type: 2}
   voidSkyBox: {fileID: 2100000, guid: fe2cf96a963b2bb4992ddd77e18a81af, type: 2}
   auroraSkybox: {fileID: 2100000, guid: cb461174653fa3e4fbbf306c2d4e914e, type: 2}
+  foliageMat: {fileID: 2100000, guid: a96f21bf5314fe841a2bd2dc9f710ebd, type: 2}
   nimiAnimator: {fileID: 1393262482}
   nimiAudioSource: {fileID: 0}
+  nimiIntroAnimator: {fileID: 6914306820031018770}
   postTutorialDialogueDelay: 1.75
   stage2ExerciseDelay: 3
   postStage2DialogueDelay: 7.5
@@ -28139,11 +28141,10 @@ MonoBehaviour:
   bottomLightStartValue: 0
   environmentLightStartValue: 0
   dialogueCanvas: {fileID: 1630600587}
-  nimiIntroAnimator: {fileID: 6914306820031018770}
-  timerText: {fileID: 1781765185}
-  useTimer: 0
   elapsedTime: 0
   fadeLights: 0
+  timerText: {fileID: 1781765185}
+  useTimer: 0
 --- !u!1 &1744302711
 GameObject:
   m_ObjectHideFlags: 0

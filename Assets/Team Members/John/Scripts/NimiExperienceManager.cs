@@ -12,7 +12,8 @@ public class NimiExperienceManager : MonoBehaviour
     public float nimiFadeInDelayTime = 6.5f;
     public float environmentDialogueDelayTime = 2f;
     public float environmentFadeTime = 2f;
-    public Material moonSkybox, voidSkyBox, auroraSkybox;
+    public Material moonSkybox, voidSkyBox, auroraSkybox, foliageMat;
+    //public Shader foliageSwayShader, foliageDefaultShader;
 
     [Header("Nimi: ")]
     public Animator nimiAnimator;
@@ -157,14 +158,15 @@ public class NimiExperienceManager : MonoBehaviour
         treeTerrain.terrainData = terrainData;*/
         //treeTerrain.terrainData.wavingGrassSpeed = 0.25f;
         fallingLeaves.Play();
-        iTween.AudioTo(gameObject, iTween.Hash("audiosource", windAmbience, "volume", 1f, "easetype", iTween.EaseType.easeInOutSine, "time", 3f));
+        iTween.AudioTo(gameObject, iTween.Hash("audiosource", windAmbience, "volume", 0.5f, "easetype", iTween.EaseType.easeInOutSine, "time", 4f));
         fireflies.Play();
         moonRays.Play();
-        iTween.AudioTo(cricketAmbience.gameObject, iTween.Hash("audiosource", cricketAmbience, "volume", 0.4f, "easetype", iTween.EaseType.easeInOutSine, "time", 12f));
+        iTween.AudioTo(cricketAmbience.gameObject, iTween.Hash("audiosource", cricketAmbience, "volume", 0.48f, "easetype", iTween.EaseType.easeInOutSine, "time", 12f));
         owlAmbiene.Play();
         RenderSettings.skybox = moonSkybox;
         glowAmbientParticles.Play();
         RenderSettings.ambientMode = gradientAmbientMode;
+        //foliageMat.shader = foliageSwayShader;
         //constellations.SetActive(true);
         /*RenderSettings.ambientLight = startingAmbientLightColour;
         RenderSettings.ambientEquatorColor = startingAmbientEquatorColour;
