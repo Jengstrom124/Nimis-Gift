@@ -51,6 +51,7 @@ public class NimiExperienceManager : MonoBehaviour
     public TMP_Text timerText;
     public bool useTimer = false;
     AmbientMode gradientAmbientMode;
+    public bool triggerNimiExitAnim = false;
 
     private void Awake()
     {
@@ -263,6 +264,11 @@ public class NimiExperienceManager : MonoBehaviour
     {
         if (useTimer)
             timerText.text = "" + Time.time;
+        if(triggerNimiExitAnim)
+        {
+            nimiAnimator.Play("Nimi_Exit");
+            triggerNimiExitAnim = true;
+        }
 
         if (fadeLights)
         {
