@@ -417,8 +417,8 @@ MonoBehaviour:
   secondPhaseDuration: 60
   delayBeforeExercise: 5
   delayAfterCompletingExercise: 5
-  desiredTopLightFadeValue: 2
-  desiredBottomLightFadeValue: 1
+  topLightFadeOutValue: 2
+  bottomLightFadeOutValue: 1
   uiAnimator: {fileID: 77724180}
   uiFadeDuration: 2
   nimiFadeDuration: 2
@@ -441,11 +441,17 @@ MonoBehaviour:
   elapsedTime: 0
   fadeLightsOut: 0
   fadeLightsIn: 0
+  pauseEnvironmentParticles: 0
   debugText: {fileID: 1910734748}
   nimi: {fileID: 286885384}
   nimiParticles: {fileID: 286885383}
+  ambientParticlesGO: {fileID: 0}
   nimiAmbienceAudio: {fileID: 286885385}
   postBreathingParticles: {fileID: 1594221915}
+  ambientParticles1: {fileID: 0}
+  ambientParticles2: {fileID: 0}
+  particleFadeValue: 0.1
+  ambientParticles2Animator: {fileID: 0}
 --- !u!1 &80944805
 GameObject:
   m_ObjectHideFlags: 0
@@ -753,6 +759,7 @@ MonoBehaviour:
   environmentDialogueDelayTime: 5
   environmentFadeTime: 9
   moonSkybox: {fileID: 2100000, guid: 8d5ea6ed8fe559345b42df250a255b5b, type: 2}
+  voidSkyBox: {fileID: 0}
   auroraSkybox: {fileID: 2100000, guid: cb461174653fa3e4fbbf306c2d4e914e, type: 2}
   nimiAnimator: {fileID: 286885386}
   nimiAudioSource: {fileID: 0}
@@ -792,6 +799,8 @@ MonoBehaviour:
   environmentLightStartValue: 0
   dialogueCanvas: {fileID: 2038532557}
   nimiIntroAnimator: {fileID: 642688483}
+  timerText: {fileID: 0}
+  useTimer: 0
   elapsedTime: 0
   fadeLights: 0
 --- !u!114 &251417712
@@ -10856,6 +10865,7 @@ Transform:
   - {fileID: 603687346}
   - {fileID: 1617668155}
   - {fileID: 219704370}
+  - {fileID: 585646454}
   m_Father: {fileID: 1278804347}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -15766,6 +15776,97 @@ MonoBehaviour:
     oneOffCustomSFX: {fileID: 0}
     endingDialogueHack: 0
   myDialogueEntries: []
+--- !u!1 &585646453
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 585646454}
+  - component: {fileID: 585646455}
+  m_Layer: 0
+  m_Name: LeavesLight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &585646454
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585646453}
+  m_LocalRotation: {x: -0.33566415, y: -0, z: -0, w: 0.9419818}
+  m_LocalPosition: {x: -14.830002, y: 9.779999, z: 2.8700008}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 471766293}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: -39.226, y: 0, z: 0}
+--- !u!108 &585646455
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585646453}
+  m_Enabled: 1
+  serializedVersion: 9
+  m_Type: 0
+  m_Color: {r: 0.50513077, g: 0.3962264, b: 0.5283019, a: 1}
+  m_Intensity: 18
+  m_Range: 12.39
+  m_SpotAngle: 149.5
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 2
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!1 &603687345
 GameObject:
   m_ObjectHideFlags: 0
@@ -15807,8 +15908,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 9
   m_Type: 0
-  m_Color: {r: 0.71334934, g: 0.5304379, b: 0.754717, a: 1}
-  m_Intensity: 14
+  m_Color: {r: 0.7137255, g: 0.5294118, b: 0.75294125, a: 1}
+  m_Intensity: 22
   m_Range: 29.867401
   m_SpotAngle: 162.1028
   m_InnerSpotAngle: 13
