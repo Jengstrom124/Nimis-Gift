@@ -266,7 +266,7 @@ public class NimiExperienceManager : MonoBehaviour
             timerText.text = "" + Time.time;
         if(triggerNimiExitAnim)
         {
-            nimiAnimator.Play("Nimi_Exit");
+            nimiAnimator.Play("Nimi_Exit"); 
             triggerNimiExitAnim = true;
         }
 
