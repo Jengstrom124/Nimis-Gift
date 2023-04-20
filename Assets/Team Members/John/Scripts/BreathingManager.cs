@@ -318,6 +318,9 @@ public class BreathingManager : MonoBehaviour
 
             yield return new WaitForSeconds(delayAfterCompletingExercise);
 
+            if (NimiExperienceManager.instance.nimiAuroraHack)
+                NimiExperienceManager.instance.PlayAuroraAnimHack();
+
             FadeNimiIn();
 
             yield return new WaitForSeconds(nimiFadeDuration + 1f);

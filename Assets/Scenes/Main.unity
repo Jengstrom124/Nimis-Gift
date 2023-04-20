@@ -14879,8 +14879,9 @@ Transform:
   m_Children:
   - {fileID: 107688147}
   - {fileID: 621161876}
+  - {fileID: 1367112393}
   m_Father: {fileID: 646888768}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &385656527
 GameObject:
@@ -14914,7 +14915,7 @@ Transform:
   - {fileID: 2165873327936252508}
   - {fileID: 713020377}
   m_Father: {fileID: 646888768}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &427219786
 GameObject:
@@ -15670,7 +15671,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1367112393}
   - {fileID: 914817521}
   - {fileID: 1634877052}
   - {fileID: 332038651}
@@ -25759,7 +25759,7 @@ RectTransform:
   m_Children:
   - {fileID: 1135867204}
   m_Father: {fileID: 646888768}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -26470,7 +26470,7 @@ Transform:
   - {fileID: 1123880482}
   - {fileID: 549653594}
   m_Father: {fileID: 646888768}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1263543359
 GameObject:
@@ -26904,11 +26904,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1367112389}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.670349, y: -6.630005, z: -22.6}
+  m_LocalPosition: {x: -203.17035, y: -157.17955, z: -7.3}
   m_LocalScale: {x: 25, y: 1, z: 10}
   m_Children: []
-  m_Father: {fileID: 646888768}
-  m_RootOrder: 0
+  m_Father: {fileID: 332038651}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1393262480 stripped
 GameObject:
@@ -27876,7 +27876,7 @@ Transform:
   - {fileID: 530847021}
   - {fileID: 1293813355}
   m_Father: {fileID: 646888768}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1656854835
 GameObject:
@@ -28110,8 +28110,8 @@ MonoBehaviour:
   stage2ExerciseDelay: 3
   postStage2DialogueDelay: 7.5
   stage2MidDialogueDelay: 12
-  stage3AuroraSequenceDelay: 41
-  stage3MidDialogueDelay: 7.5
+  stage3AuroraSequenceDelay: 32.5
+  stage3MidDialogueDelay: 6
   introDialogue: {fileID: 1627056135}
   mindTreeDialogue: {fileID: 1757329322}
   breathingTutorialDialogue: {fileID: 13222294}
@@ -28145,6 +28145,7 @@ MonoBehaviour:
   fadeLights: 0
   timerText: {fileID: 1781765185}
   useTimer: 0
+  nimiAuroraHack: 0
 --- !u!1 &1744302711
 GameObject:
   m_ObjectHideFlags: 0
@@ -33022,7 +33023,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 646888768}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1781765183
 GameObject:
@@ -33471,7 +33472,7 @@ PrefabInstance:
     - target: {fileID: 4626960623821295974, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4626960623821295974, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
         type: 3}
@@ -33491,12 +33492,12 @@ PrefabInstance:
     - target: {fileID: 4626960623821295974, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.32422042
+      value: 0.6650031
       objectReference: {fileID: 0}
     - target: {fileID: 4626960623821295974, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.49701828
+      value: 0.5643456
       objectReference: {fileID: 0}
     - target: {fileID: 4626960623821295974, guid: 6e2cd1262a9ba7b4588a3ac69dee253e,
         type: 3}
@@ -34008,13 +34009,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6914306820031018769}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.3242204, y: 4.98, z: 0.5}
+  m_LocalPosition: {x: 0.6650031, y: 4.98, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224925254}
   - {fileID: 6914306820031177407}
   m_Father: {fileID: 646888768}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &6914306820050536581
 ParticleSystem:

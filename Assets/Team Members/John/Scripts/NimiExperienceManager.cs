@@ -180,20 +180,27 @@ public class NimiExperienceManager : MonoBehaviour
         stage2DialogueCont.Interact(stage2MidDialogueDelay);
         DialogueManager.instance.onDialogueFinishEvent += BeginStage2Breathing;
     }
+    public bool nimiAuroraHack = false;
     void BeginStage2Breathing()
     {
         DialogueManager.instance.onDialogueFinishEvent -= BeginStage2Breathing;
 
-        BreathingManager.instance.BeginBreathingExercise(1f);
+        nimiAuroraHack = true;
+        BreathingManager.instance.BeginBreathingExercise(1.5f);
         BreathingManager.instance.onBreathingFinishedEvent += PostStage2Breathing;
     }
     void PostStage2Breathing()
     {
         BreathingManager.instance.onBreathingFinishedEvent -= PostStage2Breathing;
 
-        nimiAnimator.SetTrigger("SummonAurora");
-        stage3Dialogue.Interact(2f);
+        //nimiAnimator.SetTrigger("SummonAurora");
+        stage3Dialogue.Interact(1f);
         StartCoroutine(Stage2AuroraSequenceCoroutine());
+    }
+    public void PlayAuroraAnimHack()
+    {
+        nimiAnimator.Play("Aurora_Summon");
+        nimiAuroraHack = false;
     }
     IEnumerator Stage2AuroraSequenceCoroutine()
     {
