@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using System;
 using UnityEngine.Rendering;
 using Liminal.SDK.Core;
 using Liminal.Core.Fader;
@@ -13,11 +12,13 @@ public class NimiExperienceManager : MonoBehaviour
     public float nimiFadeInDelayTime = 6.5f;
     public float environmentDialogueDelayTime = 2f;
     public float environmentFadeTime = 2f;
-    public Material moonSkybox, voidSkyBox, auroraSkybox;
+    public Material moonSkybox, voidSkyBox, auroraSkybox, foliageMat;
+    //public Shader foliageSwayShader, foliageDefaultShader;
 
     [Header("Nimi: ")]
     public Animator nimiAnimator;
     public AudioSource nimiAudioSource;
+    public Animator nimiIntroAnimator;
 
     [Header("Dialogue Sequences")]
     public float postTutorialDialogueDelay = 2.5f;
@@ -43,15 +44,14 @@ public class NimiExperienceManager : MonoBehaviour
     public Light topLight, bottomLight, environmentLight;
     public float topLightStartValue, bottomLightStartValue, environmentLightStartValue;
     public Transform dialogueCanvas;
-    public Animator nimiIntroAnimator;
-    public TMP_Text timerText;
-    public bool useTimer = false;
 
     [Header("Debugs: ")]
     [SerializeField] float elapsedTime = 0f;
     [SerializeField] bool fadeLights = false;
-    //public Color startingAmbientLightColour, startingAmbientEquatorColour, startingAmbientGroundColour;
+    public TMP_Text timerText;
+    public bool useTimer = false;
     AmbientMode gradientAmbientMode;
+    public bool triggerNimiExitAnim = false;
 
     private void Awake()
     {
@@ -77,7 +77,6 @@ public class NimiExperienceManager : MonoBehaviour
         RenderSettings.ambientMode = AmbientMode.Skybox;
     }
 
-    // Start is called before the first frame update
     IEnumerator Start()
     {
         DialogueManager.instance.onDialogueFinishEvent += RevealMindTree;
@@ -160,14 +159,15 @@ public class NimiExperienceManager : MonoBehaviour
         treeTerrain.terrainData = terrainData;*/
         //treeTerrain.terrainData.wavingGrassSpeed = 0.25f;
         fallingLeaves.Play();
-        iTween.AudioTo(gameObject, iTween.Hash("audiosource", windAmbience, "volume", 1f, "easetype", iTween.EaseType.easeInOutSine, "time", 3f));
+        iTween.AudioTo(gameObject, iTween.Hash("audiosource", windAmbience, "volume", 0.5f, "easetype", iTween.EaseType.easeInOutSine, "time", 4f));
         fireflies.Play();
         moonRays.Play();
-        iTween.AudioTo(cricketAmbience.gameObject, iTween.Hash("audiosource", cricketAmbience, "volume", 0.4f, "easetype", iTween.EaseType.easeInOutSine, "time", 12f));
+        iTween.AudioTo(cricketAmbience.gameObject, iTween.Hash("audiosource", cricketAmbience, "volume", 0.48f, "easetype", iTween.EaseType.easeInOutSine, "time", 12f));
         owlAmbiene.Play();
         RenderSettings.skybox = moonSkybox;
         glowAmbientParticles.Play();
         RenderSettings.ambientMode = gradientAmbientMode;
+        //foliageMat.shader = foliageSwayShader;
         //constellations.SetActive(true);
         /*RenderSettings.ambientLight = startingAmbientLightColour;
         RenderSettings.ambientEquatorColor = startingAmbientEquatorColour;
@@ -181,23 +181,31 @@ public class NimiExperienceManager : MonoBehaviour
         stage2DialogueCont.Interact(stage2MidDialogueDelay);
         DialogueManager.instance.onDialogueFinishEvent += BeginStage2Breathing;
     }
+    public bool nimiAuroraHack = false;
     void BeginStage2Breathing()
     {
         DialogueManager.instance.onDialogueFinishEvent -= BeginStage2Breathing;
 
-        BreathingManager.instance.BeginBreathingExercise(1f);
+        nimiAuroraHack = true;
+        BreathingManager.instance.BeginBreathingExercise(1.5f);
         BreathingManager.instance.onBreathingFinishedEvent += PostStage2Breathing;
     }
     void PostStage2Breathing()
     {
         BreathingManager.instance.onBreathingFinishedEvent -= PostStage2Breathing;
 
+        //nimiAnimator.SetTrigger("SummonAurora");
         stage3Dialogue.Interact(1f);
         StartCoroutine(Stage2AuroraSequenceCoroutine());
     }
+    public void PlayAuroraAnimHack()
+    {
+        nimiAnimator.Play("Aurora_Summon");
+        nimiAuroraHack = false;
+    }
     IEnumerator Stage2AuroraSequenceCoroutine()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(7.5f);
 
         //Begin Aurora Here
         aurora.SetActive(true);
@@ -256,6 +264,11 @@ public class NimiExperienceManager : MonoBehaviour
     {
         if (useTimer)
             timerText.text = "" + Time.time;
+        if(triggerNimiExitAnim)
+        {
+            nimiAnimator.Play("Nimi_Exit");
+            triggerNimiExitAnim = true;
+        }
 
         if (fadeLights)
         {
