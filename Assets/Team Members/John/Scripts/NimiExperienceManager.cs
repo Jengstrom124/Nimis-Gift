@@ -40,7 +40,7 @@ public class NimiExperienceManager : MonoBehaviour
 
     [Header("Hacks")]
     public GameObject mindTreeEnvironment;
-    public GameObject environmentLights;
+    //public GameObject environmentLightsGO;
     public Light topLight, bottomLight, environmentLight;
     public float topLightStartValue, bottomLightStartValue, environmentLightStartValue;
     public Transform dialogueCanvas;
