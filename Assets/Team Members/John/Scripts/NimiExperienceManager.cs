@@ -268,12 +268,12 @@ public class NimiExperienceManager : MonoBehaviour
         if(triggerNimiExitAnim)
         {
             nimiAnimator.Play("Nimi_Exit"); 
-            triggerNimiExitAnim = true;
+            triggerNimiExitAnim = false;
         }
         if(triggerNimiAuroraAnim)
         {
             nimiAnimator.Play("Aurora_Summon");
-            triggerNimiExitAnim = true;
+            triggerNimiAuroraAnim = false;
         }
 
         if (fadeLights)
