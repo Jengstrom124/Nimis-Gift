@@ -51,7 +51,8 @@ public class NimiExperienceManager : MonoBehaviour
     public TMP_Text timerText;
     public bool useTimer = false;
     AmbientMode gradientAmbientMode;
-    public bool triggerNimiExitAnim = false;
+    [SerializeField] bool triggerNimiExitAnim = false;
+    [SerializeField] bool triggerNimiAuroraAnim = false;
 
     private void Awake()
     {
@@ -267,6 +268,11 @@ public class NimiExperienceManager : MonoBehaviour
         if(triggerNimiExitAnim)
         {
             nimiAnimator.Play("Nimi_Exit"); 
+            triggerNimiExitAnim = true;
+        }
+        if(triggerNimiAuroraAnim)
+        {
+            nimiAnimator.Play("Aurora_Summon");
             triggerNimiExitAnim = true;
         }
 
