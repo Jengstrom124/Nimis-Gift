@@ -25975,15 +25975,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f5406cc315e5e74a98120a0ccedbc62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inhaleTimer: 2
-  pauseTimer: 2
-  exhaleTimer: 2
-  secondProgressionIncrease: 3
-  targetDuration: 30
-  firstPhaseDuration: 60
-  secondPhaseDuration: 90
   delayBeforeExercise: 5
   delayAfterCompletingExercise: 5
+  stage1Duration: 60
+  stage1StartTimer: 2
+  stage1FirstProgression: 2.3
+  stage1SecondProgression: 2.6
+  stage1FirstProgressionThreshold: 20
+  stage1SecondProgressionThreshold: 40
+  stage2Duration: 90
+  stage2StartTimer: 3
+  stage2FirstProgression: 3.15
+  stage2SecondProgression: 3.3
+  stage2FirstProgressionThreshold: 30
+  stage2SecondProgressionThreshold: 60
   topLightFadeOutValue: 2
   bottomLightFadeOutValue: 1
   uiAnimator: {fileID: 1021498307}
@@ -25999,6 +26004,10 @@ MonoBehaviour:
   breathingAudioSource: {fileID: 1021498306}
   inhaleAudio: {fileID: 8300000, guid: db3da93903210414abeeff6553d23614, type: 3}
   exhaleAudio: {fileID: 8300000, guid: e5af68f372119ba468b6b2870931d4c1, type: 3}
+  targetDuration: 30
+  inhaleTimer: 2
+  pauseTimer: 2
+  exhaleTimer: 2
   breathingInProgress: 0
   breathingTimer: 0
   inhale: 0

@@ -9,14 +9,25 @@ public class BreathingManager : MonoBehaviour
     public static BreathingManager instance;
 
     [Header("Breathing Settings")]
-    [Tooltip("Timer in seconds")]
-    public float inhaleTimer;
-    public float pauseTimer, exhaleTimer;
-    public float secondProgressionIncrease = 3f;
-    public float targetDuration = 30f;
-    public float firstPhaseDuration, secondPhaseDuration;
-    public float delayBeforeExercise = 4.5f;
-    public float delayAfterCompletingExercise = 2f;
+    public float delayBeforeExercise = 5f;
+    public float delayAfterCompletingExercise = 5f;
+
+    [Header("Stage 1 Breathing Timers")]
+    [Tooltip("How long the breathing exercise will last")]
+    [SerializeField] float stage1Duration = 60f;
+    [Tooltip("Inhale/Exhale Durations")]
+    [SerializeField] float stage1StartTimer, stage1FirstProgression, stage1SecondProgression;
+    [Tooltip("How long into the duration should breathing timers update (20 = Update Timers AFTER 20 seconds etc)")]
+    [SerializeField] float stage1FirstProgressionThreshold, stage1SecondProgressionThreshold;
+
+
+    [Header("Stage 2 Breathing Timers")]
+    [Tooltip("How long the breathing exercise will last")]
+    [SerializeField] float stage2Duration = 90f;
+    [Tooltip("Inhale/Exhale Durations")]
+    [SerializeField] float stage2StartTimer, stage2FirstProgression, stage2SecondProgression;
+    [Tooltip("How long into the duration should breathing timers update (20 = Update Timers AFTER 20 seconds etc)")]
+    [SerializeField] float stage2FirstProgressionThreshold, stage2SecondProgressionThreshold;
 
     [Header("Light Config: ")]
     public float topLightFadeOutValue = 2f;
@@ -36,13 +47,16 @@ public class BreathingManager : MonoBehaviour
     public AudioClip inhaleAudio, exhaleAudio;
 
     [Header("Debug/Refernces: ")]
+    [SerializeField] float targetDuration = 30f;
+    [SerializeField] float inhaleTimer, pauseTimer, exhaleTimer;
     [SerializeField] bool breathingInProgress = false;
     [SerializeField] float breathingTimer;
     [SerializeField] bool inhale, pause, exhale = false;
     [SerializeField] bool inTutorial = false;
     [SerializeField] float elapsedTime = 0f;
     [SerializeField] bool fadeLightsOut, fadeLightsIn, pauseEnvironmentParticles;
-    bool breathingSettingsUpdated = false;
+    bool stage1FirstProgressionComplete, stage1SecondProgressionComplete, stage2FirstProgressionComplete, stage2SecondProgressionComplete;
+    bool stage1TimersComplete, stage2TimersComplete;
     Light topLight, bottomLight;
     float lightFadeDuration, topLightSV, bottomLightSV;
     bool tutorialComplete = false;
@@ -83,21 +97,21 @@ public class BreathingManager : MonoBehaviour
     public void BeginBreathingExerciseTutorial()
     {
         DialogueManager.instance.onDialogueFinishEvent -= BeginBreathingExerciseTutorial;
+
+        //Init Tutorial Timers
         inTutorial = true;
-        targetDuration = firstPhaseDuration;
+        inhaleTimer = stage1StartTimer;
+        exhaleTimer = stage1StartTimer;
+        targetDuration = stage1Duration;
 
         StartCoroutine(BreathingExcerciseCoroutine(0));
     }
     public void BeginBreathingExercise(float delayBeforeStarting)
     {
-        //Update Breathing Settings
-        if(!breathingSettingsUpdated)
-        {
-            inhaleTimer = secondProgressionIncrease;
-            exhaleTimer = secondProgressionIncrease;
-            targetDuration = secondPhaseDuration;
-            breathingSettingsUpdated = true;
-        }
+        //Update Breathing Timers
+        inhaleTimer = stage2StartTimer;
+        exhaleTimer = stage2StartTimer;
+        targetDuration = stage2Duration;
 
         StartCoroutine(BreathingExcerciseCoroutine(delayBeforeStarting));
     }
@@ -368,25 +382,79 @@ public class BreathingManager : MonoBehaviour
         {
             breathingTimer += Time.deltaTime;
 
-            /*if (!inTutorial)
+            if(inTutorial)
             {
-                if (!breathingTimersUpdated)
+                #region Update Stage 1 Timers
+                if (!stage1TimersComplete)
                 {
-                    //Increase breathing progression midway through exercise (starting on next inhale)
-                    if (breathingTimer > targetDuration / 2)
+                    if (!stage1FirstProgressionComplete)
                     {
-                        if (inhale)
+                        //Only Update Timers on Inhale as that is after a full cycle
+                        if(inhale)
                         {
-                            inhaleTimer = secondProgressionIncrease;
-                            exhaleTimer = secondProgressionIncrease;
-                            pauseTimer = secondProgressionIncrease;
-                            breathingTimersUpdated = true;
+                            //Update Timers After Specified Duration
+                            if (breathingTimer > stage1FirstProgressionThreshold)
+                            {
+                                inhaleTimer = stage1FirstProgression;
+                                exhaleTimer = stage1FirstProgression;
+                                stage1FirstProgressionComplete = true;
+                            }
+                        }
+                    }
+
+                    if(!stage1SecondProgressionComplete)
+                    {
+                        if(inhale)
+                        {
+                            //Update Timers After Specified Duration
+                            if (breathingTimer > stage1SecondProgressionThreshold)
+                            {
+                                inhaleTimer = stage1SecondProgression;
+                                exhaleTimer = stage1SecondProgression;
+                                stage1SecondProgressionComplete = true;
+                                stage1TimersComplete = true;
+                            }
                         }
                     }
                 }
-            }*/
+                #endregion
+            }
+            else
+            {
+                #region Update Stage 2 Timers
+                if (!stage2TimersComplete)
+                {
+                    if (!stage2FirstProgressionComplete)
+                    {
+                        if(inhale)
+                        {
+                            if (breathingTimer > stage2FirstProgressionThreshold)
+                            {
+                                inhaleTimer = stage2FirstProgression;
+                                exhaleTimer = stage2FirstProgression;
+                                stage2FirstProgressionComplete = true;
+                            }
+                        }
+                    }
 
-            if(inhale)
+                    if (!stage2SecondProgressionComplete)
+                    {
+                        if(inhale)
+                        {
+                            if (breathingTimer > stage2SecondProgressionThreshold)
+                            {
+                                inhaleTimer = stage2SecondProgression;
+                                exhaleTimer = stage2SecondProgression;
+                                stage2SecondProgressionComplete = true;
+                                stage2TimersComplete = true;
+                            }
+                        }
+                    }
+                }
+                #endregion
+            }
+
+            if (inhale)
             {
                 //Fade Lights In
                 if (elapsedTime < inhaleTimer)
