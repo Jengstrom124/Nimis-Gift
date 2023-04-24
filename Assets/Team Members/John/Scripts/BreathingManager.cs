@@ -44,7 +44,7 @@ public class BreathingManager : MonoBehaviour
 
     [Header("Audio: ")]
     public AudioSource breathingAudioSource;
-    public AudioClip inhaleAudio, exhaleAudio;
+    public AudioClip stage1InhaleAudio, stage1ExhaleAudio, stage2InhaleAudio, stage2ExhaleAudio;
 
     [Header("Debug/Refernces: ")]
     [SerializeField] float targetDuration = 30f;
@@ -112,6 +112,7 @@ public class BreathingManager : MonoBehaviour
         inhaleTimer = stage2StartTimer;
         exhaleTimer = stage2StartTimer;
         targetDuration = stage2Duration;
+        breathingAudioSource.volume = 0.13f;
 
         StartCoroutine(BreathingExcerciseCoroutine(delayBeforeStarting));
     }
@@ -151,7 +152,11 @@ public class BreathingManager : MonoBehaviour
             debugText.text = "Inhale";
 
             //Audio
-            breathingAudioSource.clip = inhaleAudio;
+            if(!tutorialComplete)
+                breathingAudioSource.clip = stage1InhaleAudio;
+            else
+                breathingAudioSource.clip = stage2InhaleAudio;
+
             breathingAudioSource.Play();
 
             //Tween BreathingUI
@@ -198,7 +203,11 @@ public class BreathingManager : MonoBehaviour
             debugText.text = "Exhale";
 
             //Audio
-            breathingAudioSource.clip = exhaleAudio;
+            if (!tutorialComplete)
+                breathingAudioSource.clip = stage1ExhaleAudio;
+            else
+                breathingAudioSource.clip = stage2ExhaleAudio;
+
             breathingAudioSource.Play();
 
             //Tween BreathingUI

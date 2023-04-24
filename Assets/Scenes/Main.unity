@@ -15174,6 +15174,7 @@ MonoBehaviour:
   dialogueAudioSource: {fileID: 530847022}
   dialogueAudioClips:
   - {fileID: 8300000, guid: 71f0cc927f078d349842f8ec992840d4, type: 3}
+  - {fileID: 8300000, guid: 6cb5dd364c51f414d9c64233336ac008, type: 3}
   interactAudioSource: {fileID: 0}
   interactSound: {fileID: 0}
   dialogueSpeed: 4.5
@@ -25985,8 +25986,8 @@ MonoBehaviour:
   stage1SecondProgressionThreshold: 40
   stage2Duration: 90
   stage2StartTimer: 3
-  stage2FirstProgression: 3.15
-  stage2SecondProgression: 3.3
+  stage2FirstProgression: 3.2
+  stage2SecondProgression: 3.4
   stage2FirstProgressionThreshold: 30
   stage2SecondProgressionThreshold: 60
   topLightFadeOutValue: 2
@@ -26002,8 +26003,10 @@ MonoBehaviour:
   breathingUIBackdrop: {fileID: 1615114145}
   canvas: {fileID: 1045469756}
   breathingAudioSource: {fileID: 1021498306}
-  inhaleAudio: {fileID: 8300000, guid: db3da93903210414abeeff6553d23614, type: 3}
-  exhaleAudio: {fileID: 8300000, guid: e5af68f372119ba468b6b2870931d4c1, type: 3}
+  stage1InhaleAudio: {fileID: 8300000, guid: db3da93903210414abeeff6553d23614, type: 3}
+  stage1ExhaleAudio: {fileID: 8300000, guid: e5af68f372119ba468b6b2870931d4c1, type: 3}
+  stage2InhaleAudio: {fileID: 8300000, guid: 8ee75f20cdf13f24ba8c4120e0d9a567, type: 3}
+  stage2ExhaleAudio: {fileID: 8300000, guid: 74e616fa9ec0aca46a2edbb00e06d0cb, type: 3}
   targetDuration: 30
   inhaleTimer: 2
   pauseTimer: 2
