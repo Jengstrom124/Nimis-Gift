@@ -41,7 +41,7 @@ public class NimiExperienceManager : MonoBehaviour
     [Header("Hacks")]
     public GameObject mindTreeEnvironment;
     //public GameObject environmentLightsGO;
-    public Light topLight, bottomLight, environmentLight;
+    public Light topLight, bottomLight, environmentLight, rimLight;
     public float topLightStartValue, bottomLightStartValue, environmentLightStartValue;
     public Transform dialogueCanvas;
 
@@ -67,6 +67,7 @@ public class NimiExperienceManager : MonoBehaviour
             topLight.intensity = 0f;
             bottomLight.intensity = 0f;
             environmentLight.intensity = 0f;
+            rimLight.gameObject.SetActive(false);
         }
 
         /*startingAmbientLightColour = RenderSettings.ambientLight;
@@ -167,7 +168,7 @@ public class NimiExperienceManager : MonoBehaviour
         owlAmbiene.Play();
         RenderSettings.skybox = moonSkybox;
         glowAmbientParticles.Play();
-        RenderSettings.ambientMode = gradientAmbientMode;
+        //RenderSettings.ambientMode = gradientAmbientMode;
         //foliageMat.shader = foliageSwayShader;
         constellations.SetActive(true);
         /*RenderSettings.ambientLight = startingAmbientLightColour;
@@ -290,6 +291,7 @@ public class NimiExperienceManager : MonoBehaviour
                 topLight.intensity = topLightStartValue;
                 bottomLight.intensity = bottomLightStartValue;
                 environmentLight.intensity = environmentLightStartValue;
+                rimLight.gameObject.SetActive(true);
                 fadeLights = false;
             }
 

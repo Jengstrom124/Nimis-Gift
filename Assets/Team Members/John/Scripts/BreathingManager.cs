@@ -64,7 +64,7 @@ public class BreathingManager : MonoBehaviour
     public GameObject nimi, nimiParticles, ambientParticlesGO;
     public AudioSource nimiAmbienceAudio;
     float nimiAmbienceStartVolume;
-    public ParticleSystem postBreathingParticles, ambientParticles1, ambientParticles2;
+    public ParticleSystem postBreathingParticles, ambientParticles1, ambientParticles2, environmentTransitionParticles;
     public float particleFadeValue = 0.1f;
     public Animator ambientParticles2Animator;
 
@@ -260,6 +260,7 @@ public class BreathingManager : MonoBehaviour
 
         UpdateBreathingUIState(0f);
         postBreathingParticles.Play();
+        environmentTransitionParticles.Play();
 
         yield return new WaitForSeconds(delayAfterCompletingExercise);
 
