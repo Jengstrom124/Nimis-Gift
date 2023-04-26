@@ -9,8 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Maple_Leaves 1
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ALPHATEST_ON _EMISSION _NORMALMAP
-  m_LightmapFlags: 1
+  m_ShaderKeywords: _ALPHATEST_ON _NORMALMAP
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2450
@@ -97,10 +97,10 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EdgeWidth: 0.05
-    - _GlossMapScale: 1
-    - _Glossiness: 0.264
+    - _GlossMapScale: 0
+    - _Glossiness: 0.144
     - _GlossyReflections: 1
-    - _Metallic: 0.743
+    - _Metallic: 0
     - _Mode: 1
     - _NormalStrength: 0.25
     - _OcclusionStrength: 1
@@ -115,7 +115,7 @@ Material:
     m_Colors:
     - Color_f81cfcc9b99a474895c54af03c1fefd0: {r: 1, g: 1, b: 1, a: 0}
     - Vector2_ee3da453ee474862bd12028a3df74cd4: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.40392157, g: 0, b: 0.0425023, a: 1}
+    - _Color: {r: 0.41509432, g: 0, b: 0.04555909, a: 1}
     - _EdgeColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0.21698111, g: 0, b: 0.025230374, a: 1}
     - _WindDirection: {r: 0.001, g: 0, b: 0, a: 2.3}
