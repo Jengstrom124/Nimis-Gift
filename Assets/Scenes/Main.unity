@@ -35755,14 +35755,10 @@ MonoBehaviour:
   topLightFadeOutValue: 2
   bottomLightFadeOutValue: 1
   uiAnimator: {fileID: 1021498307}
-  uiFadeDuration: 2
   nimiFadeDuration: 2
-  uiRef: {fileID: 1949532245}
-  breathingUIArray:
-  - {fileID: 764462984}
-  - {fileID: 1615114145}
-  - {fileID: 1124479680}
-  breathingUIBackdrop: {fileID: 1615114145}
+  nimiUIIcon: {fileID: 1949532245}
+  breathingUIBackdrop: {fileID: 631378072}
+  breathingUIBackdrop2: {fileID: 974746878}
   canvas: {fileID: 1045469756}
   breathingAudioSource: {fileID: 1021498306}
   stage1InhaleAudio: {fileID: 8300000, guid: db3da93903210414abeeff6553d23614, type: 3}

@@ -35,11 +35,9 @@ public class BreathingManager : MonoBehaviour
 
     [Header("UI: ")]
     public Animator uiAnimator;
-    public float uiFadeDuration = 2f;
     public float nimiFadeDuration = 2f;
-    public GameObject uiRef;
-    public Image[] breathingUIArray;
-    public Image breathingUIBackdrop;
+    public GameObject nimiUIIcon;
+    public Image breathingUIBackdrop, breathingUIBackdrop2;
     public GameObject canvas;
 
     [Header("Audio: ")]
@@ -163,6 +161,7 @@ public class BreathingManager : MonoBehaviour
             //MoveUIRef("x", 2.35f, inhaleTimer);
             MoveUIRef("x", 0.88f, inhaleTimer);
             breathingUIBackdrop.CrossFadeColor(new Color(1, 1, 1, 1), inhaleTimer, true, true);
+            breathingUIBackdrop2.CrossFadeColor(new Color(1, 1, 1, 1), inhaleTimer, true, true);
             iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one * 1.5f, "easetype", iTween.EaseType.easeInOutSine, "time", inhaleTimer));
             iTween.FadeTo(ambientParticlesGO, 1f, inhaleTimer);
             if (tutorialComplete)
@@ -215,6 +214,7 @@ public class BreathingManager : MonoBehaviour
             //Tween BreathingUI
             MoveUIRef("x", -0.88f, exhaleTimer);
             breathingUIBackdrop.CrossFadeColor(new Color(1, 1, 1, 0), exhaleTimer, true, true);
+            breathingUIBackdrop2.CrossFadeColor(new Color(1, 1, 1, 0), exhaleTimer, true, true);
             iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one, "easetype", iTween.EaseType.easeOutSine, "time", exhaleTimer));
             iTween.FadeTo(ambientParticlesGO, particleFadeValue, exhaleTimer);
             if (tutorialComplete)
@@ -268,7 +268,7 @@ public class BreathingManager : MonoBehaviour
     }
     void MoveUIRef(string axis, float pos, float timer)
     {
-        iTween.MoveTo(uiRef, iTween.Hash(axis, pos, "islocal", true, "easetype", iTween.EaseType.easeInOutSine, "time", timer));
+        iTween.MoveTo(nimiUIIcon, iTween.Hash(axis, pos, "islocal", true, "easetype", iTween.EaseType.easeInOutSine, "time", timer));
     }
     void PauseEnvironmentParticles(bool pause)
     {
