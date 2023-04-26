@@ -169,7 +169,7 @@ public class NimiExperienceManager : MonoBehaviour
         glowAmbientParticles.Play();
         RenderSettings.ambientMode = gradientAmbientMode;
         //foliageMat.shader = foliageSwayShader;
-        //constellations.SetActive(true);
+        constellations.SetActive(true);
         /*RenderSettings.ambientLight = startingAmbientLightColour;
         RenderSettings.ambientEquatorColor = startingAmbientEquatorColour;
         RenderSettings.ambientGroundColor = startingAmbientGroundColour;*/
