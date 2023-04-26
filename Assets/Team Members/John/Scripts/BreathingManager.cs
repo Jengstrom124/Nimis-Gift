@@ -160,7 +160,8 @@ public class BreathingManager : MonoBehaviour
             breathingAudioSource.Play();
 
             //Tween BreathingUI
-            MoveUIRef("x", 2.35f, inhaleTimer);
+            //MoveUIRef("x", 2.35f, inhaleTimer);
+            MoveUIRef("x", 0.88f, inhaleTimer);
             breathingUIBackdrop.CrossFadeColor(new Color(1, 1, 1, 1), inhaleTimer, true, true);
             iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one * 1.5f, "easetype", iTween.EaseType.easeInOutSine, "time", inhaleTimer));
             iTween.FadeTo(ambientParticlesGO, 1f, inhaleTimer);
@@ -183,8 +184,9 @@ public class BreathingManager : MonoBehaviour
             debugText.text = "Hold";
 
             //Tweens
-            MoveUIRef("y", -2.05f, pauseTimer);
-            if(pauseEnvironmentParticles)
+            //MoveUIRef("y", -2.05f, pauseTimer);
+            MoveUIRef("y", -0.88f, pauseTimer);
+            if (pauseEnvironmentParticles)
             {
                 PauseEnvironmentParticles(true);
             }
@@ -211,7 +213,7 @@ public class BreathingManager : MonoBehaviour
             breathingAudioSource.Play();
 
             //Tween BreathingUI
-            MoveUIRef("x", 0f, exhaleTimer);
+            MoveUIRef("x", -0.88f, exhaleTimer);
             breathingUIBackdrop.CrossFadeColor(new Color(1, 1, 1, 0), exhaleTimer, true, true);
             iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one, "easetype", iTween.EaseType.easeOutSine, "time", exhaleTimer));
             iTween.FadeTo(ambientParticlesGO, particleFadeValue, exhaleTimer);
@@ -233,7 +235,7 @@ public class BreathingManager : MonoBehaviour
             exhale = false;
             debugText.text = "Hold";
 
-            MoveUIRef("y", 0, pauseTimer);
+            MoveUIRef("y", 0.88f, pauseTimer);
             if (pauseEnvironmentParticles)
             {
                 PauseEnvironmentParticles(true);
@@ -262,7 +264,7 @@ public class BreathingManager : MonoBehaviour
         yield return new WaitForSeconds(delayAfterCompletingExercise);
 
         canvas.SetActive(false);
-        uiRef.transform.localPosition = Vector3.zero;
+        //uiRef.transform.localPosition = Vector3.zero;
     }
     void MoveUIRef(string axis, float pos, float timer)
     {
@@ -317,7 +319,7 @@ public class BreathingManager : MonoBehaviour
             yield return new WaitForSeconds(nimiFadeDuration + 1f);
 
             canvas.SetActive(true);
-            uiAnimator.Play("BreathingUI_FadeIn");
+            uiAnimator.Play("BreathingUI_FadeIn_Final");
 
             if (tutorialComplete)
                 ambientParticles2Animator.Play("AmbientParticleGlow_FadeOut");
@@ -329,7 +331,7 @@ public class BreathingManager : MonoBehaviour
         else
         {
             //Fade UI out
-            uiAnimator.Play("BreathingUI_FadeOut");
+            uiAnimator.Play("BreathingUI_FadeOut_Final");
 
             //Fade Environment Back In
             elapsedTime = 0f;
