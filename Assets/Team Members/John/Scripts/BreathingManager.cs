@@ -32,6 +32,8 @@ public class BreathingManager : MonoBehaviour
     [Header("Light Config: ")]
     public float topLightFadeOutValue = 2f;
     public float bottomLightFadeOutValue = 1f;
+    [Tooltip("The colour the lights will fade into during the breathing stage so they aren't as bright as the default environment")]
+    public Color topLightBreatheFadeInColour, bottomLightBreatheFadeInColour;
 
     [Header("UI: ")]
     public Animator uiAnimator;
@@ -56,7 +58,8 @@ public class BreathingManager : MonoBehaviour
     bool stage1FirstProgressionComplete, stage1SecondProgressionComplete, stage2FirstProgressionComplete, stage2SecondProgressionComplete;
     bool stage1TimersComplete, stage2TimersComplete;
     Light topLight, bottomLight;
-    float lightFadeDuration, topLightSV, bottomLightSV;
+    float lightFadeDuration;
+    Color topLightStartColour, bottomLightStartColour;
     bool tutorialComplete = false;
 
     [Header("Hacks: ")]
@@ -86,8 +89,8 @@ public class BreathingManager : MonoBehaviour
 
         topLight = NimiExperienceManager.instance.topLight;
         bottomLight = NimiExperienceManager.instance.bottomLight;
-        topLightSV = NimiExperienceManager.instance.topLightStartValue;
-        bottomLightSV = NimiExperienceManager.instance.bottomLightStartValue;
+        topLightStartColour = NimiExperienceManager.instance.topLightStartColour;
+        bottomLightStartColour = NimiExperienceManager.instance.bottomLightStartColour;
         lightFadeDuration = nimiFadeDuration + 2.5f;
         nimiAmbienceStartVolume = nimiAmbienceAudio.volume;
     }
@@ -149,6 +152,9 @@ public class BreathingManager : MonoBehaviour
             inhale = true;
             debugText.text = "Inhale";
 
+            //Lights
+            FadeLights(true, inhaleTimer);
+
             //Audio
             if(!tutorialComplete)
                 breathingAudioSource.clip = stage1InhaleAudio;
@@ -162,7 +168,7 @@ public class BreathingManager : MonoBehaviour
             MoveUIRef("x", 0.88f, inhaleTimer);
             breathingUIBackdrop.CrossFadeColor(new Color(1, 1, 1, 1), inhaleTimer, true, true);
             breathingUIBackdrop2.CrossFadeColor(new Color(1, 1, 1, 1), inhaleTimer, true, true);
-            iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one * 1.5f, "easetype", iTween.EaseType.easeInOutSine, "time", inhaleTimer));
+            iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one * 1.25f, "easetype", iTween.EaseType.easeInOutSine, "time", inhaleTimer));
             iTween.FadeTo(ambientParticlesGO, 1f, inhaleTimer);
             if (tutorialComplete)
                 ambientParticles2Animator.Play("AmbientParticleGlow_FadeIn");
@@ -202,6 +208,9 @@ public class BreathingManager : MonoBehaviour
             pause = false;
             exhale = true;
             debugText.text = "Exhale";
+
+            //Lights
+            FadeLights(false, exhaleTimer);
 
             //Audio
             if (!tutorialComplete)
@@ -314,8 +323,9 @@ public class BreathingManager : MonoBehaviour
             /*iTween.FadeTo(nimi, iTween.Hash("alpha", 0f, "includechildren", false, "time", nimiFadeDuration));
             iTween.FadeTo(nimiParticles, 0f, nimiFadeDuration);*/
 
-            elapsedTime = 0f;
-            fadeLightsOut = true;
+            /*elapsedTime = 0f;
+            fadeLightsOut = true;*/
+            FadeLights(false, lightFadeDuration);
 
             yield return new WaitForSeconds(nimiFadeDuration + 1f);
 
@@ -335,8 +345,10 @@ public class BreathingManager : MonoBehaviour
             uiAnimator.Play("BreathingUI_FadeOut_Final");
 
             //Fade Environment Back In
-            elapsedTime = 0f;
-            fadeLightsIn = true;
+            /*elapsedTime = 0f;
+            fadeLightsIn = true;*/
+            FadeLights(true, lightFadeDuration);
+
             iTween.FadeTo(ambientParticlesGO, 1f, 5f);
             PauseEnvironmentParticles(false);
             if (tutorialComplete)
@@ -383,6 +395,29 @@ public class BreathingManager : MonoBehaviour
             iTween.FadeTo(nimi, iTween.Hash("alpha", 0.35f, "includechildren", false, "time", nimiFadeDuration));
             iTween.FadeTo(nimiParticles, 1f, nimiFadeDuration);
             iTween.AudioTo(gameObject, iTween.Hash("audiosource", nimiAmbienceAudio, "volume", nimiAmbienceStartVolume, "easetype", iTween.EaseType.easeInOutSine, "time", nimiFadeDuration));
+        }
+    }
+
+    void FadeLights(bool fadeIn, float timer)
+    {
+        if(fadeIn)
+        {
+            if(breathingInProgress)
+            {
+                iTween.ColorTo(topLight.gameObject, topLightBreatheFadeInColour, timer);
+                iTween.ColorTo(bottomLight.gameObject, bottomLightBreatheFadeInColour, timer);
+
+            }
+            else
+            {
+                iTween.ColorTo(topLight.gameObject, topLightStartColour, timer);
+                iTween.ColorTo(bottomLight.gameObject, bottomLightStartColour, timer);
+            }
+        }
+        else
+        {
+            iTween.ColorTo(topLight.gameObject, Color.black, timer);
+            iTween.ColorTo(bottomLight.gameObject, Color.black, timer);
         }
     }
     #endregion
@@ -466,18 +501,18 @@ public class BreathingManager : MonoBehaviour
                 #endregion
             }
 
-            if (inhale)
+            /*if (inhale)
             {
                 //Fade Lights In
                 if (elapsedTime < inhaleTimer)
                 {
-                    topLight.intensity = Mathf.Lerp(topLightFadeOutValue, topLightSV, elapsedTime / inhaleTimer);
-                    bottomLight.intensity = Mathf.Lerp(bottomLightFadeOutValue, bottomLightSV, elapsedTime / inhaleTimer);
+                    topLight.intensity = Mathf.Lerp(topLightFadeOutValue, topLightStartColour, elapsedTime / inhaleTimer);
+                    bottomLight.intensity = Mathf.Lerp(bottomLightFadeOutValue, bottomLightStartColour, elapsedTime / inhaleTimer);
                 }
                 else
                 {
-                    topLight.intensity = topLightSV;
-                    bottomLight.intensity = bottomLightSV;
+                    topLight.intensity = topLightStartColour;
+                    bottomLight.intensity = bottomLightStartColour;
                 }
                 elapsedTime += Time.deltaTime;
             }
@@ -487,8 +522,8 @@ public class BreathingManager : MonoBehaviour
                 //Fade Lights Out
                 if (elapsedTime < exhaleTimer)
                 {
-                    topLight.intensity = Mathf.Lerp(topLightSV, topLightFadeOutValue, elapsedTime / exhaleTimer);
-                    bottomLight.intensity = Mathf.Lerp(bottomLightSV, bottomLightFadeOutValue, elapsedTime / exhaleTimer);
+                    topLight.intensity = Mathf.Lerp(topLightStartColour, topLightFadeOutValue, elapsedTime / exhaleTimer);
+                    bottomLight.intensity = Mathf.Lerp(bottomLightStartColour, bottomLightFadeOutValue, elapsedTime / exhaleTimer);
                 }
                 else
                 {
@@ -496,16 +531,16 @@ public class BreathingManager : MonoBehaviour
                     bottomLight.intensity = bottomLightFadeOutValue;
                 }
                 elapsedTime += Time.deltaTime;
-            }
+            }*/
         }
 
-        #region Fading Lights Before & After Breathing
+        /*#region Fading Lights Before & After Breathing
         if (fadeLightsOut)
         {
             if (elapsedTime < lightFadeDuration)
             {
-                topLight.intensity = Mathf.Lerp(topLightSV, topLightFadeOutValue, elapsedTime / lightFadeDuration);
-                bottomLight.intensity = Mathf.Lerp(bottomLightSV, bottomLightFadeOutValue, elapsedTime / lightFadeDuration);
+                topLight.intensity = Mathf.Lerp(topLightStartColour, topLightFadeOutValue, elapsedTime / lightFadeDuration);
+                bottomLight.intensity = Mathf.Lerp(bottomLightStartColour, bottomLightFadeOutValue, elapsedTime / lightFadeDuration);
             }
             else
             {
@@ -520,17 +555,17 @@ public class BreathingManager : MonoBehaviour
         {            
             if(elapsedTime < lightFadeDuration)
             {
-                topLight.intensity = Mathf.Lerp(topLightFadeOutValue, topLightSV, elapsedTime / lightFadeDuration);
-                bottomLight.intensity = Mathf.Lerp(bottomLightFadeOutValue, bottomLightSV, elapsedTime / lightFadeDuration);
+                topLight.intensity = Mathf.Lerp(topLightFadeOutValue, topLightStartColour, elapsedTime / lightFadeDuration);
+                bottomLight.intensity = Mathf.Lerp(bottomLightFadeOutValue, bottomLightStartColour, elapsedTime / lightFadeDuration);
             }
             else
             {
-                topLight.intensity = topLightSV;
-                bottomLight.intensity = bottomLightSV;
+                topLight.intensity = topLightStartColour;
+                bottomLight.intensity = bottomLightStartColour;
                 fadeLightsIn = false;
             }
             elapsedTime += Time.deltaTime;
         }
-        #endregion
+        #endregion*/
     }
 }

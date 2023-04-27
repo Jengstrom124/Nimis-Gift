@@ -42,7 +42,8 @@ public class NimiExperienceManager : MonoBehaviour
     public GameObject mindTreeEnvironment;
     //public GameObject environmentLightsGO;
     public Light topLight, bottomLight, environmentLight, rimLight;
-    public float topLightStartValue, bottomLightStartValue, environmentLightStartValue;
+    [HideInInspector]
+    public Color topLightStartColour, bottomLightStartColour, rimLightStartColour; //environmentLightStartValue;
     public Transform dialogueCanvas;
 
     [Header("Debugs: ")]
@@ -58,25 +59,29 @@ public class NimiExperienceManager : MonoBehaviour
     {
         instance = this;
 
-        topLightStartValue = topLight.intensity;
-        bottomLightStartValue = bottomLight.intensity;
-        environmentLightStartValue = environmentLight.intensity;
+        topLightStartColour = topLight.color;
+        bottomLightStartColour = bottomLight.color;
+        rimLightStartColour = rimLight.color;
 
-        if (environmentLight.intensity != 0)
+        topLight.color = Color.black;
+        bottomLight.color = Color.black;
+        rimLight.color = Color.black;
+
+        /*if (topLight.intensity != 0)
         {
             topLight.intensity = 0f;
             bottomLight.intensity = 0f;
-            environmentLight.intensity = 0f;
+            //environmentLight.intensity = 0f;
             rimLight.gameObject.SetActive(false);
-        }
+        }*/
 
         /*startingAmbientLightColour = RenderSettings.ambientLight;
         RenderSettings.ambientLight = Color.black;
         RenderSettings.ambientEquatorColor = Color.black;
         RenderSettings.ambientGroundColor = Color.black;*/
 
-        gradientAmbientMode = RenderSettings.ambientMode;
-        RenderSettings.ambientMode = AmbientMode.Skybox;
+        /*gradientAmbientMode = RenderSettings.ambientMode;
+        RenderSettings.ambientMode = AmbientMode.Skybox;*/
     }
 
     IEnumerator Start()
@@ -112,9 +117,13 @@ public class NimiExperienceManager : MonoBehaviour
         //yield return new WaitForSeconds(1.5f);
 
         //Fade Environment In
-        fadeLights = true;
+        //fadeLights = true;
         windFlutesAmbience.Play();
         iTween.AudioTo(gameObject, iTween.Hash("audiosource", windFlutesAmbience, "volume", 1f, "easetype", iTween.EaseType.easeInOutSine, "time", 3f));
+
+        iTween.ColorTo(topLight.gameObject, topLightStartColour, environmentFadeTime);
+        iTween.ColorTo(bottomLight.gameObject, bottomLightStartColour, environmentFadeTime);
+        iTween.ColorTo(rimLight.gameObject, rimLightStartColour, environmentFadeTime);
 
         yield return new WaitForSeconds(1.5f);
 
@@ -134,7 +143,7 @@ public class NimiExperienceManager : MonoBehaviour
 
         //Fade in Breathing UI/Fade Out Nimi
         BreathingManager.instance.UpdateBreathingUIState(1f);
-        breathingTutorialDialogue.Interact(BreathingManager.instance.nimiFadeDuration + 2.5f);
+        breathingTutorialDialogue.Interact(BreathingManager.instance.nimiFadeDuration + 4f);
 
         DialogueManager.instance.onDialogueFinishEvent += BreathingManager.instance.BeginBreathingExerciseTutorial;
         BreathingManager.instance.onBreathingFinishedEvent += PostStage1Breathing;
@@ -277,26 +286,26 @@ public class NimiExperienceManager : MonoBehaviour
             triggerNimiAuroraAnim = false;
         }
 
-        if (fadeLights)
+        /*if (fadeLights)
         {
             if (elapsedTime < environmentFadeTime)
             {
                 topLight.intensity = Mathf.Lerp(0, topLightStartValue, elapsedTime / environmentFadeTime);
                 bottomLight.intensity = Mathf.Lerp(0, bottomLightStartValue, elapsedTime / environmentFadeTime);
-                environmentLight.intensity = Mathf.Lerp(0, environmentLightStartValue, elapsedTime / environmentFadeTime);
+                //environmentLight.intensity = Mathf.Lerp(0, environmentLightStartValue, elapsedTime / environmentFadeTime);
 
             }
             else
             {
                 topLight.intensity = topLightStartValue;
                 bottomLight.intensity = bottomLightStartValue;
-                environmentLight.intensity = environmentLightStartValue;
+                //environmentLight.intensity = environmentLightStartValue;
                 rimLight.gameObject.SetActive(true);
                 fadeLights = false;
             }
 
             elapsedTime += Time.deltaTime;
-        }
+        }*/
     }
 
     public void UpgradeEnvironmentDebug()
