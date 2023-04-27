@@ -31,6 +31,17 @@ public class NimiExperienceManager : MonoBehaviour
     public DialogueTrigger introDialogue, mindTreeDialogue;
     public DialogueTrigger breathingTutorialDialogue, postBreathingTutorialDialgoue, stage2Dialogue, stage2DialogueCont, stage3Dialogue, stage3DialogueCont, endingDialogue;
 
+    [Header("Environment Light Config: ")]
+    public Light stage3ExtraRimLight;
+    public Light topLight, bottomLight, rimLight;
+    [HideInInspector]
+    public Color topLightStartColour, bottomLightStartColour, rimLightStartColour; //environmentLightStartValue;
+    public Color stage1TopLightColour, stage1BottomLightColour, stage1RimLightColour;
+    public Color stage2TopLightColour, stage2BottomLightColour, stage2RimLightColour;
+    public Color stage3TopLightColour, stage3BottomLightColour, stage3RimLightColour, stage3ExtraRimColour;
+    public float stage3LightTransitionTimer = 10f;
+
+
     [Header("Environment Additions")]
     public ParticleSystem fireflies;
     public ParticleSystem moonRays, fallingLeaves, glowAmbientParticles;
@@ -40,10 +51,7 @@ public class NimiExperienceManager : MonoBehaviour
 
     [Header("Hacks")]
     public GameObject mindTreeEnvironment;
-    //public GameObject environmentLightsGO;
-    public Light topLight, bottomLight, environmentLight, rimLight;
     [HideInInspector]
-    public Color topLightStartColour, bottomLightStartColour, rimLightStartColour; //environmentLightStartValue;
     public Transform dialogueCanvas;
 
     [Header("Debugs: ")]
@@ -121,9 +129,9 @@ public class NimiExperienceManager : MonoBehaviour
         windFlutesAmbience.Play();
         iTween.AudioTo(gameObject, iTween.Hash("audiosource", windFlutesAmbience, "volume", 1f, "easetype", iTween.EaseType.easeInOutSine, "time", 3f));
 
-        iTween.ColorTo(topLight.gameObject, topLightStartColour, environmentFadeTime);
-        iTween.ColorTo(bottomLight.gameObject, bottomLightStartColour, environmentFadeTime);
-        iTween.ColorTo(rimLight.gameObject, rimLightStartColour, environmentFadeTime);
+        iTween.ColorTo(topLight.gameObject, stage1TopLightColour, environmentFadeTime);
+        iTween.ColorTo(bottomLight.gameObject, stage1BottomLightColour, environmentFadeTime);
+        iTween.ColorTo(rimLight.gameObject, stage1RimLightColour, environmentFadeTime);
 
         yield return new WaitForSeconds(1.5f);
 
@@ -222,6 +230,13 @@ public class NimiExperienceManager : MonoBehaviour
         aurora.SetActive(true);
         auroraAudioSource.Play();
         iTween.AudioTo(gameObject, iTween.Hash("audiosource", auroraAudioSource, "volume", 0.45f, "easetype", iTween.EaseType.easeInOutSine, "time", 7f));
+
+        //Tween Environment Lights
+        stage3ExtraRimLight.gameObject.SetActive(true);
+        iTween.ColorTo(topLight.gameObject, stage3TopLightColour, stage3LightTransitionTimer);
+        iTween.ColorTo(bottomLight.gameObject, stage3BottomLightColour, stage3LightTransitionTimer);
+        iTween.ColorTo(rimLight.gameObject, stage3RimLightColour, stage3LightTransitionTimer);
+        iTween.ColorTo(stage3ExtraRimLight.gameObject, stage3ExtraRimColour, stage3LightTransitionTimer);
 
         yield return new WaitForSeconds(stage3AuroraSequenceDelay);
 

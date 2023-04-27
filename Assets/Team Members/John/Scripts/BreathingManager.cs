@@ -33,7 +33,8 @@ public class BreathingManager : MonoBehaviour
     public float topLightFadeOutValue = 2f;
     public float bottomLightFadeOutValue = 1f;
     [Tooltip("The colour the lights will fade into during the breathing stage so they aren't as bright as the default environment")]
-    public Color topLightBreatheFadeInColour, bottomLightBreatheFadeInColour;
+    public Color topLightBreatheFadeInColour, bottomLightBreatheFadeInColour, stage2TopLightBreatheFadeInColour, stage2BottomLightBreatheFadeInColour;
+    Color stage2RimLightColour;
 
     [Header("UI: ")]
     public Animator uiAnimator;
@@ -59,7 +60,7 @@ public class BreathingManager : MonoBehaviour
     bool stage1TimersComplete, stage2TimersComplete;
     Light topLight, bottomLight;
     float lightFadeDuration;
-    Color topLightStartColour, bottomLightStartColour;
+    Color stage2TopLightColour, stage2BottomLightColour;
     bool tutorialComplete = false;
 
     [Header("Hacks: ")]
@@ -89,8 +90,9 @@ public class BreathingManager : MonoBehaviour
 
         topLight = NimiExperienceManager.instance.topLight;
         bottomLight = NimiExperienceManager.instance.bottomLight;
-        topLightStartColour = NimiExperienceManager.instance.topLightStartColour;
-        bottomLightStartColour = NimiExperienceManager.instance.bottomLightStartColour;
+        stage2TopLightColour = NimiExperienceManager.instance.stage2TopLightColour;
+        stage2BottomLightColour = NimiExperienceManager.instance.stage2BottomLightColour;
+        stage2RimLightColour = NimiExperienceManager.instance.stage2RimLightColour;
         lightFadeDuration = nimiFadeDuration + 2.5f;
         nimiAmbienceStartVolume = nimiAmbienceAudio.volume;
     }
@@ -168,7 +170,7 @@ public class BreathingManager : MonoBehaviour
             MoveUIRef("x", 0.88f, inhaleTimer);
             breathingUIBackdrop.CrossFadeColor(new Color(1, 1, 1, 1), inhaleTimer, true, true);
             breathingUIBackdrop2.CrossFadeColor(new Color(1, 1, 1, 1), inhaleTimer, true, true);
-            iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one * 1.25f, "easetype", iTween.EaseType.easeInOutSine, "time", inhaleTimer));
+            iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one * 1.175f, "easetype", iTween.EaseType.easeInOutSine, "time", inhaleTimer));
             iTween.FadeTo(ambientParticlesGO, 1f, inhaleTimer);
             if (tutorialComplete)
                 ambientParticles2Animator.Play("AmbientParticleGlow_FadeIn");
@@ -402,16 +404,31 @@ public class BreathingManager : MonoBehaviour
     {
         if(fadeIn)
         {
+            //Different Light Intensity during breathing
             if(breathingInProgress)
             {
-                iTween.ColorTo(topLight.gameObject, topLightBreatheFadeInColour, timer);
-                iTween.ColorTo(bottomLight.gameObject, bottomLightBreatheFadeInColour, timer);
+                if(inTutorial)
+                {
+                    iTween.ColorTo(topLight.gameObject, topLightBreatheFadeInColour, timer);
+                    iTween.ColorTo(bottomLight.gameObject, bottomLightBreatheFadeInColour, timer);
+
+                }
+                else
+                {
+                    iTween.ColorTo(topLight.gameObject, stage2TopLightBreatheFadeInColour, timer);
+                    iTween.ColorTo(bottomLight.gameObject, stage2BottomLightBreatheFadeInColour, timer);
+                }
 
             }
             else
             {
-                iTween.ColorTo(topLight.gameObject, topLightStartColour, timer);
-                iTween.ColorTo(bottomLight.gameObject, bottomLightStartColour, timer);
+                //Fade back to default environment intensity
+                iTween.ColorTo(topLight.gameObject, stage2TopLightColour, timer);
+                iTween.ColorTo(bottomLight.gameObject, stage2BottomLightColour, timer);
+                if(NimiExperienceManager.instance.rimLight.color != stage2RimLightColour)
+                {
+                    iTween.ColorTo(NimiExperienceManager.instance.rimLight.gameObject, stage2RimLightColour, timer + 7.5f);
+                }
             }
         }
         else
