@@ -46,6 +46,7 @@ public class BreathingManager : MonoBehaviour
     [Header("Audio: ")]
     public AudioSource breathingAudioSource;
     public AudioClip stage1InhaleAudio, stage1ExhaleAudio, stage2InhaleAudio, stage2ExhaleAudio;
+    public AudioSource environmentTransitionAudioSource;
 
     [Header("Debug/Refernces: ")]
     [SerializeField] float targetDuration = 30f;
@@ -95,6 +96,8 @@ public class BreathingManager : MonoBehaviour
         stage2RimLightColour = NimiExperienceManager.instance.stage2RimLightColour;
         lightFadeDuration = nimiFadeDuration + 2.5f;
         nimiAmbienceStartVolume = nimiAmbienceAudio.volume;
+
+        NimiExperienceManager.instance.onEnvironmentUpgradeCompleteEvent += FadeNimiIn;
     }
 
     public void BeginBreathingExerciseTutorial()
@@ -261,6 +264,20 @@ public class BreathingManager : MonoBehaviour
         }
         while (breathingTimer < targetDuration);
 
+        PostBreathingCleanup();
+
+        yield return new WaitForSeconds(1f);
+
+        environmentTransitionAudioSource.Play();
+        iTween.AudioTo(environmentTransitionAudioSource.gameObject, iTween.Hash("audiosource", environmentTransitionAudioSource, "volume", 0.4f, "easetype", iTween.EaseType.easeInOutSine, "time", 2f));
+
+        yield return new WaitForSeconds(delayAfterCompletingExercise - 1f);
+
+        canvas.SetActive(false);
+        //uiRef.transform.localPosition = Vector3.zero;
+    }
+    void PostBreathingCleanup()
+    {
         debugText.text = "";
         breathingInProgress = false;
         if (inTutorial)
@@ -272,11 +289,6 @@ public class BreathingManager : MonoBehaviour
         UpdateBreathingUIState(0f);
         postBreathingParticles.Play();
         environmentTransitionParticles.Play();
-
-        yield return new WaitForSeconds(delayAfterCompletingExercise);
-
-        canvas.SetActive(false);
-        //uiRef.transform.localPosition = Vector3.zero;
     }
     void MoveUIRef(string axis, float pos, float timer)
     {
@@ -361,7 +373,7 @@ public class BreathingManager : MonoBehaviour
             if (NimiExperienceManager.instance.nimiAuroraHack)
                 NimiExperienceManager.instance.PlayAuroraAnimHack();
 
-            FadeNimiIn();
+            //FadeNimiIn();
 
             yield return new WaitForSeconds(nimiFadeDuration + 1f);
 
@@ -427,7 +439,7 @@ public class BreathingManager : MonoBehaviour
                 iTween.ColorTo(bottomLight.gameObject, stage2BottomLightColour, timer);
                 if(NimiExperienceManager.instance.rimLight.color != stage2RimLightColour)
                 {
-                    iTween.ColorTo(NimiExperienceManager.instance.rimLight.gameObject, stage2RimLightColour, timer + 7.5f);
+                    iTween.ColorTo(NimiExperienceManager.instance.rimLight.gameObject, stage2RimLightColour, timer + 8f);
                 }
             }
         }

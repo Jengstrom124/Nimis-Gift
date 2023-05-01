@@ -31083,6 +31083,7 @@ GameObject:
   - component: {fileID: 1021498304}
   - component: {fileID: 1021498306}
   - component: {fileID: 1021498307}
+  - component: {fileID: 1021498308}
   m_Layer: 2
   m_Name: BreathingManager
   m_TagString: Untagged
@@ -31125,7 +31126,7 @@ MonoBehaviour:
   stage2BottomLightBreatheFadeInColour: {r: 0.23342465, g: 0.044455323, b: 0.254717,
     a: 1}
   uiAnimator: {fileID: 1021498307}
-  nimiFadeDuration: 2
+  nimiFadeDuration: 2.5
   nimiUIIcon: {fileID: 1949532245}
   breathingUIBackdrop: {fileID: 631378072}
   breathingUIBackdrop2: {fileID: 974746878}
@@ -31135,6 +31136,7 @@ MonoBehaviour:
   stage1ExhaleAudio: {fileID: 8300000, guid: e5af68f372119ba468b6b2870931d4c1, type: 3}
   stage2InhaleAudio: {fileID: 8300000, guid: 8ee75f20cdf13f24ba8c4120e0d9a567, type: 3}
   stage2ExhaleAudio: {fileID: 8300000, guid: 74e616fa9ec0aca46a2edbb00e06d0cb, type: 3}
+  environmentTransitionAudioSource: {fileID: 1021498308}
   targetDuration: 30
   inhaleTimer: 2
   pauseTimer: 2
@@ -31290,6 +31292,102 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!82 &1021498308
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021498303}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: d346529a30cbce647b8a09acd8f86a5c, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1045469756
 GameObject:
   m_ObjectHideFlags: 0
@@ -57323,14 +57421,13 @@ MonoBehaviour:
   environmentFadeTime: 9
   moonSkybox: {fileID: 2100000, guid: 8d5ea6ed8fe559345b42df250a255b5b, type: 2}
   voidSkyBox: {fileID: 2100000, guid: fe2cf96a963b2bb4992ddd77e18a81af, type: 2}
-  auroraSkybox: {fileID: 2100000, guid: cb461174653fa3e4fbbf306c2d4e914e, type: 2}
-  foliageMat: {fileID: 2100000, guid: a96f21bf5314fe841a2bd2dc9f710ebd, type: 2}
+  stage1EnvironmentUpgradeTimer: 8
+  stage2EnvironmentUpgradeTimer: 2
   nimiAnimator: {fileID: 1393262482}
   nimiAudioSource: {fileID: 1186982888}
   nimiIntroAnimator: {fileID: 6914306820031018770}
-  postTutorialDialogueDelay: 1.75
   stage2ExerciseDelay: 3
-  postStage2DialogueDelay: 7.5
+  postStage2DialogueDelay: 6.5
   stage2MidDialogueDelay: 12
   stage3AuroraSequenceDelay: 32.5
   stage3MidDialogueDelay: 6

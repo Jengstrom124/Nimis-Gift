@@ -4,16 +4,19 @@ using UnityEngine.Rendering;
 using Liminal.SDK.Core;
 using Liminal.Core.Fader;
 using TMPro;
+using System;
 
 public class NimiExperienceManager : MonoBehaviour
 {
     public static NimiExperienceManager instance;
+
     public float introDialogueDelayTime = 3f;
     public float nimiFadeInDelayTime = 6.5f;
     public float environmentDialogueDelayTime = 2f;
     public float environmentFadeTime = 2f;
-    public Material moonSkybox, voidSkyBox, auroraSkybox, foliageMat;
-    //public Shader foliageSwayShader, foliageDefaultShader;
+    public Material moonSkybox, voidSkyBox;
+    [Tooltip("Delay given to the experience for the environment transitions/upgrades before continuing Nimi's Dialogue")]
+    public float stage1EnvironmentUpgradeTimer, stage2EnvironmentUpgradeTimer;
 
     [Header("Nimi: ")]
     public Animator nimiAnimator;
@@ -21,7 +24,6 @@ public class NimiExperienceManager : MonoBehaviour
     public Animator nimiIntroAnimator;
 
     [Header("Dialogue Sequences")]
-    public float postTutorialDialogueDelay = 2.5f;
     [Tooltip("Delay before breathing Exercise starts after dialogue")]
     public float stage2ExerciseDelay = 3f;
     public float postStage2DialogueDelay = 3f;
@@ -62,6 +64,9 @@ public class NimiExperienceManager : MonoBehaviour
     AmbientMode gradientAmbientMode;
     [SerializeField] bool triggerNimiExitAnim = false;
     [SerializeField] bool triggerNimiAuroraAnim = false;
+
+    //Events
+    public event Action onEnvironmentUpgradeCompleteEvent;
 
     private void Awake()
     {
@@ -163,9 +168,10 @@ public class NimiExperienceManager : MonoBehaviour
 
         //First Environment Upgrade
         Stage1EnvironmentUpgrade();
+        StartCoroutine(TriggerEnvironmentUpgradeEventCoroutine(stage1EnvironmentUpgradeTimer));
 
         //Start Dialogue Sequence
-        stage2Dialogue.Interact(postStage2DialogueDelay);
+        stage2Dialogue.Interact(postStage2DialogueDelay + stage1EnvironmentUpgradeTimer);
 
         //Init First Phase of Breathing After Dialogue
         DialogueManager.instance.onDialogueFinishEvent += PostStage1BreathingContinued;
@@ -173,10 +179,6 @@ public class NimiExperienceManager : MonoBehaviour
  
     void Stage1EnvironmentUpgrade()
     {
-        /*TerrainData terrainData = treeTerrain.terrainData;
-        terrainData.wavingGrassSpeed = 0.25f;
-        treeTerrain.terrainData = terrainData;*/
-        //treeTerrain.terrainData.wavingGrassSpeed = 0.25f;
         fallingLeaves.Play();
         iTween.AudioTo(gameObject, iTween.Hash("audiosource", windAmbience, "volume", 0.5f, "easetype", iTween.EaseType.easeInOutSine, "time", 4f));
         fireflies.Play();
@@ -185,12 +187,7 @@ public class NimiExperienceManager : MonoBehaviour
         owlAmbiene.Play();
         RenderSettings.skybox = moonSkybox;
         glowAmbientParticles.Play();
-        //RenderSettings.ambientMode = gradientAmbientMode;
-        //foliageMat.shader = foliageSwayShader;
         constellations.SetActive(true);
-        /*RenderSettings.ambientLight = startingAmbientLightColour;
-        RenderSettings.ambientEquatorColor = startingAmbientEquatorColour;
-        RenderSettings.ambientGroundColor = startingAmbientGroundColour;*/
     }
     void PostStage1BreathingContinued()
     {
@@ -214,8 +211,10 @@ public class NimiExperienceManager : MonoBehaviour
         BreathingManager.instance.onBreathingFinishedEvent -= PostStage2Breathing;
 
         //nimiAnimator.SetTrigger("SummonAurora");
-        stage3Dialogue.Interact(1f);
+        stage3Dialogue.Interact(1f + stage2EnvironmentUpgradeTimer);
         StartCoroutine(Stage2AuroraSequenceCoroutine());
+
+        StartCoroutine(TriggerEnvironmentUpgradeEventCoroutine(stage2EnvironmentUpgradeTimer));
     }
     public void PlayAuroraAnimHack()
     {
@@ -321,6 +320,13 @@ public class NimiExperienceManager : MonoBehaviour
 
             elapsedTime += Time.deltaTime;
         }*/
+    }
+
+    IEnumerator TriggerEnvironmentUpgradeEventCoroutine(float environmentUpgradeDelay)
+    {
+        yield return new WaitForSeconds(environmentUpgradeDelay);
+
+        onEnvironmentUpgradeCompleteEvent?.Invoke();
     }
 
     public void UpgradeEnvironmentDebug()
