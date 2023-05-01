@@ -13,47 +13,37 @@ public class DialogueManager : MonoBehaviour
 	public TMP_Text dialogueText;
 	public AudioSource dialogueAudioSource;
 	public AudioClip[] dialogueAudioClips;
-	public AudioSource interactAudioSource;
-	public AudioClip interactSound;
 
 	[Header("Dialogue Settings")]
 	public float dialogueSpeed = 7.5f;
 	public float dialogueFadeOutSpeed = 3f;
 	public float dialogueFadeInSpeed = 3f;
 	public float defaultDialogueVolume = 0.4f;
-	float defaultDialogueSpeed;
-
 	[Space]
 	public bool usePitchVariation = true;
 	public Vector2 volumeRandomisationRange = new Vector2(0.3f, 0.4f);
 	[Range(0.05f, 0.5f)]
 	public float pitchChangeMultiplier = 0.1f;
-
 	[Space]
 	public float sfxDelay = 0.015f;
-	public float specialCharacterDelay = 0.015f;
-	public float highlightedWordDelay = 0.05f;
-	public float interruptDelay = 0.015f;
-
-	public bool useTriggerAudioOnly = false;
 	public bool useDialogueSound = true;
 
 	//These are update with dialogue triggers
 	List<DialogueEntry> currentDialogueEntries;
-	AudioClip nonPlayerDialogueAudio;
 
 	[Header("Debugs/References: ")]
 	bool dialogueInProgress = false;
 	public bool dialogueActive;
 	int index;
+	float defaultDialogueSpeed;
 
 	[Header("Testing/Hacks: ")]
 	public bool testUsingSFXDelay;
-	public bool standAloneCutsceneControlls;
-	bool triggerDialogueFinishedEvent;
+
+	//Events
 	public event System.Action onDialogueFinishEvent;
 	public event System.Action onDialogueStartedEvent;
-	int dialogueIndexCheck;
+	bool triggerDialogueFinishedEvent;
 
 	private void Awake()
     {
@@ -78,37 +68,20 @@ public class DialogueManager : MonoBehaviour
 		if (triggerDialogueStarted)
 			onDialogueStartedEvent?.Invoke();
 
-		dialogueIndexCheck = 0;
-
 		StartCoroutine(DisplayNextDialogueCoroutine(currentDialogueEntries[index].dialogue));
 	}
 
-    private void Update()
-    {
-		//Hack for TakoIntro as controller doesn't exist yet
-		if (standAloneCutsceneControlls && dialogueActive)
-		{
-			if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Space))
-			{
-				ContinueDialogue();
-			}
-		}
-    }
-
-	bool dialogueFinished = false;
-    public void ContinueDialogue()
+	public void ContinueDialogue()
 	{
-		if(!dialogueFinished)
-        {
-			//otherwise start next dialogue or end dialogue if no more dialogue left
-			if (index >= currentDialogueEntries.Count)
-			{
-				EndDialogue();
-			}
-			else
-			{
-				StartCoroutine(DisplayNextDialogueCoroutine(currentDialogueEntries[index].dialogue));
-			}
+
+		//otherwise start next dialogue or end dialogue if no more dialogue left
+		if (index >= currentDialogueEntries.Count)
+		{
+			EndDialogue();
+		}
+		else
+		{
+			StartCoroutine(DisplayNextDialogueCoroutine(currentDialogueEntries[index].dialogue));
 		}
 	}
 
@@ -187,7 +160,6 @@ public class DialogueManager : MonoBehaviour
 	public void EndDialogue()
     {
 		dialogueActive = false;
-		dialogueFinished = false;
 		dialogueText.text = "";
 		dialogueCanvas.SetActive(false);
 

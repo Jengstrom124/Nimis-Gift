@@ -10480,8 +10480,6 @@ MonoBehaviour:
   dialogueAudioClips:
   - {fileID: 8300000, guid: 71f0cc927f078d349842f8ec992840d4, type: 3}
   - {fileID: 8300000, guid: 6cb5dd364c51f414d9c64233336ac008, type: 3}
-  interactAudioSource: {fileID: 0}
-  interactSound: {fileID: 0}
   dialogueSpeed: 4.5
   dialogueFadeOutSpeed: 3
   dialogueFadeInSpeed: 3
@@ -10490,14 +10488,9 @@ MonoBehaviour:
   volumeRandomisationRange: {x: 0.25, y: 0.325}
   pitchChangeMultiplier: 0.1
   sfxDelay: 0.015
-  specialCharacterDelay: 0.015
-  highlightedWordDelay: 0.05
-  interruptDelay: 0.015
-  useTriggerAudioOnly: 0
   useDialogueSound: 1
   dialogueActive: 0
   testUsingSFXDelay: 0
-  standAloneCutsceneControlls: 0
 --- !u!4 &530847021
 Transform:
   m_ObjectHideFlags: 0
@@ -37388,13 +37381,13 @@ MonoBehaviour:
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
     endingDialogueHack: 0
-  - dialogue: "The mind realm truly reflects peace.\r\n"
+  - dialogue: "The Mind Realm truly reflects peace.\r\n"
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
     oneOffCustomSFX: {fileID: 0}
     endingDialogueHack: 0
-  - dialogue: If you ever long for peace, the mind realm will always be here for you.
+  - dialogue: If you ever long for peace, the Mind Realm will always be here for you.
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
@@ -42465,7 +42458,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1569109569
 Transform:
   m_ObjectHideFlags: 0
@@ -42498,7 +42491,7 @@ MonoBehaviour:
   repeatDialogueEntries: 0
   stopTriggerAfterDialogue: 0
   diagloueEntries:
-  - dialogue: You did wonderful, I can already sense calming energy.
+  - dialogue: You did wonderfully, I can already sense calming energy.
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
@@ -62512,7 +62505,7 @@ MonoBehaviour:
   repeatDialogueEntries: 0
   stopTriggerAfterDialogue: 0
   diagloueEntries:
-  - dialogue: "You did wonderful, I can already sense calming energy.\r"
+  - dialogue: "You did wonderfully, I can already sense calming energy.\r"
     useCustomDialogueSpeed: 0
     customDelayTime: 0
     customAudioSFX: {fileID: 0}
