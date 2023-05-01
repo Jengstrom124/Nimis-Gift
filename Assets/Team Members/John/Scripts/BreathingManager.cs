@@ -266,12 +266,14 @@ public class BreathingManager : MonoBehaviour
 
         PostBreathingCleanup();
 
-        yield return new WaitForSeconds(1f);
+        //Hack for giving a short delay before the transition audio plays
+        yield return new WaitForSeconds(1.75f);
 
         environmentTransitionAudioSource.Play();
         iTween.AudioTo(environmentTransitionAudioSource.gameObject, iTween.Hash("audiosource", environmentTransitionAudioSource, "volume", 0.4f, "easetype", iTween.EaseType.easeInOutSine, "time", 2f));
 
-        yield return new WaitForSeconds(delayAfterCompletingExercise - 1f);
+        //Minusing the earlier time hack to prevent sequence disruption
+        yield return new WaitForSeconds(delayAfterCompletingExercise - 1.75f);
 
         canvas.SetActive(false);
         //uiRef.transform.localPosition = Vector3.zero;

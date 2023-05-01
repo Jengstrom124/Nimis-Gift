@@ -31684,7 +31684,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: c2c6a9da398672b4087ed901d0780a68, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 8164d689143838c48a83b9e215de72c6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.675
   m_Pitch: 1
@@ -57418,11 +57418,11 @@ MonoBehaviour:
   introDialogueDelayTime: 1
   nimiFadeInDelayTime: 6.5
   environmentDialogueDelayTime: 5
-  environmentFadeTime: 9
+  environmentFadeTime: 12
   moonSkybox: {fileID: 2100000, guid: 8d5ea6ed8fe559345b42df250a255b5b, type: 2}
   voidSkyBox: {fileID: 2100000, guid: fe2cf96a963b2bb4992ddd77e18a81af, type: 2}
   stage1EnvironmentUpgradeTimer: 8
-  stage2EnvironmentUpgradeTimer: 2
+  stage2EnvironmentUpgradeTimer: 1.25
   nimiAnimator: {fileID: 1393262482}
   nimiAudioSource: {fileID: 1186982888}
   nimiIntroAnimator: {fileID: 6914306820031018770}
