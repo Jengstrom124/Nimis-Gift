@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering;
 using Liminal.SDK.Core;
 using Liminal.Core.Fader;
 using TMPro;
@@ -14,11 +13,10 @@ public class NimiExperienceManager : MonoBehaviour
     public float nimiFadeInDelayTime = 6.5f;
     public float environmentDialogueDelayTime = 2f;
     public float environmentFadeTime = 2f;
-    public Material moonSkybox, voidSkyBox;
     [Tooltip("Delay given to the experience for the environment transitions/upgrades before continuing Nimi's Dialogue")]
     public float stage1EnvironmentUpgradeTimer, stage2EnvironmentUpgradeTimer;
 
-    [Header("Nimi: ")]
+    [Header("Nimi Hack: ")]
     public Animator nimiAnimator;
     public AudioSource nimiAudioSource;
     public Animator nimiIntroAnimator;
@@ -34,67 +32,22 @@ public class NimiExperienceManager : MonoBehaviour
     public DialogueTrigger breathingTutorialDialogue, postBreathingTutorialDialgoue, stage2Dialogue, stage2DialogueCont, stage3Dialogue, stage3DialogueCont, endingDialogue;
 
     [Header("Environment Light Config: ")]
-    public Light stage3ExtraRimLight;
-    public Light topLight, bottomLight, rimLight;
-    [HideInInspector]
-    public Color topLightStartColour, bottomLightStartColour, rimLightStartColour; //environmentLightStartValue;
-    public Color stage1TopLightColour, stage1BottomLightColour, stage1RimLightColour;
-    public Color stage2TopLightColour, stage2BottomLightColour, stage2RimLightColour;
-    public Color stage3TopLightColour, stage3BottomLightColour, stage3RimLightColour, stage3ExtraRimColour;
     public float stage3LightTransitionTimer = 10f;
-
-
-    [Header("Environment Additions")]
-    public ParticleSystem fireflies;
-    public ParticleSystem moonRays, fallingLeaves, glowAmbientParticles;
-    public AudioSource cricketAmbience, owlAmbiene, windAmbience, auroraAudioSource, windFlutesAmbience;
-    public GameObject aurora, constellations;
-    //public Terrain treeTerrain;
-
-    [Header("Hacks")]
-    public GameObject mindTreeEnvironment;
-    [HideInInspector]
-    public Transform dialogueCanvas;
 
     [Header("Debugs: ")]
     [SerializeField] float elapsedTime = 0f;
     [SerializeField] bool fadeLights = false;
     public TMP_Text timerText;
     public bool useTimer = false;
-    AmbientMode gradientAmbientMode;
     [SerializeField] bool triggerNimiExitAnim = false;
     [SerializeField] bool triggerNimiAuroraAnim = false;
 
     //Events
-    public event Action onEnvironmentUpgradeCompleteEvent;
+    public event Action onRevealMindTreeEvent, onEnvironmentUpgradeCompleteEvent, onStage1EnvironmentEvent, onStage2EnvironmentEvent;
 
     private void Awake()
     {
         instance = this;
-
-        topLightStartColour = topLight.color;
-        bottomLightStartColour = bottomLight.color;
-        rimLightStartColour = rimLight.color;
-
-        topLight.color = Color.black;
-        bottomLight.color = Color.black;
-        rimLight.color = Color.black;
-
-        /*if (topLight.intensity != 0)
-        {
-            topLight.intensity = 0f;
-            bottomLight.intensity = 0f;
-            //environmentLight.intensity = 0f;
-            rimLight.gameObject.SetActive(false);
-        }*/
-
-        /*startingAmbientLightColour = RenderSettings.ambientLight;
-        RenderSettings.ambientLight = Color.black;
-        RenderSettings.ambientEquatorColor = Color.black;
-        RenderSettings.ambientGroundColor = Color.black;*/
-
-        /*gradientAmbientMode = RenderSettings.ambientMode;
-        RenderSettings.ambientMode = AmbientMode.Skybox;*/
     }
 
     IEnumerator Start()
@@ -130,13 +83,7 @@ public class NimiExperienceManager : MonoBehaviour
         //yield return new WaitForSeconds(1.5f);
 
         //Fade Environment In
-        //fadeLights = true;
-        windFlutesAmbience.Play();
-        iTween.AudioTo(gameObject, iTween.Hash("audiosource", windFlutesAmbience, "volume", 1f, "easetype", iTween.EaseType.easeInOutSine, "time", 3f));
-
-        iTween.ColorTo(topLight.gameObject, stage1TopLightColour, environmentFadeTime);
-        iTween.ColorTo(bottomLight.gameObject, stage1BottomLightColour, environmentFadeTime);
-        iTween.ColorTo(rimLight.gameObject, stage1RimLightColour, environmentFadeTime);
+        onRevealMindTreeEvent?.Invoke();
 
         yield return new WaitForSeconds(1.5f);
 
@@ -167,7 +114,7 @@ public class NimiExperienceManager : MonoBehaviour
         BreathingManager.instance.onBreathingFinishedEvent -= PostStage1Breathing;
 
         //First Environment Upgrade
-        Stage1EnvironmentUpgrade();
+        onStage1EnvironmentEvent?.Invoke();
         StartCoroutine(TriggerEnvironmentUpgradeEventCoroutine(stage1EnvironmentUpgradeTimer));
 
         //Start Dialogue Sequence
@@ -177,18 +124,6 @@ public class NimiExperienceManager : MonoBehaviour
         DialogueManager.instance.onDialogueFinishEvent += PostStage1BreathingContinued;
     }
  
-    void Stage1EnvironmentUpgrade()
-    {
-        fallingLeaves.Play();
-        iTween.AudioTo(gameObject, iTween.Hash("audiosource", windAmbience, "volume", 0.5f, "easetype", iTween.EaseType.easeInOutSine, "time", 4f));
-        fireflies.Play();
-        moonRays.Play();
-        iTween.AudioTo(cricketAmbience.gameObject, iTween.Hash("audiosource", cricketAmbience, "volume", 0.48f, "easetype", iTween.EaseType.easeInOutSine, "time", 12f));
-        owlAmbiene.Play();
-        RenderSettings.skybox = moonSkybox;
-        glowAmbientParticles.Play();
-        constellations.SetActive(true);
-    }
     void PostStage1BreathingContinued()
     {
         DialogueManager.instance.onDialogueFinishEvent -= PostStage1BreathingContinued;
@@ -226,16 +161,7 @@ public class NimiExperienceManager : MonoBehaviour
         yield return new WaitForSeconds(7.5f);
 
         //Begin Aurora Here
-        aurora.SetActive(true);
-        auroraAudioSource.Play();
-        iTween.AudioTo(gameObject, iTween.Hash("audiosource", auroraAudioSource, "volume", 0.45f, "easetype", iTween.EaseType.easeInOutSine, "time", 7f));
-
-        //Tween Environment Lights
-        stage3ExtraRimLight.gameObject.SetActive(true);
-        iTween.ColorTo(topLight.gameObject, stage3TopLightColour, stage3LightTransitionTimer);
-        iTween.ColorTo(bottomLight.gameObject, stage3BottomLightColour, stage3LightTransitionTimer);
-        iTween.ColorTo(rimLight.gameObject, stage3RimLightColour, stage3LightTransitionTimer);
-        iTween.ColorTo(stage3ExtraRimLight.gameObject, stage3ExtraRimColour, stage3LightTransitionTimer);
+        onStage2EnvironmentEvent?.Invoke();
 
         yield return new WaitForSeconds(stage3AuroraSequenceDelay);
 
@@ -287,8 +213,7 @@ public class NimiExperienceManager : MonoBehaviour
 
     private void Update()
     {
-        if (useTimer)
-            timerText.text = "" + Time.time;
+        //Animation Debugs
         if(triggerNimiExitAnim)
         {
             nimiAnimator.Play("Nimi_Exit"); 
@@ -299,29 +224,9 @@ public class NimiExperienceManager : MonoBehaviour
             nimiAnimator.Play("Aurora_Summon");
             triggerNimiAuroraAnim = false;
         }
-
-        /*if (fadeLights)
-        {
-            if (elapsedTime < environmentFadeTime)
-            {
-                topLight.intensity = Mathf.Lerp(0, topLightStartValue, elapsedTime / environmentFadeTime);
-                bottomLight.intensity = Mathf.Lerp(0, bottomLightStartValue, elapsedTime / environmentFadeTime);
-                //environmentLight.intensity = Mathf.Lerp(0, environmentLightStartValue, elapsedTime / environmentFadeTime);
-
-            }
-            else
-            {
-                topLight.intensity = topLightStartValue;
-                bottomLight.intensity = bottomLightStartValue;
-                //environmentLight.intensity = environmentLightStartValue;
-                rimLight.gameObject.SetActive(true);
-                fadeLights = false;
-            }
-
-            elapsedTime += Time.deltaTime;
-        }*/
     }
 
+    //Hack for Fading Nimi In After The Environment Upgrade is complete
     IEnumerator TriggerEnvironmentUpgradeEventCoroutine(float environmentUpgradeDelay)
     {
         yield return new WaitForSeconds(environmentUpgradeDelay);
@@ -331,6 +236,6 @@ public class NimiExperienceManager : MonoBehaviour
 
     public void UpgradeEnvironmentDebug()
     {
-        Stage1EnvironmentUpgrade();
+        onStage1EnvironmentEvent?.Invoke();
     }
 }
