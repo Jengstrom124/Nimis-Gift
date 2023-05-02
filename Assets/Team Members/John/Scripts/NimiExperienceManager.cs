@@ -260,7 +260,7 @@ public class NimiExperienceManager : MonoBehaviour
         DialogueManager.instance.onDialogueFinishEvent -= EndExperience;
 
         //End Experience Here
-        StartCoroutine(FadeAndExit(7.5f));
+        StartCoroutine(FadeAndExit(8f));
     }
     // This coroutine fades the camera and audio simultaneously over the same length of time.
     IEnumerator FadeAndExit(float fadeTime)
