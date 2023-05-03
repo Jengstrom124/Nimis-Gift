@@ -29,49 +29,40 @@ public class BreathingManager : MonoBehaviour
     [Tooltip("How long into the duration should breathing timers update (20 = Update Timers AFTER 20 seconds etc)")]
     [SerializeField] float stage2FirstProgressionThreshold, stage2SecondProgressionThreshold;
 
-    [Header("Light Config: ")]
-    public float topLightFadeOutValue = 2f;
-    public float bottomLightFadeOutValue = 1f;
-
-    [Header("UI: ")]
-    public Animator uiAnimator;
-    public float nimiFadeDuration = 2f;
-    public GameObject nimiUIIcon;
-    public Image breathingUIBackdrop, breathingUIBackdrop2;
-    public GameObject canvas;
-
-    [Header("Audio: ")]
-    public AudioSource breathingAudioSource;
-    public AudioClip stage1InhaleAudio, stage1ExhaleAudio, stage2InhaleAudio, stage2ExhaleAudio;
-    public AudioSource environmentTransitionAudioSource;
-
     [Header("Debug/Refernces: ")]
     [SerializeField] float targetDuration = 30f;
-    [SerializeField] float inhaleTimer, pauseTimer, exhaleTimer;
+    public float inhaleTimer, pauseTimer, exhaleTimer;
     public bool breathingInProgress = false;
     [SerializeField] float breathingTimer;
     [SerializeField] bool inhale, pause, exhale = false;
     public bool inTutorial = false;
     [SerializeField] float elapsedTime = 0f;
-    [SerializeField] bool fadeLightsOut, fadeLightsIn, pauseEnvironmentParticles;
+    [SerializeField] bool fadeLightsOut, fadeLightsIn;
+    public bool pauseEnvironmentParticles = true;
     bool stage1FirstProgressionComplete, stage1SecondProgressionComplete, stage2FirstProgressionComplete, stage2SecondProgressionComplete;
     bool stage1TimersComplete, stage2TimersComplete;
     float lightFadeDuration;
-    bool tutorialComplete = false;
+    public bool tutorialComplete = false;
 
     [Header("Hacks: ")]
-    public TMP_Text debugText;
+    public Animator uiAnimator;
+    public float nimiFadeDuration = 2.5f;
+    public GameObject canvas;
+    public AudioSource environmentTransitionAudioSource;
     public GameObject nimi, nimiParticles, ambientParticlesGO;
     public AudioSource nimiAmbienceAudio;
     float nimiAmbienceStartVolume;
-    public ParticleSystem postBreathingParticles, ambientParticles1, ambientParticles2, environmentTransitionParticles;
+    public ParticleSystem postBreathingParticles, environmentTransitionParticles;
     public float particleFadeValue = 0.1f;
     public Animator ambientParticles2Animator;
 
     //Events
-    public event Action onBreathingFinishedEvent;
-    public event Action onBreathingStartedEvent;
+    public event Action onBreathingFinishedEvent, onBreathingStartedEvent;
     public event Action<bool, float> onFadeBreathingLightsInEvent;
+    public event Action<bool> onPauseEnvironmentParticlesEvent;
+    public event Action onInhaleEvent, onExhaleEvent, onHoldAfterInhaleEvent, onHoldAfterExhaleEvent;
+    public event Action<bool> onUnpauseParticlesHackEvent;
+    public event Action clearTextHackEvent;
     bool introHack = true;
 
     private void Awake()
@@ -83,8 +74,6 @@ public class BreathingManager : MonoBehaviour
 
     private void Start()
     {
-        debugText.text = "";
-
         lightFadeDuration = nimiFadeDuration + 2.5f;
         nimiAmbienceStartVolume = nimiAmbienceAudio.volume;
 
@@ -109,7 +98,6 @@ public class BreathingManager : MonoBehaviour
         inhaleTimer = stage2StartTimer;
         exhaleTimer = stage2StartTimer;
         targetDuration = stage2Duration;
-        breathingAudioSource.volume = 0.13f;
 
         StartCoroutine(BreathingExcerciseCoroutine(delayBeforeStarting));
     }
@@ -135,118 +123,43 @@ public class BreathingManager : MonoBehaviour
         breathingInProgress = true;
         breathingTimer = 0f;
 
-        //Debug Text
-        debugText.text = "";
-
         do
         {
-            #region Inhale
-            breathingAudioSource.Stop();
-
             //Inhale
             elapsedTime = 0f;
             inhale = true;
-            debugText.text = "Inhale";
+            onInhaleEvent?.Invoke();
 
             //Lights
             onFadeBreathingLightsInEvent?.Invoke(true, inhaleTimer);
 
-            //Audio
-            if(!tutorialComplete)
-                breathingAudioSource.clip = stage1InhaleAudio;
-            else
-                breathingAudioSource.clip = stage2InhaleAudio;
-
-            breathingAudioSource.Play();
-
-            //Tween BreathingUI
-            //MoveUIRef("x", 2.35f, inhaleTimer);
-            MoveUIRef("x", 0.88f, inhaleTimer);
-            breathingUIBackdrop.CrossFadeColor(new Color(1, 1, 1, 1), inhaleTimer, true, true);
-            breathingUIBackdrop2.CrossFadeColor(new Color(1, 1, 1, 1), inhaleTimer, true, true);
-            iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one * 1.175f, "easetype", iTween.EaseType.easeInOutSine, "time", inhaleTimer));
-            iTween.FadeTo(ambientParticlesGO, 1f, inhaleTimer);
-            if (tutorialComplete)
-                ambientParticles2Animator.Play("AmbientParticleGlow_FadeIn");
-            if (pauseEnvironmentParticles)
-            {
-                PauseEnvironmentParticles(false);
-            }
-
-            #endregion
-
             yield return new WaitForSeconds(inhaleTimer);
 
-            #region Pause/Hold
             //Pause
             elapsedTime = 0f;
             inhale = false;
             pause = true;
-            debugText.text = "Hold";
-
-            //Tweens
-            //MoveUIRef("y", -2.05f, pauseTimer);
-            MoveUIRef("y", -0.88f, pauseTimer);
-            if (pauseEnvironmentParticles)
-            {
-                PauseEnvironmentParticles(true);
-            }
-
-            #endregion
+            onHoldAfterInhaleEvent?.Invoke();
 
             yield return new WaitForSeconds(pauseTimer);
-
-            #region Exhale
-            breathingAudioSource.Stop();
 
             //Exhale
             elapsedTime = 0f;
             pause = false;
             exhale = true;
-            debugText.text = "Exhale";
+            onExhaleEvent?.Invoke();
 
             //Lights
             onFadeBreathingLightsInEvent?.Invoke(false, exhaleTimer);
 
-            //Audio
-            if (!tutorialComplete)
-                breathingAudioSource.clip = stage1ExhaleAudio;
-            else
-                breathingAudioSource.clip = stage2ExhaleAudio;
-
-            breathingAudioSource.Play();
-
-            //Tween BreathingUI
-            MoveUIRef("x", -0.88f, exhaleTimer);
-            breathingUIBackdrop.CrossFadeColor(new Color(1, 1, 1, 0), exhaleTimer, true, true);
-            breathingUIBackdrop2.CrossFadeColor(new Color(1, 1, 1, 0), exhaleTimer, true, true);
-            iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one, "easetype", iTween.EaseType.easeOutSine, "time", exhaleTimer));
-            iTween.FadeTo(ambientParticlesGO, particleFadeValue, exhaleTimer);
-            if (tutorialComplete)
-                ambientParticles2Animator.Play("AmbientParticleGlow_FadeOut");
-            if (pauseEnvironmentParticles)
-            {
-                PauseEnvironmentParticles(false);
-            }
-
-            #endregion
-
             yield return new WaitForSeconds(exhaleTimer);
 
-            #region Pause/Hold
             //Pause
             elapsedTime = 0f;
             pause = true;
             exhale = false;
-            debugText.text = "Hold";
-
-            MoveUIRef("y", 0.88f, pauseTimer);
-            if (pauseEnvironmentParticles)
-            {
-                PauseEnvironmentParticles(true);
-            }
-            #endregion
-
+            onHoldAfterExhaleEvent?.Invoke();
+            
             yield return new WaitForSeconds(pauseTimer);
 
             inhale = true;
@@ -267,11 +180,10 @@ public class BreathingManager : MonoBehaviour
         yield return new WaitForSeconds(delayAfterCompletingExercise - 1.75f);
 
         canvas.SetActive(false);
-        //uiRef.transform.localPosition = Vector3.zero;
     }
     void PostBreathingCleanup()
     {
-        debugText.text = "";
+        clearTextHackEvent?.Invoke();
         breathingInProgress = false;
         if (inTutorial)
         {
@@ -283,34 +195,11 @@ public class BreathingManager : MonoBehaviour
         postBreathingParticles.Play();
         environmentTransitionParticles.Play();
     }
-    void MoveUIRef(string axis, float pos, float timer)
-    {
-        iTween.MoveTo(nimiUIIcon, iTween.Hash(axis, pos, "islocal", true, "easetype", iTween.EaseType.easeInOutSine, "time", timer));
-    }
-    void PauseEnvironmentParticles(bool pause)
-    {
-        if (pause)
-        {
-            ambientParticles1.Pause();
 
-            if (ambientParticles2.isPlaying)
-            {
-                ambientParticles2.Pause();
-            }
+    #region Fading Breathing UI / HACKS
 
-        }
-        else
-        {
-            ambientParticles1.Play();
+    //TODO: This should all be refactored
 
-            if (ambientParticles2.isPaused)
-            {
-                ambientParticles2.Play();
-            }
-        }
-    }
-
-    #region Fading Breathing UI
     /// <summary>
     /// This function is used to fade the breathing UI in or out.
     /// 1 = Fade in
@@ -352,7 +241,7 @@ public class BreathingManager : MonoBehaviour
             onFadeBreathingLightsInEvent?.Invoke(true, lightFadeDuration);
 
             iTween.FadeTo(ambientParticlesGO, 1f, 5f);
-            PauseEnvironmentParticles(false);
+            onUnpauseParticlesHackEvent?.Invoke(false);
             if (tutorialComplete)
                 ambientParticles2Animator.Play("AmbientParticleGlow_FadeIn");
 
@@ -402,7 +291,6 @@ public class BreathingManager : MonoBehaviour
 
     #endregion
 
-    bool breathingTimersUpdated = false;
     private void Update()
     {
         if (breathingInProgress)

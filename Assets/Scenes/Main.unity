@@ -20709,19 +20709,6 @@ MonoBehaviour:
   stage3DialogueCont: {fileID: 207193256}
   endingDialogue: {fileID: 1475540073}
   stage3LightTransitionTimer: 10
-  topLightStartColour: {r: 0, g: 0, b: 0, a: 0}
-  bottomLightStartColour: {r: 0, g: 0, b: 0, a: 0}
-  rimLightStartColour: {r: 0, g: 0, b: 0, a: 0}
-  stage1TopLightColour: {r: 0.6117647, g: 0.2901961, b: 0.6509804, a: 1}
-  stage1BottomLightColour: {r: 0.38431373, g: 0.07450981, b: 0.69803923, a: 1}
-  stage1RimLightColour: {r: 0.5019608, g: 0.37254903, b: 0, a: 1}
-  stage2TopLightColour: {r: 0.7764706, g: 0.42745098, b: 1, a: 1}
-  stage2BottomLightColour: {r: 0.6901961, g: 0.13333334, b: 0.7529412, a: 1}
-  stage2RimLightColour: {r: 0.34901962, g: 0, b: 0.6039216, a: 1}
-  stage3TopLightColour: {r: 0.28875935, g: 0.5943396, b: 0.4750178, a: 1}
-  stage3BottomLightColour: {r: 0.73333335, g: 0.42745098, b: 1, a: 1}
-  stage3RimLightColour: {r: 0.64705884, g: 0, b: 1, a: 1}
-  stage3ExtraRimColour: {r: 0.078431375, g: 1, b: 0.4745098, a: 1}
   elapsedTime: 0
   fadeLights: 0
   timerText: {fileID: 0}
@@ -31097,8 +31084,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1021498305}
   - component: {fileID: 1021498304}
-  - component: {fileID: 1021498306}
-  - component: {fileID: 1021498307}
   - component: {fileID: 1021498308}
   m_Layer: 2
   m_Name: BreathingManager
@@ -31133,20 +31118,6 @@ MonoBehaviour:
   stage2SecondProgression: 3.4
   stage2FirstProgressionThreshold: 30
   stage2SecondProgressionThreshold: 60
-  topLightFadeOutValue: 2
-  bottomLightFadeOutValue: 1
-  uiAnimator: {fileID: 1021498307}
-  nimiFadeDuration: 2.5
-  nimiUIIcon: {fileID: 1949532245}
-  breathingUIBackdrop: {fileID: 631378072}
-  breathingUIBackdrop2: {fileID: 974746878}
-  canvas: {fileID: 1045469756}
-  breathingAudioSource: {fileID: 1021498306}
-  stage1InhaleAudio: {fileID: 8300000, guid: db3da93903210414abeeff6553d23614, type: 3}
-  stage1ExhaleAudio: {fileID: 8300000, guid: e5af68f372119ba468b6b2870931d4c1, type: 3}
-  stage2InhaleAudio: {fileID: 8300000, guid: 8ee75f20cdf13f24ba8c4120e0d9a567, type: 3}
-  stage2ExhaleAudio: {fileID: 8300000, guid: 74e616fa9ec0aca46a2edbb00e06d0cb, type: 3}
-  environmentTransitionAudioSource: {fileID: 1021498308}
   targetDuration: 30
   inhaleTimer: 2
   pauseTimer: 2
@@ -31161,14 +31132,16 @@ MonoBehaviour:
   fadeLightsOut: 0
   fadeLightsIn: 0
   pauseEnvironmentParticles: 1
-  debugText: {fileID: 1529246020}
+  tutorialComplete: 0
+  uiAnimator: {fileID: 1802359358}
+  nimiFadeDuration: 2.5
+  canvas: {fileID: 1045469756}
+  environmentTransitionAudioSource: {fileID: 1021498308}
   nimi: {fileID: 1393262480}
   nimiParticles: {fileID: 816653419}
   ambientParticlesGO: {fileID: 1310289312}
   nimiAmbienceAudio: {fileID: 1393262486}
   postBreathingParticles: {fileID: 1392422573}
-  ambientParticles1: {fileID: 1744302714}
-  ambientParticles2: {fileID: 901313920}
   environmentTransitionParticles: {fileID: 1665162037}
   particleFadeValue: 0.075
   ambientParticles2Animator: {fileID: 901313921}
@@ -31183,125 +31156,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1045469757}
+  - {fileID: 1802359355}
   m_Father: {fileID: 1634877052}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &1021498306
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1021498303}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 0.225
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!95 &1021498307
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1021498303}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6ef3897752a8bb840b420b4335f42d95, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!82 &1021498308
 AudioSource:
   m_ObjectHideFlags: 0
@@ -31424,14 +31282,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1045469756}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1529246019}
   - {fileID: 672518353}
   - {fileID: 1307534082}
-  m_Father: {fileID: 1021498305}
+  m_Father: {fileID: 1802359355}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -62468,6 +62326,181 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &1802359354
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1802359355}
+  - component: {fileID: 1802359357}
+  - component: {fileID: 1802359356}
+  - component: {fileID: 1802359358}
+  m_Layer: 0
+  m_Name: BreathingManager_ViewModel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1802359355
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802359354}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1045469757}
+  m_Father: {fileID: 1021498305}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1802359356
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802359354}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.225
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1802359357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802359354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4a51830e46eed14a800cd128bf54434, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugText: {fileID: 1529246020}
+  nimiUIIcon: {fileID: 1949532245}
+  breathingUIBackdrop: {fileID: 631378072}
+  breathingUIBackdrop2: {fileID: 974746878}
+  breathingAudioSource: {fileID: 1802359356}
+  stage1InhaleAudio: {fileID: 8300000, guid: db3da93903210414abeeff6553d23614, type: 3}
+  stage1ExhaleAudio: {fileID: 8300000, guid: e5af68f372119ba468b6b2870931d4c1, type: 3}
+  stage2InhaleAudio: {fileID: 8300000, guid: 8ee75f20cdf13f24ba8c4120e0d9a567, type: 3}
+  stage2ExhaleAudio: {fileID: 8300000, guid: 74e616fa9ec0aca46a2edbb00e06d0cb, type: 3}
+  ambientParticlesGO: {fileID: 1310289312}
+  ambientParticles1: {fileID: 1744302714}
+  ambientParticles2: {fileID: 901313920}
+  particleFadeValue: 0.1
+  ambientParticles2Animator: {fileID: 901313921}
+--- !u!95 &1802359358
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802359354}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6ef3897752a8bb840b420b4335f42d95, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1874827688
 GameObject:
   m_ObjectHideFlags: 0
