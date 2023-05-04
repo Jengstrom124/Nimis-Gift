@@ -31730,7 +31730,7 @@ MonoBehaviour:
   stage2BottomLightColour: {r: 0.5538797, g: 0.11107157, b: 0.6037736, a: 1}
   stage2RimLightColour: {r: 0.34901962, g: 0, b: 0.6039216, a: 1}
   stage3TopLightColour: {r: 0, g: 0.2735849, b: 0.16304557, a: 1}
-  stage3BottomLightColour: {r: 0.31790462, g: 0.10813459, b: 0.509434, a: 1}
+  stage3BottomLightColour: {r: 0.44313726, g: 0.14509805, b: 0.7176471, a: 1}
   stage3RimLightColour: {r: 0.64705884, g: 0, b: 1, a: 1}
   stage3ExtraRimColour: {r: 0.061409745, g: 0.8679245, b: 0.40803942, a: 1}
   topLightStartColour: {r: 0, g: 0, b: 0, a: 0}

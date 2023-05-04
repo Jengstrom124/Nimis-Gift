@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class NimiExperience_ViewModel : MonoBehaviour
 {
@@ -99,6 +100,14 @@ public class NimiExperience_ViewModel : MonoBehaviour
         iTween.ColorTo(bottomLight.gameObject, stage3BottomLightColour, stage3LightTransitionTimer);
         iTween.ColorTo(rimLight.gameObject, stage3RimLightColour, stage3LightTransitionTimer);
         iTween.ColorTo(stage3ExtraRimLight.gameObject, stage3ExtraRimColour, stage3LightTransitionTimer);
+        StartCoroutine(RimLightIntensityHack());
+    }
+
+    IEnumerator RimLightIntensityHack()
+    {
+        yield return new WaitForSeconds(stage3LightTransitionTimer);
+
+        rimLight.intensity = 25f;
     }
 
     void FadeLights(bool fadeIn, float timer)
