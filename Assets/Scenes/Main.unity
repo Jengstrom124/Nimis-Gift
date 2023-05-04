@@ -21123,7 +21123,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 9
   m_Type: 0
-  m_Color: {r: 0.6901961, g: 0.13333334, b: 0.7529412, a: 1}
+  m_Color: {r: 0.5529412, g: 0.10980392, b: 0.6039216, a: 1}
   m_Intensity: 8.08
   m_Range: 51.27
   m_SpotAngle: 107
@@ -31725,14 +31725,14 @@ MonoBehaviour:
   rimLight: {fileID: 775741040}
   stage1TopLightColour: {r: 0.6117647, g: 0.2901961, b: 0.6509804, a: 1}
   stage1BottomLightColour: {r: 0.38431373, g: 0.07450981, b: 0.69803923, a: 1}
-  stage1RimLightColour: {r: 0.5019608, g: 0.37254903, b: 0, a: 1}
-  stage2TopLightColour: {r: 0.7764706, g: 0.42745098, b: 1, a: 1}
-  stage2BottomLightColour: {r: 0.6901961, g: 0.13333334, b: 0.7529412, a: 1}
+  stage1RimLightColour: {r: 0.2735849, g: 0.20373344, b: 0, a: 1}
+  stage2TopLightColour: {r: 0.5328933, g: 0.30437878, b: 0.6792453, a: 1}
+  stage2BottomLightColour: {r: 0.5538797, g: 0.11107157, b: 0.6037736, a: 1}
   stage2RimLightColour: {r: 0.34901962, g: 0, b: 0.6039216, a: 1}
-  stage3TopLightColour: {r: 0.2901961, g: 0.59607846, b: 0.4745098, a: 1}
-  stage3BottomLightColour: {r: 0.73333335, g: 0.42745098, b: 1, a: 1}
+  stage3TopLightColour: {r: 0, g: 0.3882353, b: 0.23137255, a: 1}
+  stage3BottomLightColour: {r: 0.42546996, g: 0.15481488, b: 0.6698113, a: 1}
   stage3RimLightColour: {r: 0.64705884, g: 0, b: 1, a: 1}
-  stage3ExtraRimColour: {r: 0.078431375, g: 1, b: 0.4745098, a: 1}
+  stage3ExtraRimColour: {r: 0.061409745, g: 0.8679245, b: 0.40803942, a: 1}
   topLightStartColour: {r: 0, g: 0, b: 0, a: 0}
   bottomLightStartColour: {r: 0, g: 0, b: 0, a: 0}
   rimLightStartColour: {r: 0, g: 0, b: 0, a: 0}
@@ -32736,7 +32736,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 4
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -62276,7 +62276,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 9
   m_Type: 0
-  m_Color: {r: 0.7764706, g: 0.42745098, b: 1, a: 1}
+  m_Color: {r: 0.53333336, g: 0.30588236, b: 0.6784314, a: 1}
   m_Intensity: 8.43
   m_Range: 53.9
   m_SpotAngle: 58
@@ -62480,7 +62480,7 @@ MonoBehaviour:
   ambientParticlesGO: {fileID: 1310289312}
   ambientParticles1: {fileID: 1744302714}
   ambientParticles2: {fileID: 901313920}
-  particleFadeValue: 0.1
+  particleFadeValue: 0.075
   ambientParticles2Animator: {fileID: 901313921}
 --- !u!95 &1802359358
 Animator:
@@ -72389,7 +72389,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 2
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -72442,8 +72442,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 180
-      minScalar: 90
+      scalar: 105
+      minScalar: 80
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -73758,7 +73758,7 @@ ParticleSystem:
     flipU: 0
     flipV: 0
   VelocityModule:
-    enabled: 1
+    enabled: 0
     x:
       serializedVersion: 2
       minMaxState: 3
