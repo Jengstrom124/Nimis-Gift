@@ -19,12 +19,12 @@ public class BreathingManager_ViewModel : MonoBehaviour
     public float particleFadeValue = 0.1f;
     public Animator ambientParticles2Animator;
 
-    BreathingManager breathingManager;
+    NimiBreathingManager breathingManager;
     void Start()
     {
         debugText.text = "";
 
-        breathingManager = BreathingManager.instance;
+        breathingManager = NimiBreathingManager.instance;
 
         breathingManager.onInhaleEvent += OnInhale;
         breathingManager.onExhaleEvent += OnExhale;
@@ -98,7 +98,7 @@ public class BreathingManager_ViewModel : MonoBehaviour
         //Init
         breathingAudioSource.Stop();
         debugText.text = "Exhale";
-        breathingManager = BreathingManager.instance;
+        breathingManager = NimiBreathingManager.instance;
 
         //Audio
         if (!breathingManager.tutorialComplete)
@@ -110,9 +110,9 @@ public class BreathingManager_ViewModel : MonoBehaviour
 
         //Tween BreathingUI
         MoveUIRef("x", -0.88f, breathingManager.exhaleTimer);
-        breathingUIBackdrop.CrossFadeColor(new Color(1, 1, 1, 0), BreathingManager.instance.exhaleTimer, true, true);
-        breathingUIBackdrop2.CrossFadeColor(new Color(1, 1, 1, 0), BreathingManager.instance.exhaleTimer, true, true);
-        iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one, "easetype", iTween.EaseType.easeOutSine, "time", BreathingManager.instance.exhaleTimer));
+        breathingUIBackdrop.CrossFadeColor(new Color(1, 1, 1, 0), NimiBreathingManager.instance.exhaleTimer, true, true);
+        breathingUIBackdrop2.CrossFadeColor(new Color(1, 1, 1, 0), NimiBreathingManager.instance.exhaleTimer, true, true);
+        iTween.ScaleTo(debugText.gameObject, iTween.Hash("scale", Vector3.one, "easetype", iTween.EaseType.easeOutSine, "time", NimiBreathingManager.instance.exhaleTimer));
 
         //Fade Particles Out/Unpause
         iTween.FadeTo(ambientParticlesGO, particleFadeValue, breathingManager.exhaleTimer);

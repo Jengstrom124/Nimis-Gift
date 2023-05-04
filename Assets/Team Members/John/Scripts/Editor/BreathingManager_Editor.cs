@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(BreathingManager))]
+[CustomEditor(typeof(NimiBreathingManager))]
 
 public class BreathingManager_Editor : Editor
 {
@@ -11,7 +11,7 @@ public class BreathingManager_Editor : Editor
 
 		if (GUILayout.Button("Start Breathing Exercise"))
 		{
-			(target as BreathingManager)?.BeginBreathingExercise(0);
+			(target as NimiBreathingManager)?.BeginBreathingExercise(0);
 		}
 	}
 }

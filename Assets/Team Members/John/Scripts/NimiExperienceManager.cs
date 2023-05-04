@@ -60,9 +60,9 @@ public class NimiExperienceManager : MonoBehaviour
 
         yield return new WaitForSeconds(nimiFadeInDelayTime);
 
-        BreathingManager.instance.FadeNimiIn();
+        NimiBreathingManager.instance.FadeNimiIn();
 
-        yield return new WaitForSeconds(BreathingManager.instance.nimiFadeDuration + 1f);
+        yield return new WaitForSeconds(NimiBreathingManager.instance.nimiFadeDuration + 1f);
 
         nimiAnimator.SetTrigger("OnSpawn");
 
@@ -80,8 +80,6 @@ public class NimiExperienceManager : MonoBehaviour
 
     IEnumerator MindTreeSequenceCoroutine()
     {
-        //yield return new WaitForSeconds(1.5f);
-
         //Fade Environment In
         onRevealMindTreeEvent?.Invoke();
 
@@ -102,16 +100,16 @@ public class NimiExperienceManager : MonoBehaviour
         DialogueManager.instance.onDialogueFinishEvent -= InitStage1Breathing;
 
         //Fade in Breathing UI/Fade Out Nimi
-        BreathingManager.instance.UpdateBreathingUIState(1f);
-        breathingTutorialDialogue.Interact(BreathingManager.instance.nimiFadeDuration + 4f);
+        NimiBreathingManager.instance.UpdateBreathingUIState(1f);
+        breathingTutorialDialogue.Interact(NimiBreathingManager.instance.nimiFadeDuration + 4f);
 
-        DialogueManager.instance.onDialogueFinishEvent += BreathingManager.instance.BeginBreathingExerciseTutorial;
-        BreathingManager.instance.onBreathingFinishedEvent += PostStage1Breathing;
+        DialogueManager.instance.onDialogueFinishEvent += NimiBreathingManager.instance.BeginBreathingExerciseTutorial;
+        NimiBreathingManager.instance.onBreathingFinishedEvent += PostStage1Breathing;
     }
 
     public void PostStage1Breathing()
     {
-        BreathingManager.instance.onBreathingFinishedEvent -= PostStage1Breathing;
+        NimiBreathingManager.instance.onBreathingFinishedEvent -= PostStage1Breathing;
 
         //First Environment Upgrade
         onStage1EnvironmentEvent?.Invoke();
@@ -138,15 +136,15 @@ public class NimiExperienceManager : MonoBehaviour
         DialogueManager.instance.onDialogueFinishEvent -= BeginStage2Breathing;
 
         nimiAuroraHack = true;
-        BreathingManager.instance.BeginBreathingExercise(1.5f);
-        BreathingManager.instance.onBreathingFinishedEvent += PostStage2Breathing;
+        NimiBreathingManager.instance.BeginBreathingExercise(1.5f);
+        NimiBreathingManager.instance.onBreathingFinishedEvent += PostStage2Breathing;
     }
     void PostStage2Breathing()
     {
-        BreathingManager.instance.onBreathingFinishedEvent -= PostStage2Breathing;
+        NimiBreathingManager.instance.onBreathingFinishedEvent -= PostStage2Breathing;
 
         //nimiAnimator.SetTrigger("SummonAurora");
-        stage3Dialogue.Interact(1f + stage2EnvironmentUpgradeTimer);
+        stage3Dialogue.Interact(0.75f + stage2EnvironmentUpgradeTimer);
         StartCoroutine(Stage2AuroraSequenceCoroutine());
 
         StartCoroutine(TriggerEnvironmentUpgradeEventCoroutine(stage2EnvironmentUpgradeTimer));

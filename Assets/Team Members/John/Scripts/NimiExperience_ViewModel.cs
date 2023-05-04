@@ -50,7 +50,7 @@ public class NimiExperience_ViewModel : MonoBehaviour
         NimiExperienceManager.instance.onStage1EnvironmentEvent += Stage1EnvironmentUpgrade;
         NimiExperienceManager.instance.onStage2EnvironmentEvent += Stage2EnvironmentUpgrade;
 
-        BreathingManager.instance.onFadeBreathingLightsInEvent += FadeLights;
+        NimiBreathingManager.instance.onFadeBreathingLightsInEvent += FadeLights;
 
         stage3LightTransitionTimer = NimiExperienceManager.instance.stage3LightTransitionTimer;
         environmentFadeTime = NimiExperienceManager.instance.environmentFadeTime;
@@ -106,9 +106,9 @@ public class NimiExperience_ViewModel : MonoBehaviour
         if (fadeIn)
         {
             //Different Light Intensity during breathing
-            if (BreathingManager.instance.breathingInProgress)
+            if (NimiBreathingManager.instance.breathingInProgress)
             {
-                if (BreathingManager.instance.inTutorial)
+                if (NimiBreathingManager.instance.inTutorial)
                 {
                     iTween.ColorTo(topLight.gameObject, topLightBreatheFadeInColour, timer);
                     iTween.ColorTo(bottomLight.gameObject, bottomLightBreatheFadeInColour, timer);

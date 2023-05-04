@@ -17,7 +17,7 @@ public class NimiIntro : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        BreathingManager.instance.FadeNimiIn();
+        NimiBreathingManager.instance.FadeNimiIn();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
